@@ -1,0 +1,41 @@
+aid: bindbee
+name: Bindbee
+description: >-
+  Bindbee provides a unified HRIS and ATS integration API that allows companies
+  to connect with multiple HR systems through a single integration, simplifying
+  workforce data access and HR automation.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - HRIS
+  - ATS
+  - HR Integration
+  - Workforce
+  - API
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: bindbee:bindbee-api
+    name: Bindbee API
+    description: >-
+      Unified HRIS and ATS integration API for connecting with multiple
+      HR systems through a single integration.
+    humanURL: https://bindbee.dev/
+    tags:
+      - HRIS
+      - ATS
+      - HR Integration
+    properties:
+      - type: Documentation
+        url: https://docs.bindbee.dev/
+common:
+  - type: Website
+    url: https://bindbee.dev/
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
