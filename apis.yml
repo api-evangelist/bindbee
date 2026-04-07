@@ -7,11 +7,10 @@ description: >-
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - HRIS
   - ATS
   - HR Integration
+  - HRIS
   - Workforce
-  - API
 url: >-
   https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -25,9 +24,9 @@ apis:
       HR systems through a single integration.
     humanURL: https://bindbee.dev/
     tags:
-      - HRIS
       - ATS
       - HR Integration
+      - HRIS
     properties:
       - type: Documentation
         url: https://docs.bindbee.dev/
