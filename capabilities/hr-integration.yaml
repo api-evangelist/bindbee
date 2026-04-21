@@ -1,0 +1,125 @@
+name: HR Integration
+description: >-
+  Workflow capability for accessing unified HR data from HRIS and ATS systems
+  through Bindbee, including employee records, departments, time-off, job
+  postings, and candidates.
+version: v1
+
+imports:
+  - shared/bindbee.yaml
+
+tools:
+  - name: list-employees
+    import: bindbee.list-employees
+    description: List all employees from the connected HRIS system with pagination.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the specific HRIS integration
+        page_size:
+          type: integer
+          description: Number of results per page
+        cursor:
+          type: string
+          description: Pagination cursor from previous response
+  - name: get-employee
+    import: bindbee.get-employee
+    description: Get a specific employee's full record by ID.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+        - id
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the HRIS integration
+        id:
+          type: string
+          description: Employee ID
+  - name: list-departments
+    import: bindbee.list-departments
+    description: List all organizational departments from the connected HRIS.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the HRIS integration
+  - name: list-time-off
+    import: bindbee.list-time-off
+    description: List time-off requests with optional employee filtering.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the HRIS integration
+        employee_id:
+          type: string
+          description: Filter by employee ID
+  - name: list-jobs
+    import: bindbee.list-jobs
+    description: List open job postings from the connected ATS system.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the ATS integration
+        status:
+          type: string
+          description: Filter by job status (open, closed, draft)
+  - name: list-candidates
+    import: bindbee.list-candidates
+    description: List candidates from the connected ATS system.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the ATS integration
+        job_id:
+          type: string
+          description: Filter by job ID
+  - name: get-candidate
+    import: bindbee.get-candidate
+    description: Get a specific candidate's full record by ID.
+    inputSchema:
+      type: object
+      required:
+        - connector_token
+        - id
+      properties:
+        connector_token:
+          type: string
+          description: Connector token for the ATS integration
+        id:
+          type: string
+          description: Candidate ID
+
+expose:
+  rest:
+    port: 8080
+  mcp:
+    port: 9080
+
+personas:
+  - id: hr-developer
+    name: HR Developer
+    description: Developer building HR workflow automations using unified HR data
+  - id: people-ops-engineer
+    name: People Ops Engineer
+    description: People operations engineer integrating HR systems into internal tooling

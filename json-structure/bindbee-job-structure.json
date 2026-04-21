@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "Job",
+  "type": "object",
+  "description": "A job posting from a connected ATS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Job ID."
+    },
+    "title": {
+      "type": "string",
+      "description": "Job title."
+    },
+    "department": {
+      "type": "string",
+      "description": "Hiring department."
+    },
+    "location": {
+      "type": "string",
+      "description": "Job location or remote."
+    },
+    "status": {
+      "type": "string",
+      "description": "Job posting status."
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "Job creation timestamp."
+    }
+  }
+}

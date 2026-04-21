@@ -1,0 +1,9 @@
+{
+  "id": "cand-abc123",
+  "first_name": "John",
+  "last_name": "Doe",
+  "email": "jdoe@example.com",
+  "job_id": "job-abc123",
+  "stage": "interview",
+  "created_at": "2024-04-13T00:00:00Z"
+}

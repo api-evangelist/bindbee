@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "DepartmentsResponse",
+  "type": "object",
+  "description": "List of departments.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of department records."
+    }
+  }
+}

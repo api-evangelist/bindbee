@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Department",
+  "type": "object",
+  "description": "An organizational department from a connected HRIS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Department ID.",
+      "example": "dept-abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Department name.",
+      "example": "Engineering"
+    },
+    "parent_id": {
+      "type": "string",
+      "nullable": true,
+      "description": "Parent department ID for nested structures.",
+      "example": null
+    }
+  }
+}

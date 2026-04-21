@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "TimeOffResponse",
+  "type": "object",
+  "description": "List of time-off requests.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of time-off requests."
+    }
+  }
+}

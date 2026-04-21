@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CandidatesResponse",
+  "type": "object",
+  "description": "List of candidates.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of candidate records.",
+      "items": {
+        "$ref": "#/components/schemas/Candidate"
+      }
+    }
+  }
+}

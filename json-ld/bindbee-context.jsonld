@@ -1,0 +1,66 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "bb": "https://bindbee.dev/vocab#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "id": "schema:identifier",
+    "first_name": "schema:givenName",
+    "last_name": "schema:familyName",
+    "email": "schema:email",
+    "job_title": {
+      "@id": "bb:job_title",
+      "@type": "xsd:string"
+    },
+    "department": "schema:department",
+    "employment_status": {
+      "@id": "bb:employment_status",
+      "@type": "xsd:string"
+    },
+    "start_date": "schema:startDate",
+    "data": {
+      "@id": "bb:data",
+      "@type": "xsd:string"
+    },
+    "next_cursor": {
+      "@id": "bb:next_cursor",
+      "@type": "xsd:string"
+    },
+    "has_more": {
+      "@id": "bb:has_more",
+      "@type": "xsd:boolean"
+    },
+    "name": "schema:name",
+    "parent_id": {
+      "@id": "bb:parent_id",
+      "@type": "xsd:string"
+    },
+    "employee_id": {
+      "@id": "bb:employee_id",
+      "@type": "xsd:string"
+    },
+    "type": {
+      "@id": "bb:type",
+      "@type": "xsd:string"
+    },
+    "status": "schema:status",
+    "end_date": "schema:endDate",
+    "title": {
+      "@id": "bb:title",
+      "@type": "xsd:string"
+    },
+    "location": {
+      "@id": "bb:location",
+      "@type": "xsd:string"
+    },
+    "created_at": "schema:dateCreated",
+    "job_id": {
+      "@id": "bb:job_id",
+      "@type": "xsd:string"
+    },
+    "stage": {
+      "@id": "bb:stage",
+      "@type": "xsd:string"
+    }
+  }
+}

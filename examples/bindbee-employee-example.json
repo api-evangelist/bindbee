@@ -1,0 +1,10 @@
+{
+  "id": "emp-abc123",
+  "first_name": "Jane",
+  "last_name": "Smith",
+  "email": "jsmith@example.com",
+  "job_title": "Software Engineer",
+  "department": "Engineering",
+  "employment_status": "active",
+  "start_date": "2022-03-15"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "Department",
+  "type": "object",
+  "description": "An organizational department from a connected HRIS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Department ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Department name."
+    },
+    "parent_id": {
+      "type": "string",
+      "description": "Parent department ID for nested structures."
+    }
+  }
+}

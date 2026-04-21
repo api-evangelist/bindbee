@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Candidate",
+  "type": "object",
+  "description": "A job candidate from a connected ATS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Candidate ID.",
+      "example": "cand-abc123"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "Candidate first name.",
+      "example": "John"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Candidate last name.",
+      "example": "Doe"
+    },
+    "email": {
+      "type": "string",
+      "description": "Candidate email.",
+      "example": "jdoe@example.com"
+    },
+    "job_id": {
+      "type": "string",
+      "description": "Job ID the candidate applied for.",
+      "example": "job-abc123"
+    },
+    "stage": {
+      "type": "string",
+      "description": "Current hiring stage.",
+      "enum": [
+        "applied",
+        "screening",
+        "interview",
+        "offer",
+        "hired",
+        "rejected"
+      ],
+      "example": "interview"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Application creation timestamp.",
+      "example": "2024-04-13T00:00:00Z"
+    }
+  }
+}

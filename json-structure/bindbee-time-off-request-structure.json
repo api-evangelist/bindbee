@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "TimeOffRequest",
+  "type": "object",
+  "description": "An employee time-off request from a connected HRIS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Time-off request ID."
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee ID."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of time off."
+    },
+    "status": {
+      "type": "string",
+      "description": "Approval status."
+    },
+    "start_date": {
+      "type": "date",
+      "description": "Time-off start date."
+    },
+    "end_date": {
+      "type": "date",
+      "description": "Time-off end date."
+    }
+  }
+}

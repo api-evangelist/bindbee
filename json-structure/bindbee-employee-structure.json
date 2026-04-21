@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "Employee",
+  "type": "object",
+  "description": "A normalized employee record from a connected HRIS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Bindbee employee ID."
+    },
+    "first_name": {
+      "type": "string",
+      "description": "Employee first name."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Employee last name."
+    },
+    "email": {
+      "type": "string",
+      "description": "Employee work email."
+    },
+    "job_title": {
+      "type": "string",
+      "description": "Job title."
+    },
+    "department": {
+      "type": "string",
+      "description": "Department name."
+    },
+    "employment_status": {
+      "type": "string",
+      "description": "Employment status."
+    },
+    "start_date": {
+      "type": "date",
+      "description": "Employment start date."
+    }
+  }
+}

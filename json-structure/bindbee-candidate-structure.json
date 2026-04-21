@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "Candidate",
+  "type": "object",
+  "description": "A job candidate from a connected ATS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Candidate ID."
+    },
+    "first_name": {
+      "type": "string",
+      "description": "Candidate first name."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Candidate last name."
+    },
+    "email": {
+      "type": "string",
+      "description": "Candidate email."
+    },
+    "job_id": {
+      "type": "string",
+      "description": "Job ID the candidate applied for."
+    },
+    "stage": {
+      "type": "string",
+      "description": "Current hiring stage."
+    },
+    "created_at": {
+      "type": "datetime",
+      "description": "Application creation timestamp."
+    }
+  }
+}

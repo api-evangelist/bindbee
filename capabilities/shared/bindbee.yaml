@@ -1,0 +1,67 @@
+name: Bindbee API
+description: Shared capability definitions for the Bindbee unified HRIS/ATS integration API
+version: v1
+baseUrl: https://api.bindbee.dev/v1
+
+authentication:
+  type: apiKey
+  header: Authorization
+  value: "Bearer {{BINDBEE_API_KEY}}"
+  note: Also pass x-connector-token header with the specific integration connector token
+
+operations:
+  - operationId: listEmployees
+    name: list-employees
+    summary: List employees from connected HRIS system
+    method: GET
+    path: /hris/employees
+    tags:
+      - Employees
+  - operationId: getEmployee
+    name: get-employee
+    summary: Get a single employee by ID
+    method: GET
+    path: /hris/employees/{id}
+    tags:
+      - Employees
+  - operationId: listDepartments
+    name: list-departments
+    summary: List departments from connected HRIS system
+    method: GET
+    path: /hris/departments
+    tags:
+      - Departments
+  - operationId: listTimeOff
+    name: list-time-off
+    summary: List time-off requests from connected HRIS system
+    method: GET
+    path: /hris/time-off
+    tags:
+      - Time Off
+  - operationId: listJobs
+    name: list-jobs
+    summary: List job postings from connected ATS system
+    method: GET
+    path: /ats/jobs
+    tags:
+      - Jobs
+  - operationId: listCandidates
+    name: list-candidates
+    summary: List candidates from connected ATS system
+    method: GET
+    path: /ats/candidates
+    tags:
+      - Candidates
+  - operationId: getCandidate
+    name: get-candidate
+    summary: Get a single candidate by ID
+    method: GET
+    path: /ats/candidates/{id}
+    tags:
+      - Candidates
+
+expose:
+  rest:
+    port: 8100
+  mcp:
+    port: 9100

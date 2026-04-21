@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "CandidatesResponse",
+  "type": "object",
+  "description": "List of candidates.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of candidate records."
+    }
+  }
+}

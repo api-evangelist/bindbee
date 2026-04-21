@@ -1,0 +1,8 @@
+{
+  "id": "to-abc123",
+  "employee_id": "emp-abc123",
+  "type": "vacation",
+  "status": "approved",
+  "start_date": "2024-07-01",
+  "end_date": "2024-07-05"
+}

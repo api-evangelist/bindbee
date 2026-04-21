@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "JobsResponse",
+  "type": "object",
+  "description": "List of job postings.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of job postings."
+    }
+  }
+}

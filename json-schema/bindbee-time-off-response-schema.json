@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TimeOffResponse",
+  "type": "object",
+  "description": "List of time-off requests.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of time-off requests.",
+      "items": {
+        "$ref": "#/components/schemas/TimeOffRequest"
+      }
+    }
+  }
+}

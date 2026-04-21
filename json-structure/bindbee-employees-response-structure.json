@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-structure.org/meta/extended/v0/#",
+  "name": "EmployeesResponse",
+  "type": "object",
+  "description": "Paginated list of employee records.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of employee records."
+    },
+    "next_cursor": {
+      "type": "string",
+      "description": "Cursor for next page."
+    },
+    "has_more": {
+      "type": "boolean",
+      "description": "Whether more records exist."
+    }
+  }
+}

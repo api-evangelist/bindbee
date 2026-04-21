@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TimeOffRequest",
+  "type": "object",
+  "description": "An employee time-off request from a connected HRIS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Time-off request ID.",
+      "example": "to-abc123"
+    },
+    "employee_id": {
+      "type": "string",
+      "description": "Employee ID.",
+      "example": "emp-abc123"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of time off.",
+      "enum": [
+        "vacation",
+        "sick",
+        "personal",
+        "other"
+      ],
+      "example": "vacation"
+    },
+    "status": {
+      "type": "string",
+      "description": "Approval status.",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "example": "approved"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Time-off start date.",
+      "example": "2024-07-01"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Time-off end date.",
+      "example": "2024-07-05"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JobsResponse",
+  "type": "object",
+  "description": "List of job postings.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of job postings.",
+      "items": {
+        "$ref": "#/components/schemas/Job"
+      }
+    }
+  }
+}

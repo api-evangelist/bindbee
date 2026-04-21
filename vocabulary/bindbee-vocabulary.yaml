@@ -1,0 +1,103 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: Bindbee
+  description: >-
+    Domain vocabulary for the Bindbee unified HRIS and ATS integration API,
+    covering employee management, recruiting, organizational structure, and
+    workforce data normalization.
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+operational:
+  apis:
+    - namespace: bindbee-api-v1
+      version: v1
+      baseUrl: https://api.bindbee.dev/v1
+      status: active
+      description: Bindbee Unified HRIS/ATS API
+
+  resources:
+    - name: employees
+      api: bindbee-api-v1
+      actions: [list, get]
+      description: Normalized employee records from connected HRIS systems
+    - name: departments
+      api: bindbee-api-v1
+      actions: [list]
+      description: Organizational departments from connected HRIS systems
+    - name: time-off
+      api: bindbee-api-v1
+      actions: [list]
+      description: Employee time-off requests and balances
+    - name: jobs
+      api: bindbee-api-v1
+      actions: [list]
+      description: Job postings from connected ATS systems
+    - name: candidates
+      api: bindbee-api-v1
+      actions: [list, get]
+      description: Job candidates from connected ATS systems
+
+  actions:
+    - name: list
+      httpMethod: GET
+      pattern: read
+    - name: get
+      httpMethod: GET
+      pattern: read
+
+  schemas:
+    core:
+      - name: Employee
+        keyProperties: [id, first_name, last_name, email, job_title, department]
+      - name: Department
+        keyProperties: [id, name, parent_id]
+      - name: TimeOffRequest
+        keyProperties: [id, employee_id, type, status, start_date, end_date]
+      - name: Job
+        keyProperties: [id, title, department, location, status]
+      - name: Candidate
+        keyProperties: [id, first_name, last_name, email, job_id, stage]
+
+  authentication:
+    schemes:
+      - type: apiKey
+        header: Authorization
+        description: Bearer API key; also requires x-connector-token for each integration
+
+capability:
+  workflows:
+    - id: hr-integration
+      name: HR Integration
+      description: Access unified HR and recruiting data from connected HRIS and ATS systems
+      tools: [list-employees, get-employee, list-departments, list-time-off, list-jobs, list-candidates]
+
+  personas:
+    - id: hr-developer
+      name: HR Developer
+      description: Developer building HR workflow automations using unified HR data
+      workflows: [hr-integration]
+    - id: people-ops-engineer
+      name: People Ops Engineer
+      description: People operations engineer integrating HR systems into internal tooling
+      workflows: [hr-integration]
+
+  domains:
+    - name: HRIS Integration
+      description: Unified access to employee data from HRIS platforms
+    - name: ATS Integration
+      description: Unified access to recruiting data from ATS platforms
+    - name: Organizational Data
+      description: Department hierarchy and org structure normalization
+    - name: Workforce Analytics
+      description: Employee time-off, tenure, and workforce data
+
+crossReference:
+  resources:
+    - operational: employees
+      capability: list-employees
+    - operational: jobs
+      capability: list-jobs
+    - operational: candidates
+      capability: list-candidates

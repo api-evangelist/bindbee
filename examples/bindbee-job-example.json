@@ -1,0 +1,8 @@
+{
+  "id": "job-abc123",
+  "title": "Senior Software Engineer",
+  "department": "Engineering",
+  "location": "Remote",
+  "status": "open",
+  "created_at": "2024-04-01T00:00:00Z"
+}

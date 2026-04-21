@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Employee",
+  "type": "object",
+  "description": "A normalized employee record from a connected HRIS system.",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Bindbee employee ID.",
+      "example": "emp-abc123"
+    },
+    "first_name": {
+      "type": "string",
+      "description": "Employee first name.",
+      "example": "Jane"
+    },
+    "last_name": {
+      "type": "string",
+      "description": "Employee last name.",
+      "example": "Smith"
+    },
+    "email": {
+      "type": "string",
+      "description": "Employee work email.",
+      "example": "jsmith@example.com"
+    },
+    "job_title": {
+      "type": "string",
+      "description": "Job title.",
+      "example": "Software Engineer"
+    },
+    "department": {
+      "type": "string",
+      "description": "Department name.",
+      "example": "Engineering"
+    },
+    "employment_status": {
+      "type": "string",
+      "description": "Employment status.",
+      "enum": [
+        "active",
+        "inactive",
+        "terminated"
+      ],
+      "example": "active"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Employment start date.",
+      "example": "2022-03-15"
+    }
+  }
+}
