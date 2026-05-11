@@ -81,6 +81,69 @@ common:
     description: Access Greenhouse ATS job listings and candidates via Bindbee.
   - name: Lever
     description: Sync Lever ATS recruiting pipeline data through Bindbee.
+- type: Integrations
+  url: https://bindbee.dev/integrations
+integrations:
+  - name: bswift + SFTP
+  - name: Plansource + SFTP
+  - name: isolved + SFTP
+  - name: Quickbooks
+  - name: OpportuneHR
+  - name: Humaans
+  - name: HRwork
+  - name: HR partner
+  - name: Deputy
+  - name: Dayforce
+  - name: Teamtailor
+  - name: Ashby
+  - name: Workday LMS
+  - name: Personio ATS
+  - name: Factorial ATS
+  - name: Xero AU
+  - name: 7Shifts
+  - name: Jobscore
+  - name: Nmbrs
+  - name: Jobvite
+  - name: SAP SuccessFactors ATS
+  - name: JazzHR
+  - name: Employment Hero
+  - name: CharlieHR
+  - name: Xero
+  - name: SesameHR
+  - name: Okta
+  - name: Prime Retail
+  - name: Personio
+  - name: Factorial
+  - name: Paycom
+  - name: PeopleStrong
+  - name: UKG Ready
+  - name: Paycor
+  - name: MS Entra ID (Azure AD)
+  - name: Darwinbox
+  - name: BambooHR ATS
+  - name: Workday ATS
+  - name: Hibob
+  - name: Trinet
+  - name: Paychex
+  - name: Google workspace
+  - name: Sage HR + SFTP
+  - name: Breathe HR
+  - name: Oracle HCM
+  - name: UKG Pro
+  - name: Deel
+  - name: Rippling + SFTP
+  - name: Zenefits
+  - name: SAP SuccessFactors
+  - name: Paylocity + SFTP
+  - name: Greenhouse
+  - name: Workable
+  - name: Lever
+  - name: Recruitee
+  - name: ADP Workforce Now + SFTP
+  - name: Keka
+  - name: Workday
+  - name: Zoho People
+  - name: BambooHR
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
