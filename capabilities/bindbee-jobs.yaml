@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bindbee API — Jobs
+  description: 'Bindbee API — Jobs. 1 operations. Lead operation: Bindbee List Jobs. Self-contained Naftiko capability covering
+    one Bindbee business surface.'
+  tags:
+  - Bindbee
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINDBEE_API_KEY: BINDBEE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bindbee-jobs
+    baseUri: https://api.bindbee.dev/v1
+    description: Bindbee API — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: ats-jobs
+      path: /ats/jobs
+      operations:
+      - name: listjobs
+        method: GET
+        description: Bindbee List Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: x-connector-token
+          in: header
+          type: string
+          required: true
+        - name: status
+          in: query
+          type: string
+          description: Filter by job status.
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.BINDBEE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: bindbee-jobs-rest
+    port: 8080
+    description: REST adapter for Bindbee API — Jobs. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/ats/jobs
+      name: ats-jobs
+      description: REST surface for ats-jobs.
+      operations:
+      - method: GET
+        name: listjobs
+        description: Bindbee List Jobs
+        call: bindbee-jobs.listjobs
+        with:
+          x-connector-token: rest.x-connector-token
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bindbee-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bindbee API — Jobs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: bindbee-list-jobs
+      description: Bindbee List Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bindbee-jobs.listjobs
+      with:
+        x-connector-token: tools.x-connector-token
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.

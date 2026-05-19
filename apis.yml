@@ -33,6 +33,8 @@ apis:
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/openapi/bindbee-api.yaml
 common:
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/bindbee
 - type: Portal
   url: https://bindbee.dev/
 - type: Documentation

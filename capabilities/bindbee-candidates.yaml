@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Bindbee API — Candidates
+  description: 'Bindbee API — Candidates. 2 operations. Lead operation: Bindbee List Candidates. Self-contained Naftiko capability
+    covering one Bindbee business surface.'
+  tags:
+  - Bindbee
+  - Candidates
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    BINDBEE_API_KEY: BINDBEE_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: bindbee-candidates
+    baseUri: https://api.bindbee.dev/v1
+    description: Bindbee API — Candidates business capability. Self-contained, no shared references.
+    resources:
+    - name: ats-candidates
+      path: /ats/candidates
+      operations:
+      - name: listcandidates
+        method: GET
+        description: Bindbee List Candidates
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: x-connector-token
+          in: header
+          type: string
+          required: true
+        - name: job_id
+          in: query
+          type: string
+          description: Filter by job ID.
+    - name: ats-candidates-id
+      path: /ats/candidates/{id}
+      operations:
+      - name: getcandidate
+        method: GET
+        description: Bindbee Get Candidate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: x-connector-token
+          in: header
+          type: string
+          required: true
+        - name: id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.BINDBEE_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: bindbee-candidates-rest
+    port: 8080
+    description: REST adapter for Bindbee API — Candidates. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/ats/candidates
+      name: ats-candidates
+      description: REST surface for ats-candidates.
+      operations:
+      - method: GET
+        name: listcandidates
+        description: Bindbee List Candidates
+        call: bindbee-candidates.listcandidates
+        with:
+          x-connector-token: rest.x-connector-token
+          job_id: rest.job_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/ats/candidates/{id}
+      name: ats-candidates-id
+      description: REST surface for ats-candidates-id.
+      operations:
+      - method: GET
+        name: getcandidate
+        description: Bindbee Get Candidate
+        call: bindbee-candidates.getcandidate
+        with:
+          x-connector-token: rest.x-connector-token
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: bindbee-candidates-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Bindbee API — Candidates. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: bindbee-list-candidates
+      description: Bindbee List Candidates
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bindbee-candidates.listcandidates
+      with:
+        x-connector-token: tools.x-connector-token
+        job_id: tools.job_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bindbee-get-candidate
+      description: Bindbee Get Candidate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: bindbee-candidates.getcandidate
+      with:
+        x-connector-token: tools.x-connector-token
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
