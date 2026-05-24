@@ -85,6 +85,8 @@ common:
       description: Sync Lever ATS recruiting pipeline data through Bindbee.
   - type: Integrations
     url: https://bindbee.dev/integrations
+  - type: LLMsTxt
+    url: https://docs.bindbee.dev/llms.txt
 integrations:
   - name: bswift + SFTP
   - name: Plansource + SFTP
