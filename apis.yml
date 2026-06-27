@@ -43,7 +43,7 @@ common:
     url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/rules/bindbee-spectral-rules.yml
   - type: Vocabulary
     url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/vocabulary/bindbee-vocabulary.yaml
-  - type: NaftikoCapability
+  - type: X-NaftikoCapability
     url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/capabilities/hr-integration.yaml
   - type: Features
     data:
@@ -85,7 +85,7 @@ common:
       description: Sync Lever ATS recruiting pipeline data through Bindbee.
   - type: Integrations
     url: https://bindbee.dev/integrations
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.bindbee.dev/llms.txt
 integrations:
   - name: bswift + SFTP
