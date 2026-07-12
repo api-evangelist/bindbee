@@ -33,6 +33,10 @@ apis:
     - type: OpenAPI
       url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/openapi/bindbee-api.yaml
 common:
+  - type: DomainSecurity
+    url: security/bindbee-domain-security.yml
+  - type: Authentication
+    url: authentication/bindbee-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/bindbee
   - type: Portal
@@ -87,6 +91,8 @@ common:
     url: https://bindbee.dev/integrations
   - type: LlmsText
     url: https://docs.bindbee.dev/llms.txt
+  - url: https://bindbee.dev/blog/rss.xml
+    type: Blog
 integrations:
   - name: bswift + SFTP
   - name: Plansource + SFTP

@@ -1,0 +1,17 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/bindbee-api.yaml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Bearer API key in Authorization header. Also pass x-connector-token for the specific
+    integration.
+  sources:
+  - openapi/bindbee-api.yaml
