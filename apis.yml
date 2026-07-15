@@ -33,6 +33,8 @@ apis:
     - type: OpenAPI
       url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/openapi/bindbee-api.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/bindbee-agentic-access.yml
   - type: DomainSecurity
     url: security/bindbee-domain-security.yml
   - type: Authentication
