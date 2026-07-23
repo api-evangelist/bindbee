@@ -1,0 +1,184 @@
+openapi: 3.0.3
+info:
+  title: Bindbee Candidates API
+  description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
+  version: v1
+  contact:
+    name: Bindbee Support
+    url: https://docs.bindbee.dev/
+  license:
+    name: Proprietary
+    url: https://bindbee.dev/
+  x-generated-from: documentation
+servers:
+- url: https://api.bindbee.dev/v1
+  description: Bindbee Unified API
+tags:
+- name: Candidates
+  description: Job candidates from connected ATS systems
+paths:
+  /ats/candidates:
+    get:
+      operationId: listCandidates
+      summary: Bindbee List Candidates
+      description: Returns a list of candidates from the connected ATS system.
+      tags:
+      - Candidates
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: job_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by job ID.
+      responses:
+        '200':
+          description: List of candidates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidatesResponse'
+              examples:
+                ListCandidates200Example:
+                  summary: Default listCandidates 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: cand-abc123
+                      first_name: John
+                      last_name: Doe
+                      email: jdoe@example.com
+                      job_id: job-abc123
+                      stage: interview
+                      created_at: '2024-04-13T00:00:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ats/candidates/{id}:
+    get:
+      operationId: getCandidate
+      summary: Bindbee Get Candidate
+      description: Returns a single candidate record by ID.
+      tags:
+      - Candidates
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: cand-abc123
+      responses:
+        '200':
+          description: Candidate record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Candidate'
+              examples:
+                GetCandidate200Example:
+                  summary: Default getCandidate 200 response
+                  x-microcks-default: true
+                  value:
+                    id: cand-abc123
+                    first_name: John
+                    last_name: Doe
+                    email: jdoe@example.com
+                    job_id: job-abc123
+                    stage: interview
+                    created_at: '2024-04-13T00:00:00Z'
+        '404':
+          description: Candidate not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message.
+          example: resource not found
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 404
+    CandidatesResponse:
+      title: Candidates Response
+      description: List of candidates.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of candidate records.
+          items:
+            $ref: '#/components/schemas/Candidate'
+    Candidate:
+      title: Candidate
+      description: A job candidate from a connected ATS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Candidate ID.
+          example: cand-abc123
+        first_name:
+          type: string
+          description: Candidate first name.
+          example: John
+        last_name:
+          type: string
+          description: Candidate last name.
+          example: Doe
+        email:
+          type: string
+          description: Candidate email.
+          example: jdoe@example.com
+        job_id:
+          type: string
+          description: Job ID the candidate applied for.
+          example: job-abc123
+        stage:
+          type: string
+          description: Current hiring stage.
+          enum:
+          - applied
+          - screening
+          - interview
+          - offer
+          - hired
+          - rejected
+          example: interview
+        created_at:
+          type: string
+          format: date-time
+          description: Application creation timestamp.
+          example: '2024-04-13T00:00:00Z'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.

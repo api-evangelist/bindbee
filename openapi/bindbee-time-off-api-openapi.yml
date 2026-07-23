@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: Bindbee Candidates Time Off API
+  description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
+  version: v1
+  contact:
+    name: Bindbee Support
+    url: https://docs.bindbee.dev/
+  license:
+    name: Proprietary
+    url: https://bindbee.dev/
+  x-generated-from: documentation
+servers:
+- url: https://api.bindbee.dev/v1
+  description: Bindbee Unified API
+tags:
+- name: Time Off
+  description: Employee time-off requests and balances
+paths:
+  /hris/time-off:
+    get:
+      operationId: listTimeOff
+      summary: Bindbee List Time Off
+      description: Returns time-off requests and balances from the connected HRIS system.
+      tags:
+      - Time Off
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: employee_id
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter by employee ID.
+      responses:
+        '200':
+          description: List of time-off requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffResponse'
+              examples:
+                ListTimeOff200Example:
+                  summary: Default listTimeOff 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: to-abc123
+                      employee_id: emp-abc123
+                      type: vacation
+                      status: approved
+                      start_date: '2024-07-01'
+                      end_date: '2024-07-05'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    TimeOffResponse:
+      title: Time Off Response
+      description: List of time-off requests.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of time-off requests.
+          items:
+            $ref: '#/components/schemas/TimeOffRequest'
+    TimeOffRequest:
+      title: Time Off Request
+      description: An employee time-off request from a connected HRIS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Time-off request ID.
+          example: to-abc123
+        employee_id:
+          type: string
+          description: Employee ID.
+          example: emp-abc123
+        type:
+          type: string
+          description: Type of time off.
+          enum:
+          - vacation
+          - sick
+          - personal
+          - other
+          example: vacation
+        status:
+          type: string
+          description: Approval status.
+          enum:
+          - pending
+          - approved
+          - rejected
+          example: approved
+        start_date:
+          type: string
+          format: date
+          description: Time-off start date.
+          example: '2024-07-01'
+        end_date:
+          type: string
+          format: date
+          description: Time-off end date.
+          example: '2024-07-05'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.
