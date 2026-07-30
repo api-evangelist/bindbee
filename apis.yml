@@ -5,7 +5,20 @@ description: >-
   to connect with multiple HR systems through a single integration, simplifying
   workforce data access and HR automation.
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/bindbee.png
 tags:
   - ATS
   - HR Integration
@@ -17,21 +30,61 @@ created: '2026-03-16'
 modified: '2026-04-21'
 specificationVersion: '0.19'
 apis:
-  - aid: bindbee:bindbee-api
-    name: Bindbee API
-    description: >-
-      Unified HRIS and ATS integration API for connecting with multiple
-      HR systems through a single integration.
-    humanURL: https://bindbee.dev/
-    tags:
-    - ATS
-    - HR Integration
-    - HRIS
-    properties:
-    - type: Documentation
-      url: https://docs.bindbee.dev/
-    - type: OpenAPI
-      url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/openapi/bindbee-api.yaml
+- aid: bindbee:bindbee-candidates-api
+  name: Bindbee Candidates API
+  description: Job candidates from connected ATS systems
+  humanURL: https://bindbee.dev/
+  tags:
+  - Candidates
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-candidates-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+- aid: bindbee:bindbee-departments-api
+  name: Bindbee Departments API
+  description: Organizational departments
+  humanURL: https://bindbee.dev/
+  tags:
+  - Departments
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-departments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+- aid: bindbee:bindbee-employees-api
+  name: Bindbee Employees API
+  description: Employee records from connected HRIS systems
+  humanURL: https://bindbee.dev/
+  tags:
+  - Employees
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-employees-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+- aid: bindbee:bindbee-jobs-api
+  name: Bindbee Jobs API
+  description: Job listings from connected ATS systems
+  humanURL: https://bindbee.dev/
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+- aid: bindbee:bindbee-time-off-api
+  name: Bindbee Time Off API
+  description: Employee time-off requests and balances
+  humanURL: https://bindbee.dev/
+  tags:
+  - Time Off
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-time-off-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
 common:
   - type: AgenticAccess
     url: agentic-access/bindbee-agentic-access.yml
