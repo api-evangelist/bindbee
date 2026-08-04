@@ -1,0 +1,618 @@
+openapi: 3.0.3
+info:
+  title: Bindbee API
+  description: >-
+    The Bindbee API provides a unified HRIS and ATS integration layer that
+    allows companies to connect with 50+ HR systems including BambooHR,
+    Workday, ADP, Greenhouse, Lever, and others through a single normalized
+    API. Access employee data, job listings, candidates, payroll, time-off,
+    and departments without managing individual integrations.
+  version: v1
+  contact:
+    name: Bindbee Support
+    url: https://docs.bindbee.dev/
+  license:
+    name: Proprietary
+    url: https://bindbee.dev/
+  x-generated-from: documentation
+servers:
+  - url: https://api.bindbee.dev/v1
+    description: Bindbee Unified API
+tags:
+  - name: Employees
+    description: Employee records from connected HRIS systems
+  - name: Jobs
+    description: Job listings from connected ATS systems
+  - name: Candidates
+    description: Job candidates from connected ATS systems
+  - name: Departments
+    description: Organizational departments
+  - name: Time Off
+    description: Employee time-off requests and balances
+  - name: Payroll
+    description: Payroll runs and employee compensation
+paths:
+  /hris/employees:
+    get:
+      operationId: listEmployees
+      summary: Bindbee List Employees
+      description: >-
+        Returns a paginated list of employees from the connected HRIS system.
+        Normalized across providers like BambooHR, Workday, and ADP.
+      tags:
+        - Employees
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          description: The connector token for the specific HR system integration.
+          schema:
+            type: string
+        - name: page_size
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 25
+          description: Number of results per page.
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Pagination cursor from previous response.
+      responses:
+        '200':
+          description: List of employees.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeesResponse'
+              examples:
+                ListEmployees200Example:
+                  summary: Default listEmployees 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      - id: emp-abc123
+                        first_name: Jane
+                        last_name: Smith
+                        email: jsmith@example.com
+                        job_title: Software Engineer
+                        department: Engineering
+                        employment_status: active
+                        start_date: "2022-03-15"
+                    next_cursor: cursor-xyz
+                    has_more: true
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hris/employees/{id}:
+    get:
+      operationId: getEmployee
+      summary: Bindbee Get Employee
+      description: Returns a single employee record by ID.
+      tags:
+        - Employees
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: emp-abc123
+      responses:
+        '200':
+          description: Employee record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+              examples:
+                GetEmployee200Example:
+                  summary: Default getEmployee 200 response
+                  x-microcks-default: true
+                  value:
+                    id: emp-abc123
+                    first_name: Jane
+                    last_name: Smith
+                    email: jsmith@example.com
+                    job_title: Software Engineer
+                    department: Engineering
+                    employment_status: active
+                    start_date: "2022-03-15"
+        '404':
+          description: Employee not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hris/departments:
+    get:
+      operationId: listDepartments
+      summary: Bindbee List Departments
+      description: Returns a list of departments from the connected HRIS system.
+      tags:
+        - Departments
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of departments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentsResponse'
+              examples:
+                ListDepartments200Example:
+                  summary: Default listDepartments 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      - id: dept-abc123
+                        name: Engineering
+                        parent_id: null
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hris/time-off:
+    get:
+      operationId: listTimeOff
+      summary: Bindbee List Time Off
+      description: Returns time-off requests and balances from the connected HRIS system.
+      tags:
+        - Time Off
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: employee_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by employee ID.
+      responses:
+        '200':
+          description: List of time-off requests.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TimeOffResponse'
+              examples:
+                ListTimeOff200Example:
+                  summary: Default listTimeOff 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      - id: to-abc123
+                        employee_id: emp-abc123
+                        type: vacation
+                        status: approved
+                        start_date: "2024-07-01"
+                        end_date: "2024-07-05"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ats/jobs:
+    get:
+      operationId: listJobs
+      summary: Bindbee List Jobs
+      description: Returns a list of job postings from the connected ATS system.
+      tags:
+        - Jobs
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - open
+              - closed
+              - draft
+          description: Filter by job status.
+      responses:
+        '200':
+          description: List of job postings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsResponse'
+              examples:
+                ListJobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      - id: job-abc123
+                        title: Senior Software Engineer
+                        department: Engineering
+                        location: Remote
+                        status: open
+                        created_at: "2024-04-01T00:00:00Z"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ats/candidates:
+    get:
+      operationId: listCandidates
+      summary: Bindbee List Candidates
+      description: Returns a list of candidates from the connected ATS system.
+      tags:
+        - Candidates
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: job_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by job ID.
+      responses:
+        '200':
+          description: List of candidates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CandidatesResponse'
+              examples:
+                ListCandidates200Example:
+                  summary: Default listCandidates 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                      - id: cand-abc123
+                        first_name: John
+                        last_name: Doe
+                        email: jdoe@example.com
+                        job_id: job-abc123
+                        stage: interview
+                        created_at: "2024-04-13T00:00:00Z"
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /ats/candidates/{id}:
+    get:
+      operationId: getCandidate
+      summary: Bindbee Get Candidate
+      description: Returns a single candidate record by ID.
+      tags:
+        - Candidates
+      security:
+        - apiKeyAuth: []
+      parameters:
+        - name: x-connector-token
+          in: header
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: cand-abc123
+      responses:
+        '200':
+          description: Candidate record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Candidate'
+              examples:
+                GetCandidate200Example:
+                  summary: Default getCandidate 200 response
+                  x-microcks-default: true
+                  value:
+                    id: cand-abc123
+                    first_name: John
+                    last_name: Doe
+                    email: jdoe@example.com
+                    job_id: job-abc123
+                    stage: interview
+                    created_at: "2024-04-13T00:00:00Z"
+        '404':
+          description: Candidate not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.
+  schemas:
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message.
+          example: resource not found
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 404
+    Employee:
+      title: Employee
+      description: A normalized employee record from a connected HRIS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Bindbee employee ID.
+          example: emp-abc123
+        first_name:
+          type: string
+          description: Employee first name.
+          example: Jane
+        last_name:
+          type: string
+          description: Employee last name.
+          example: Smith
+        email:
+          type: string
+          description: Employee work email.
+          example: jsmith@example.com
+        job_title:
+          type: string
+          description: Job title.
+          example: Software Engineer
+        department:
+          type: string
+          description: Department name.
+          example: Engineering
+        employment_status:
+          type: string
+          description: Employment status.
+          enum:
+            - active
+            - inactive
+            - terminated
+          example: active
+        start_date:
+          type: string
+          format: date
+          description: Employment start date.
+          example: "2022-03-15"
+    EmployeesResponse:
+      title: Employees Response
+      description: Paginated list of employee records.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of employee records.
+          items:
+            $ref: '#/components/schemas/Employee'
+        next_cursor:
+          type: string
+          description: Cursor for next page.
+          example: cursor-xyz
+        has_more:
+          type: boolean
+          description: Whether more records exist.
+          example: true
+    Department:
+      title: Department
+      description: An organizational department from a connected HRIS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Department ID.
+          example: dept-abc123
+        name:
+          type: string
+          description: Department name.
+          example: Engineering
+        parent_id:
+          type: string
+          nullable: true
+          description: Parent department ID for nested structures.
+          example: null
+    DepartmentsResponse:
+      title: Departments Response
+      description: List of departments.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of department records.
+          items:
+            $ref: '#/components/schemas/Department'
+    TimeOffRequest:
+      title: Time Off Request
+      description: An employee time-off request from a connected HRIS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Time-off request ID.
+          example: to-abc123
+        employee_id:
+          type: string
+          description: Employee ID.
+          example: emp-abc123
+        type:
+          type: string
+          description: Type of time off.
+          enum:
+            - vacation
+            - sick
+            - personal
+            - other
+          example: vacation
+        status:
+          type: string
+          description: Approval status.
+          enum:
+            - pending
+            - approved
+            - rejected
+          example: approved
+        start_date:
+          type: string
+          format: date
+          description: Time-off start date.
+          example: "2024-07-01"
+        end_date:
+          type: string
+          format: date
+          description: Time-off end date.
+          example: "2024-07-05"
+    TimeOffResponse:
+      title: Time Off Response
+      description: List of time-off requests.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of time-off requests.
+          items:
+            $ref: '#/components/schemas/TimeOffRequest'
+    Job:
+      title: Job
+      description: A job posting from a connected ATS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID.
+          example: job-abc123
+        title:
+          type: string
+          description: Job title.
+          example: Senior Software Engineer
+        department:
+          type: string
+          description: Hiring department.
+          example: Engineering
+        location:
+          type: string
+          description: Job location or remote.
+          example: Remote
+        status:
+          type: string
+          description: Job posting status.
+          enum:
+            - open
+            - closed
+            - draft
+          example: open
+        created_at:
+          type: string
+          format: date-time
+          description: Job creation timestamp.
+          example: "2024-04-01T00:00:00Z"
+    JobsResponse:
+      title: Jobs Response
+      description: List of job postings.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of job postings.
+          items:
+            $ref: '#/components/schemas/Job'
+    Candidate:
+      title: Candidate
+      description: A job candidate from a connected ATS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Candidate ID.
+          example: cand-abc123
+        first_name:
+          type: string
+          description: Candidate first name.
+          example: John
+        last_name:
+          type: string
+          description: Candidate last name.
+          example: Doe
+        email:
+          type: string
+          description: Candidate email.
+          example: jdoe@example.com
+        job_id:
+          type: string
+          description: Job ID the candidate applied for.
+          example: job-abc123
+        stage:
+          type: string
+          description: Current hiring stage.
+          enum:
+            - applied
+            - screening
+            - interview
+            - offer
+            - hired
+            - rejected
+          example: interview
+        created_at:
+          type: string
+          format: date-time
+          description: Application creation timestamp.
+          example: "2024-04-13T00:00:00Z"
+    CandidatesResponse:
+      title: Candidates Response
+      description: List of candidates.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of candidate records.
+          items:
+            $ref: '#/components/schemas/Candidate'

@@ -1,0 +1,22 @@
+{
+  "provider": "bindbee",
+  "sources": [
+    "bindbee-candidates-api-openapi.yml",
+    "bindbee-departments-api-openapi.yml",
+    "bindbee-employees-api-openapi.yml",
+    "bindbee-jobs-api-openapi.yml",
+    "bindbee-time-off-api-openapi.yml"
+  ],
+  "outputs": [
+    "bindbee-candidates-api-openapi.yml",
+    "bindbee-departments-api-openapi.yml",
+    "bindbee-employees-api-openapi.yml",
+    "bindbee-jobs-api-openapi.yml",
+    "bindbee-time-off-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
