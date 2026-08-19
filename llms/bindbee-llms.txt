@@ -1,0 +1,159 @@
+# Bindbee Docs
+
+## Docs
+
+- [Overview](https://docs.bindbee.dev/features/overview.md): Bindbee ensure that B2B technology companies can do HRIS, Payroll, ATS and LMS integrations without writing much code. We have built Unified APIs that ensure that our customers never have to build 1-on-1 integrations. And, all the third party HRIS, Payroll, ATS and LMS integrations can be done in le…
+- [Production](https://docs.bindbee.dev/features/environments/production.md): Bindbee Production environment for live customer integrations.
+- [Development](https://docs.bindbee.dev/features/environments/development.md): Bindbee Development environment for building and testing integrations.
+- [Dashboard](https://docs.bindbee.dev/features/dashboard.md)
+- [Magic Link](https://docs.bindbee.dev/features/magic-link.md): Enable seamless integration for your end users without the need for any code.
+- [Connectors](https://docs.bindbee.dev/features/connectors.md): View Connectors
+- [Logs](https://docs.bindbee.dev/features/logs.md): View Logs
+- [Authentication](https://docs.bindbee.dev/api-reference/basics/authentication.md): Learn about the process of authenticating your requests to the Bindbee API.
+- [Pagination](https://docs.bindbee.dev/api-reference/basics/pagination.md): Learn about the process of implementing pagination for handling bulk data requests to the Unified API.
+- [Sync Frequency](https://docs.bindbee.dev/api-reference/basics/sync-frequency.md): Learn about the synchronization frequency for importing data from external sources into Bindbee.
+- [Rate Limits](https://docs.bindbee.dev/api-reference/basics/rate-limits.md): Understanding and managing API rate limits in Bindbee
+- [Get Connectors](https://docs.bindbee.dev/api-reference/connectors/get-connectors.md): Returns a list of HRIS connectors
+- [Delete Connector](https://docs.bindbee.dev/api-reference/connectors/delete-connector.md): Deletes the provided connector
+- [Force Resync a Connector](https://docs.bindbee.dev/api-reference/connectors/resync-connector.md)
+- [Get Org Integrations](https://docs.bindbee.dev/api-reference/integrations/get-integrations.md): Returns a list of Integrations
+- [Meta APIs for Write Operations](https://docs.bindbee.dev/meta-apis-for-write-operations.md): Retrieve request schemas for Create Employee, Create Employee Payroll Run, Create Timesheet, and Create Time Off Request APIs.
+- [Make Passthrough Request](https://docs.bindbee.dev/api-reference/passthrough/make-passthrough-request.md)
+- [Get Bank Info List](https://docs.bindbee.dev/hris/bank-info/get-bank-info-list.md): Returns a list of BankInfo objects.
+- [Get Bank Info By Id](https://docs.bindbee.dev/hris/bank-info/get-bank-info-by-id.md): Returns a BankInfo object with the given id.
+- [Get Benefit Coverages](https://docs.bindbee.dev/hris/benefit-coverages/get-benefit-coverages.md): Returns a list of Benefit Coverage objects.
+- [Get Benefit Coverage By Id](https://docs.bindbee.dev/hris/benefit-coverages/get-benefit-coverage-by-id.md): Returns a Benefit Coverage object with the given id.
+- [Get Benefits](https://docs.bindbee.dev/hris/benefits/get-benefits.md): Returns a list of Benefit objects.
+- [Get Benefit By Id](https://docs.bindbee.dev/hris/benefits/get-benefit-by-id.md): Returns a Benefit object with the given id.
+- [Get Companies](https://docs.bindbee.dev/hris/companies/get-companies.md): Returns a list of Companies objects.
+- [Get Company By Id](https://docs.bindbee.dev/hris/companies/get-company-by-id.md): Returns a Company object with the given id.
+- [Get Compensations](https://docs.bindbee.dev/hris/compensation/get-compensations.md): Returns a list of Compensation objects.
+- [Get Compensation By Id](https://docs.bindbee.dev/hris/compensation/get-compensation-by-id.md): Returns a Compensation object with the given id.
+- [Get Dependents](https://docs.bindbee.dev/hris/dependents/get-dependents.md): Returns a list of Dependent objects.
+- [Get Dependent By Id](https://docs.bindbee.dev/hris/dependents/get-dependent-by-id.md): Returns a Dependent object with the given id.
+- [Get Dependent Benefits](https://docs.bindbee.dev/hris/dependent-benefits/get-dependent-benefits.md): Returns a list of Dependent Benefit objects.
+- [Get Dependent Benefit By Id](https://docs.bindbee.dev/hris/dependent-benefits/get-dependent-benefit-by-id.md): Returns a Dependent Benefit object with the given id.
+- [Get Documents](https://docs.bindbee.dev/hris/documents/get-documents.md): **Beta.** The Documents API is in beta and its contract may change.
+- [Get Document By Id](https://docs.bindbee.dev/hris/documents/get-document-by-id.md): **Beta.** The Documents API is in beta and its contract may change.
+- [Get Document Download URL](https://docs.bindbee.dev/hris/documents/get-document-download-url.md): **Beta.** The Documents API is in beta and its contract may change.
+- [Get Employees](https://docs.bindbee.dev/hris/employee/get-employees.md): Returns a list of Employee objects.
+- [Get Create Employee Meta](https://docs.bindbee.dev/hris/employee/get-create-employee-meta.md): Returns request schema for POST Employee request.
+- [Get Create Employee Request Body](https://docs.bindbee.dev/hris/employee/get-create-employee-request-body.md): Returns the data points required to add new employee in HRIS
+- [Create Employee](https://docs.bindbee.dev/hris/employee/create-employee.md): Creates an Employee object with the given values.
+- [Get Employee By Id](https://docs.bindbee.dev/hris/employee/get-employee-by-id.md): Returns an Employee object with the given id.
+- [Get Employee Payroll Runs](https://docs.bindbee.dev/hris/employee-payroll-runs/get-employee-payroll-runs.md): Returns a list of EmployeePayrollRun objects.
+- [Get Create Employee Payroll Run Meta](https://docs.bindbee.dev/hris/employee-payroll-runs/get-create-employee-payroll-run-meta.md): Returns request schema for POST Employee Payroll Run request.
+- [Create Employee Payroll Run](https://docs.bindbee.dev/hris/employee-payroll-runs/create-employee-payroll-runs.md): Creates a Employee Payroll Run object with the given values.
+- [Get Employee Payroll Runs By Id](https://docs.bindbee.dev/hris/employee-payroll-runs/get-employee-payroll-runs-by-id.md): Returns an EmployeePayrollRun object with the given id
+- [Get Employer Benefits](https://docs.bindbee.dev/hris/employer-benefits/get-employer-benefits.md): Returns a list of Employer Benefit objects.
+- [Get Employer Benefit By Id](https://docs.bindbee.dev/hris/employer-benefits/get-employer-benefit-by-id.md): Returns a Employer Benefit object with the given id.
+- [Get Employments](https://docs.bindbee.dev/hris/employments/get-employments.md): Returns a list of Employment objects.
+- [Get Employment By Id](https://docs.bindbee.dev/hris/employments/get-employment-by-id.md): Returns an Employment object with the given id.
+- [Get Groups](https://docs.bindbee.dev/hris/groups/get-groups.md): Returns a list of Group objects.
+- [Get Group By Id](https://docs.bindbee.dev/hris/groups/get-group-by-id.md): Returns a Group object with the given id.
+- [Get Locations](https://docs.bindbee.dev/hris/locations/get-locations.md): Returns a list of Location objects.
+- [Get Location By Id](https://docs.bindbee.dev/hris/locations/get-location-by-id.md): Returns a Location object with the given id.
+- [Get Pay Groups](https://docs.bindbee.dev/hris/pay-groups/get-pay-groups.md): Returns a list of PayGroup objects.
+- [Get Pay Group By Id](https://docs.bindbee.dev/hris/pay-groups/get-pay-group-by-id.md): Returns a PayGroup object with the given id.
+- [Get Payroll Codes](https://docs.bindbee.dev/hris/payroll-codes/get-payroll-codes.md): Returns a list of Payroll Code objects.
+- [Get Payroll Code By Id](https://docs.bindbee.dev/hris/payroll-codes/get-payroll-code-by-id.md): Returns a Payroll Code object with the given id.
+- [Get Payroll Runs](https://docs.bindbee.dev/hris/payroll-runs/get-payroll-runs.md): Returns a list of PayrollRun objects.
+- [Get Payroll Run By Id](https://docs.bindbee.dev/hris/payroll-runs/get-payroll-run-by-id.md): Returns a PayrollRun object with the given id.
+- [Get Time Off List](https://docs.bindbee.dev/hris/time-off/get-time-off-list.md): Returns a list of TimeOff objects.
+- [Get Create Time Off Meta](https://docs.bindbee.dev/hris/time-off/get-create-time-off-meta.md): Returns request schema for POST Time off request.
+- [create-time-off](https://docs.bindbee.dev/hris/time-off/create-time-off.md): Creates a TimeOff object with the given values.
+- [Get Time Off By Id](https://docs.bindbee.dev/hris/time-off/get-time-off-by-id.md): Returns a TimeOff object with the given id.
+- [Get Time Off Balances List](https://docs.bindbee.dev/hris/time-off-balance/get-time-off-balances-list.md): Returns a list of TimeOffBalance objects.
+- [Get Time Off Balance By Id](https://docs.bindbee.dev/hris/time-off-balance/get-time-off-balance-by-id.md): Returns a TimeOffBalance object with the given id.
+- [Get Timesheet List](https://docs.bindbee.dev/hris/timesheet-entries/get-timesheet-entries-list.md): Returns a list of Timesheet entry objects.
+- [Get Create Timesheet Meta](https://docs.bindbee.dev/hris/timesheet-entries/get-create-timesheet-meta.md): Returns request schema for POST Timesheet entry request.
+- [create-timesheet-entries](https://docs.bindbee.dev/hris/timesheet-entries/create-timesheet-entries.md): Creates a Time sheet object with the given values.
+- [Get Timesheet By Id](https://docs.bindbee.dev/hris/timesheet-entries/get-timesheet-entries-by-id.md): Returns a Timesheet object with the given id.
+- [Get Payroll Run Calendars](https://docs.bindbee.dev/hris/payroll-run-calendar/get-payroll-run-calendars.md): Returns a list of PayrollRunCalendar objects.
+- [Get Payroll Calendar Run By Id](https://docs.bindbee.dev/hris/payroll-run-calendar/get-payroll-run-calendar-by-id.md): Returns a PayrollRunCalendar object with the given id.
+- [Get Activities](https://docs.bindbee.dev/ats/activity/get-activities.md): Returns a list of Activity objects.
+- [Create Activity](https://docs.bindbee.dev/ats/activity/create-activity.md): Creates a Activity object with the given values.
+- [Get Activity By Id](https://docs.bindbee.dev/ats/activity/get-activity-by-id.md): Returns a Activity object with the given id.
+- [Get Applications](https://docs.bindbee.dev/ats/application/get-applications.md): Returns a list of Application objects.
+- [Create Application](https://docs.bindbee.dev/ats/application/create-application.md): Creates an Application object with the given values.
+- [Get Application By Id](https://docs.bindbee.dev/ats/application/get-application-by-id.md): Returns an Application object with the given id.
+- [Get Attachments](https://docs.bindbee.dev/ats/attachment/get-attachments.md): Returns a list of Attachment objects.
+- [Create Attachment](https://docs.bindbee.dev/ats/attachment/create-attachment.md): Creates an Attachment object with the given values.
+- [Get Attachment By Id](https://docs.bindbee.dev/ats/attachment/get-attachment-by-id.md): Returns an Attachment object with the given id.
+- [Get Candidates](https://docs.bindbee.dev/ats/candidate/get-candidates.md): Returns a list of Candidate objects.
+- [Create Candidate](https://docs.bindbee.dev/ats/candidate/create-candidate.md): Creates a Candidate object with the given values.
+- [Get Candidate By Id](https://docs.bindbee.dev/ats/candidate/get-candidate-by-id.md): Returns a Candidate object with the given id.
+- [Get Create Candidate Request Body](https://docs.bindbee.dev/ats/candidate/meta-create-candidate.md): Returns the data points required to add new employee in HRIS
+- [Create Candidate Attachment](https://docs.bindbee.dev/ats/candidate/write-attachment-for-existing-candidate.md): Uploads an attachment for a given candidate.
+- [Get Departments](https://docs.bindbee.dev/ats/department/get-departments.md): Returns a list of Department objects.
+- [Create Department](https://docs.bindbee.dev/ats/department/create-department.md): Creates a Department object with the given values.
+- [Get Department By Id](https://docs.bindbee.dev/ats/department/get-department-by-id.md): Returns a Department object with the given id.
+- [Get Eeocs](https://docs.bindbee.dev/ats/eeoc/get-eeocs.md): Returns a list of EEOC records.
+- [Create Eeoc](https://docs.bindbee.dev/ats/eeoc/create-eeoc.md): Creates an EEOC record with the given values.
+- [Get Eeoc By Id](https://docs.bindbee.dev/ats/eeoc/get-eeoc-by-id.md): Returns an EEOC record with the given id.
+- [Get Job Interview Stages](https://docs.bindbee.dev/ats/job-interview-stage/get-job-interview-stages.md): Returns a list of Job Interview Stage objects.
+- [Create Job Interview Stage](https://docs.bindbee.dev/ats/job-interview-stage/create-job-interview-stage.md): Creates a Job Interview Stage object with the given values.
+- [Get Job Interview Stage By Id](https://docs.bindbee.dev/ats/job-interview-stage/get-job-interview-stage-by-id.md): Returns a Job Interview Stage object with the given id.
+- [Get Jobs](https://docs.bindbee.dev/ats/job/get-jobs.md): Returns a list of Job objects.
+- [Create Job](https://docs.bindbee.dev/ats/job/create-job.md): Creates a Job object with the given values.
+- [Get Job By Id](https://docs.bindbee.dev/ats/job/get-job-by-id.md): Returns a Job object with the given id.
+- [Get Offers](https://docs.bindbee.dev/ats/offer/get-offers.md): Returns a list of Offer objects.
+- [Create Offer](https://docs.bindbee.dev/ats/offer/create-offer.md): Creates an Offer object with the given values.
+- [Get Offer By Id](https://docs.bindbee.dev/ats/offer/get-offer-by-id.md): Returns an Offer object with the given id.
+- [Get Offices](https://docs.bindbee.dev/ats/office/get-offices.md): Returns a list of Office objects.
+- [Create Office](https://docs.bindbee.dev/ats/office/create-office.md): Creates an Office object with the given values.
+- [Get Office By Id](https://docs.bindbee.dev/ats/office/get-office-by-id.md): Returns an Office object with the given id.
+- [Get Reject Reasons](https://docs.bindbee.dev/ats/reject-reason/get-reject-reasons.md): Returns a list of RejectReason objects.
+- [Create Reject Reason](https://docs.bindbee.dev/ats/reject-reason/create-reject-reason.md): Creates a RejectReason object with the given values.
+- [Get Reject Reason By Id](https://docs.bindbee.dev/ats/reject-reason/get-reject-reason-by-id.md): Returns a RejectReason object with the given id.
+- [Get Remote Users](https://docs.bindbee.dev/ats/remote-user/get-remote-users.md): Returns a list of RemoteUser objects.
+- [Create Remote User](https://docs.bindbee.dev/ats/remote-user/create-remote-user.md): Creates a RemoteUser object with the given values.
+- [Get Remote User By Id](https://docs.bindbee.dev/ats/remote-user/get-remote-user-by-id.md): Returns a RemoteUser object with the given id.
+- [Get Scheduled Interviews](https://docs.bindbee.dev/ats/scheduled-interview/get-scheduled-interviews.md): Returns a list of ScheduledInterview objects.
+- [Create Scheduled Interview](https://docs.bindbee.dev/ats/scheduled-interview/create-scheduled-interview.md): Creates a ScheduledInterview object with the given values.
+- [Get Scheduled Interview By Id](https://docs.bindbee.dev/ats/scheduled-interview/get-scheduled-interview-by-id.md): Returns a ScheduledInterview object with the given id.
+- [Get Scorecards](https://docs.bindbee.dev/ats/scorecard/get-scorecards.md): Returns a list of Scorecard objects.
+- [Create Scorecard](https://docs.bindbee.dev/ats/scorecard/create-scorecard.md): Creates a Scorecard object with the given values.
+- [Get Scorecard By Id](https://docs.bindbee.dev/ats/scorecard/get-scorecard-by-id.md): Returns a Scorecard object with the given id.
+- [Get Screening Questions](https://docs.bindbee.dev/ats/screening-question/get-screening-questions.md): Returns a list of ScreeningQuestion objects.
+- [Create Screening Question](https://docs.bindbee.dev/ats/screening-question/create-screening-question.md): Creates a ScreeningQuestion object with the given values.
+- [Get Screening Question By Id](https://docs.bindbee.dev/ats/screening-question/get-screening-question-by-id.md): Returns a ScreeningQuestion object with the given id.
+- [Get Tags](https://docs.bindbee.dev/ats/tag/get-tags.md): Returns a list of Tag objects.
+- [Create Tag](https://docs.bindbee.dev/ats/tag/create-tag.md): Creates a Tag object with the given values.
+- [Get Tag By Id](https://docs.bindbee.dev/ats/tag/get-tag-by-id.md): Returns a Tag object with the given id.
+- [Get Lms Users](https://docs.bindbee.dev/lms/users/get-users.md): Returns a list of LMS User objects.
+- [Get Lms User By Id](https://docs.bindbee.dev/lms/users/get-user-by-id.md): Returns an LMS User object with the given id.
+- [Get Lms Courses](https://docs.bindbee.dev/lms/courses/get-courses.md): Returns a list of LMS Course objects.
+- [Get Lms Course By Id](https://docs.bindbee.dev/lms/courses/get-course-by-id.md): Returns an LMS Course object with the given id.
+- [Get Lms Contents](https://docs.bindbee.dev/lms/contents/get-contents.md): Returns a list of LMS Content objects.
+- [Get Lms Content By Id](https://docs.bindbee.dev/lms/contents/get-content-by-id.md): Returns an LMS Content object with the given id.
+- [Get Lms Skills](https://docs.bindbee.dev/lms/skills/get-skills.md): Returns a list of LMS Skill objects.
+- [Get Lms Skill By Id](https://docs.bindbee.dev/lms/skills/get-skill-by-id.md): Returns an LMS Skill object with the given id.
+- [Get Lms Categories](https://docs.bindbee.dev/lms/categories/get-categories.md): Returns a list of LMS Category objects.
+- [Get Lms Category By Id](https://docs.bindbee.dev/lms/categories/get-category-by-id.md): Returns an LMS Category object with the given id.
+- [Get Lms Completions](https://docs.bindbee.dev/lms/completions/get-completions.md): Returns a list of LMS Completion objects.
+- [Get Lms Completion By Id](https://docs.bindbee.dev/lms/completions/get-completion-by-id.md): Returns an LMS Completion object with the given id.
+- [Get Lms Enrollments](https://docs.bindbee.dev/lms/enrollments/get-enrollments.md): Returns a list of LMS Enrollment objects.
+- [Get Lms Enrollment By Id](https://docs.bindbee.dev/lms/enrollments/get-enrollment-by-id.md): Returns an LMS Enrollment object with the given id.
+- [Webhooks](https://docs.bindbee.dev/webhooks/overview.md): With Webhooks, you can receive real-time updates on connector sync statuses, as well as notifications whenever HRIS data is created or modified. This ensures you stay up-to-date with the latest changes and maintain accurate, synchronized information across your systems, enhancing your workflow effic…
+- [Custom Fields](https://docs.bindbee.dev/custom-fields/overview.md): Custom Fields let you extend Bindbee's unified models with additional fields specific to your use case. They make it possible to surface any value from a third-party API response — alongside the standard unified schema — by mapping it through a JMESPath expression.
+- [Dashboard Configuration](https://docs.bindbee.dev/custom-fields/dashboard.md): Create and configure Custom Fields visually from the Bindbee Dashboard.
+- [API Configuration](https://docs.bindbee.dev/custom-fields/api-workflow.md): Define Custom Fields and mappings programmatically. Useful for onboarding automation, replicating configuration across environments, or syncing Bindbee with your internal admin tooling.
+- [List Models](https://docs.bindbee.dev/custom-fields/lookup/list-models.md): List unified models enabled for the caller's organization. Use the returned `slug` as the `model` field when creating custom fields or mappings.
+- [List Integrations](https://docs.bindbee.dev/custom-fields/lookup/list-integrations.md): List integrations enabled for the caller's organization. Use the returned `slug` as the `integration_slug` when creating organization-scoped custom field mappings.
+- [Create Custom Field](https://docs.bindbee.dev/custom-fields/api/create-custom-field.md): Register a new custom field on a `(category, model)` pair. The field carries no mapping yet — attach one with the create mapping endpoint.
+- [List Custom Fields](https://docs.bindbee.dev/custom-fields/api/list-custom-fields.md): List custom fields for the caller's organization. Supports filtering by `category`, `model`, and `source` (`API` vs `DASHBOARD`).
+- [Get Custom Field](https://docs.bindbee.dev/custom-fields/api/get-custom-field.md): Get a custom field by ID, including all of its mappings (organization- and connector-scoped).
+- [Delete Custom Field](https://docs.bindbee.dev/custom-fields/api/delete-custom-field.md): Delete a custom field. Cascades — all mappings attached to the field are removed as well.
+- [Create Mapping](https://docs.bindbee.dev/custom-fields/api/create-mapping.md): Create a custom field mapping. Provide exactly one of `integration_slug` (organization scope) or `connector_token` (connector scope).
+- [List Mappings](https://docs.bindbee.dev/custom-fields/api/list-mappings.md): List custom field mappings for an integration (org-scoped) or a connector (connector-scoped). Provide exactly one of `integration_slug` or `connector_token`.
+- [Update Mapping](https://docs.bindbee.dev/custom-fields/api/update-mapping.md): Update a custom field mapping. Only `json_path` is mutable — to change the scope of a mapping, delete it and create a new one.
+- [Delete Mapping](https://docs.bindbee.dev/custom-fields/api/delete-mapping.md): Delete a custom field mapping. Removes a single mapping; the custom field itself is unaffected.
+- [Get Raw Data](https://docs.bindbee.dev/custom-fields/api/get-raw-data.md): Inspect the raw upstream payload for a connector + (category, model). Use this to discover the field structure before writing a JMESPath. Provide exactly one of `connector_token` or `integration_slug`.
+- [Preview](https://docs.bindbee.dev/custom-fields/api/preview.md): Dry-run a JMESPath against a connector's data without persisting it as a mapping. Use this to validate an expression before saving.
+- [Get Configuration](https://docs.bindbee.dev/custom-fields/api/get-configuration.md): Return the full custom-field configuration for a connector + (category, model): every field with its effective mapping (connector overrides organization). Unmapped fields are included with `json_path: null` so callers can see what is left to configure.
+
+## OpenAPI Specs
+
+- [spec](https://docs.bindbee.dev/spec.json)
+- [new-spec](https://docs.bindbee.dev/new-spec.json)

@@ -1,0 +1,152 @@
+{
+  "item": [
+    {
+      "id": "7d5cdca0-ce51-4286-8731-dc1dbb072a39",
+      "name": "Time Off",
+      "description": {
+        "content": "Employee time-off requests and balances",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8428cd7f-ddc6-48bf-83df-4c4e33ced571",
+          "name": "Bindbee List Time Off",
+          "request": {
+            "name": "Bindbee List Time Off",
+            "description": {
+              "content": "Returns time-off requests and balances from the connected HRIS system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hris",
+                "time-off"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "employee_id",
+                  "value": "<string>",
+                  "description": "Filter by employee ID."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "x-connector-token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c3dc887b-74a4-499e-b01d-29a7471f98d2",
+              "name": "List of time-off requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    "time-off"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "employee_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "x-connector-token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"to-abc123\",\n      \"employee_id\": \"emp-abc123\",\n      \"type\": \"vacation\",\n      \"status\": \"approved\",\n      \"start_date\": \"2024-07-01\",\n      \"end_date\": \"2024-07-05\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bindbee.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f7c8e0e2-064b-4c2c-b8f8-d03ff4b55847",
+    "name": "Bindbee Candidates Time Off API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.\n\nContact Support:\n Name: Bindbee Support",
+      "type": "text/plain"
+    }
+  }
+}

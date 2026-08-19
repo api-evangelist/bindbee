@@ -1,0 +1,140 @@
+{
+  "item": [
+    {
+      "id": "eed591c6-9810-4ada-8361-f265f7c81ccb",
+      "name": "Departments",
+      "description": {
+        "content": "Organizational departments",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a6ddcccd-9c82-4708-8e1d-9396d8b56d4c",
+          "name": "Bindbee List Departments",
+          "request": {
+            "name": "Bindbee List Departments",
+            "description": {
+              "content": "Returns a list of departments from the connected HRIS system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hris",
+                "departments"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "x-connector-token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9647419b-c5fd-408c-bfdc-ab9f147b96ae",
+              "name": "List of departments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hris",
+                    "departments"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "x-connector-token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"dept-abc123\",\n      \"name\": \"Engineering\",\n      \"parent_id\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bindbee.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b8eaa7b9-a581-4a47-9a0c-cabf1ac49e60",
+    "name": "Bindbee Candidates Departments API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.\n\nContact Support:\n Name: Bindbee Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "item": [
+    {
+      "id": "ed542710-9147-4556-b997-7cf3009ffa00",
+      "name": "Jobs",
+      "description": {
+        "content": "Job listings from connected ATS systems",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5b9255ae-e727-4925-9dfc-4c58ae4b88aa",
+          "name": "Bindbee List Jobs",
+          "request": {
+            "name": "Bindbee List Jobs",
+            "description": {
+              "content": "Returns a list of job postings from the connected ATS system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ats",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by job status."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) ",
+                "key": "x-connector-token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "950b778f-4f08-4798-a2d8-7e98f21fcd3a",
+              "name": "List of job postings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ats",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) ",
+                    "key": "x-connector-token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"job-abc123\",\n      \"title\": \"Senior Software Engineer\",\n      \"department\": \"Engineering\",\n      \"location\": \"Remote\",\n      \"status\": \"open\",\n      \"created_at\": \"2024-04-01T00:00:00Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.bindbee.dev/v1",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "de0f5396-a91d-46aa-b32a-a1730755fd16",
+    "name": "Bindbee Candidates Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.\n\nContact Support:\n Name: Bindbee Support",
+      "type": "text/plain"
+    }
+  }
+}
