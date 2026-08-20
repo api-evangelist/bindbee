@@ -68,6 +68,8 @@ apis:
   description: Job listings from connected ATS systems
   humanURL: https://bindbee.dev/
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
