@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Bindbee Candidates Time Off API
   description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
@@ -62,16 +62,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    TimeOffResponse:
-      title: Time Off Response
-      description: List of time-off requests.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of time-off requests.
-          items:
-            $ref: '#/components/schemas/TimeOffRequest'
     TimeOffRequest:
       title: Time Off Request
       description: An employee time-off request from a connected HRIS system.
@@ -112,6 +102,16 @@ components:
           format: date
           description: Time-off end date.
           example: '2024-07-05'
+    TimeOffResponse:
+      title: Time Off Response
+      description: List of time-off requests.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of time-off requests.
+          items:
+            $ref: '#/components/schemas/TimeOffRequest'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

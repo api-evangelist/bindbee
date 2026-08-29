@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Bindbee Candidates API
   description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
@@ -112,6 +112,16 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    CandidatesResponse:
+      title: Candidates Response
+      description: List of candidates.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of candidate records.
+          items:
+            $ref: '#/components/schemas/Candidate'
     ErrorResponse:
       title: Error Response
       description: Standard error response.
@@ -125,16 +135,6 @@ components:
           type: integer
           description: HTTP status code.
           example: 404
-    CandidatesResponse:
-      title: Candidates Response
-      description: List of candidates.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of candidate records.
-          items:
-            $ref: '#/components/schemas/Candidate'
     Candidate:
       title: Candidate
       description: A job candidate from a connected ATS system.

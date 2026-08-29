@@ -17,6 +17,13 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "bindbee-candidates-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bindbee-departments-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bindbee-employees-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bindbee-jobs-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "bindbee-time-off-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }
