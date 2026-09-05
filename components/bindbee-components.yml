@@ -1,0 +1,53 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/sdk/bindbee-embed, https://docs.bindbee.dev/sdk/customizations,
+  https://docs.bindbee.dev/features/magic-link
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Bindbee ships one embeddable client-side surface: Bindbee Embed, the in-product widget that walks
+  an end customer through authorizing their own HRIS, ATS, Payroll or LMS. It is the only piece of
+  Bindbee that runs in the customer's browser, and it is what turns a link token into a connector
+  token.
+families:
+- name: Bindbee Embed
+  description: >-
+    Embedded connection UI. Mounted inside the host application's own frontend so the end user
+    never leaves it. Initialised with a short-lived link_token minted server-side, and returns a
+    temporary_token on success which the host application exchanges for a durable connector_token.
+  docs: https://docs.bindbee.dev/sdk/bindbee-embed
+  loaders:
+  - name: '@bindbee/react-link'
+    kind: npm package
+    url: https://www.npmjs.com/package/@bindbee/react-link
+    version: 0.1.0
+    published: '2026-06-01'
+    description: React hook wrapper. The supported path for React frontends.
+  - name: initialize.min.js
+    kind: cdn script
+    url: https://cdn.bindbee.dev/initialize.min.js
+    version: null
+    description: >-
+      Framework-agnostic browser build loaded by script tag. Unpinned — the URL carries no version.
+  inputs:
+  - link_token — minted by POST /api/embedded/v1/link/create-link-token
+  outputs:
+  - temporary_token — exchanged via GET /api/embedded/v1/connectors/connector_token/{temporary_token}
+  customization:
+    docs: https://docs.bindbee.dev/sdk/customizations
+    note: >-
+      Bindbee documents customization of the Embed surface. Custom branding is a paid feature —
+      the pricing comparison table lists "Custom Branding" and "Embedded Connection UI" as
+      Enterprise-only, available on neither Lite nor Pro.
+- name: Magic Link
+  description: >-
+    The hosted alternative to Embed — Bindbee generates a link the end user opens to complete the
+    same authorization flow without the host application embedding anything. Not a component in the
+    library sense, but it is the same surface delivered hosted rather than embedded.
+  docs: https://docs.bindbee.dev/features/magic-link
+  hosted: true
+not_found:
+- Web components / custom elements — none published
+- Embedded dashboards or analytics widgets — the Bindbee dashboard is a first-party app at app.bindbee.dev, not embeddable
+- Vue, Angular or Svelte wrappers — only React and the plain CDN build exist

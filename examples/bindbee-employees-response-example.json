@@ -1,5 +1,92 @@
 {
-  "data": [],
-  "next_cursor": "cursor-xyz",
-  "has_more": true
+  "x-provenance": {
+    "generated": "2026-09-04",
+    "method": "derived",
+    "source": "openapi/_original/bindbee-openapi.json",
+    "schema": "PaginatedResponse_HrisEmployeeResponse_",
+    "operation": "GET /api/hris/v1/employees",
+    "note": "Field names and structure taken from the provider-published contract; values are the provider's own declared examples where the spec carries them, and null where it does not. Replaces a 2026-era scaffold whose envelope (data/next_cursor/has_more) does not exist in the Bindbee API."
+  },
+  "example": {
+    "cursor": "MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1",
+    "page_size": 50,
+    "items": [
+      {
+        "id": "018b18ef-c487-703c-afd9-0ca478ccd9d6",
+        "remote_id": "123321",
+        "modified_at": "2021-10-16T00:00:00Z",
+        "raw_data": {
+          "key_1": "Platform dependent data 1",
+          "key_2": "Platform dependent data 2"
+        },
+        "custom_fields": {
+          "category_group": "REG",
+          "disability_type": "ASBERG",
+          "hire_date": "1991-03-16T00:00:00",
+          "hire_source": "REFER",
+          "nationality": "USA",
+          "original_hire_date": "1991-03-16T00:00:00"
+        },
+        "employee_number": "1",
+        "company": "018af1fe-1250-772d-87c5-6f725a579e8a",
+        "first_name": "Kunal",
+        "middle_name": "Christopher",
+        "last_name": "Tyagi",
+        "preferred_name": "Dark Knight",
+        "display_full_name": "Kunal Tyagi",
+        "username": "kunaltyagi",
+        "designation": "Chief Technology Officer",
+        "groups": [
+          "018af1fe-1250-772d-87c5-6f725a579e8a",
+          "018af1fe-1250-772d-87c5-6f725a579e8b"
+        ],
+        "department": "Engineering",
+        "division": "Bangalore Division",
+        "work_email": "kunal@bindbee.dev",
+        "personal_email": "kunaltyagi77@gmail.com",
+        "mobile_phone_number": "+1234567890",
+        "home_phone_number": "+1234567890",
+        "country_code": "+91",
+        "home_location": {
+          "city": "London",
+          "country": "UK",
+          "location": "UK-HO-London",
+          "name": "UK-HO-London",
+          "postal_code": "56273",
+          "state": "LND",
+          "street_1": "1011",
+          "street_2": "Lane number 4, Golden Villa"
+        },
+        "work_location": {
+          "city": "London",
+          "country": "UK",
+          "location": "UK-HO-London",
+          "name": "UK-HO-London",
+          "postal_code": "56273",
+          "state": "LND",
+          "street_1": "1011",
+          "street_2": "Lane number 4, Golden Villa"
+        },
+        "work_locations": [
+          "018af1fe-1250-772d-87c5-6f725a579e8a",
+          "018af1fe-1250-772d-87c5-6f725a579e8b"
+        ],
+        "manager": "018aeaff-cc7c-7837-988a-965762bd63c1",
+        "pay_group": "018af1fe-1250-77c5-9fcd-4bca1e4568f4",
+        "ssn": "1234567890",
+        "gender": "MALE",
+        "ethnicity": "ASIAN_OR_INDIAN_SUBCONTINENT",
+        "marital_status": "SINGLE",
+        "tobacco_use": true,
+        "date_of_birth": "1986-10-27T00:00:00Z",
+        "start_date": "2023-03-05T00:00:00Z",
+        "remote_created_at": "2023-03-01T00:00:00Z",
+        "employment_status": "INACTIVE",
+        "termination_date": "2023-06-05T00:00:00Z",
+        "termination_reason": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "avatar": "http://alturl.com/h2h8m",
+        "payroll_run_calendar": "018af1fe-1250-77c5-9fcd-4bca1e4568f4"
+      }
+    ]
+  }
 }

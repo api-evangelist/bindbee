@@ -1,0 +1,68 @@
+generated: '2026-09-04'
+method: probed
+source: https://docs.bindbee.dev/mcp
+provider: Bindbee
+providerId: bindbee
+status: live
+description: >-
+  Bindbee serves a remote MCP server on its own documentation host. It was probed anonymously with
+  a JSON-RPC tools/list call on 2026-09-04 and returned three tools with full inputSchemas. It is a
+  DOCUMENTATION server — it searches and reads the Bindbee docs and OpenAPI, it does not call the
+  Bindbee unified API. There is no MCP server for the HRIS/ATS/LMS operations themselves.
+deployment:
+  mode: remote
+  endpoint: https://docs.bindbee.dev/mcp
+  auth: none
+  verified: probed
+x-evidence:
+  fetched: '2026-09-04'
+  url: https://docs.bindbee.dev/mcp
+  method: POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}
+  http_status: 200
+  content_type: text/event-stream
+  descriptor: https://docs.bindbee.dev/.well-known/mcp.json
+platform:
+  vendor: Mintlify
+  note: >-
+    /.well-known/mcp.json resolves the server to https://unifyx-56.main-kill-isr.mintlify.me/mcp,
+    so the runtime is Bindbee's documentation platform rather than software Bindbee wrote. It is
+    served from a Bindbee-controlled host, declares authentication "none", and is genuinely
+    callable — but it is platform-authored, and that distinction matters when reading it as
+    evidence of Bindbee's own agent investment.
+  authentication: none
+server:
+  name: Bindbee Docs
+  version: 1.0.0
+  transport: http
+tools:
+- name: search_bindbee_docs
+  title: Search documentation
+  description: >-
+    Semantic search across the Bindbee documentation, code examples, API reference and guides.
+    Returns contextual content with titles and direct links.
+  inputSchema:
+    query: string (required)
+  annotations:
+    readOnlyHint: true
+    destructiveHint: false
+    idempotentHint: true
+    openWorldHint: false
+- name: query_docs_filesystem_bindbee_docs
+  description: >-
+    Read-only shell-like query against an in-memory virtual filesystem containing only the Bindbee
+    documentation pages and OpenAPI specs. Supports rg, grep, find, tree, ls, cat, head, tail,
+    stat, wc, sort, uniq, cut, sed, awk and jq. Stateless per call; no writes, no network.
+  inputSchema:
+    command: string (required)
+- name: submit_feedback
+  title: Submit documentation feedback
+  description: Submit feedback about a documentation page.
+  inputSchema:
+    path: string (required)
+    feedback: string (required)
+gaps:
+- >-
+  No MCP surface exposes the 144 operations of the Bindbee unified API. An agent can read Bindbee's
+  documentation over MCP but cannot list employees, create a candidate or mint a link token through
+  it — those require direct REST calls with a bearer key and a connector token.
+- No local-stdio package is published; there is nothing to npx or pip install.

@@ -1,0 +1,56 @@
+generated: '2026-09-04'
+method: probed
+source: https://docs.bindbee.dev/.well-known/agent-card.json
+provider: Bindbee
+providerId: bindbee
+description: >-
+  A2A Agent Card published by Bindbee on its documentation host. Fetched verbatim; saved to
+  a2a/bindbee-agent-card.json. The card describes the Bindbee documentation agent and points at a
+  provider-published Agent Skill.
+discovery:
+  path: /.well-known/agent-card.json
+  canonical: true
+  host: docs.bindbee.dev
+x-evidence:
+  fetched: '2026-09-04'
+  url: https://docs.bindbee.dev/.well-known/agent-card.json
+  http_status: 200
+  content_type: application/json
+card:
+  name: Bindbee Docs
+  url: https://docs.bindbee.dev/
+  version: 1.0.0
+  protocolVersion: '0.3'
+  preferredTransport: HTTP+JSON
+  documentationUrl: https://docs.bindbee.dev/
+  provider_organization: Bindbee Docs
+  capabilities:
+    streaming: false
+    pushNotifications: false
+  skills:
+  - id: bindbee
+    name: Bindbee
+    url: https://docs.bindbee.dev/.well-known/agent-skills/bindbee/skill.md
+grade: conformant
+grade_basis: >-
+  A2A 1.0.0 hard checks all pass — capabilities is an object, protocolVersion is present ("0.3"),
+  and skills is an array. Optional fields preferredTransport, defaultInputModes and
+  defaultOutputModes are all present as well.
+deviations:
+- field: protocolVersion
+  observed: '0.3'
+  note: >-
+    Card declares A2A protocol 0.3, not 1.0.0. Not a conformance failure — the field is present and
+    well formed — but consumers pinned to 1.0 semantics should read it.
+- field: skills[].tags
+  observed: []
+  note: The single skill declares an empty tags array, so the card carries no skill taxonomy.
+- field: url
+  observed: https://docs.bindbee.dev/
+  note: >-
+    The card's url and supportedInterfaces both point at the documentation site root rather than a
+    dedicated A2A endpoint. This card describes the docs agent (served by the Mintlify docs
+    platform on Bindbee's own host), not the Bindbee unified HRIS/ATS API itself.
+related:
+  agent_skill: https://docs.bindbee.dev/.well-known/agent-skills/bindbee/skill.md
+  mcp_endpoint: https://docs.bindbee.dev/mcp

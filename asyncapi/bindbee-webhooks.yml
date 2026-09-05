@@ -1,0 +1,116 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/webhooks/overview and openapi/_original/bindbee-openapi.json
+  (/api/v1/webhooks read operations)
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Bindbee's event surface. Bindbee publishes no AsyncAPI document — this is the webhook catalogue
+  captured from the provider's own documentation, with the payload envelope, the five event types,
+  the retry policy and the signature scheme as published. Nothing here is inferred.
+asyncapi_published: false
+asyncapi_probed:
+- url: https://docs.bindbee.dev/asyncapi.yaml
+  status: 404
+- url: https://api.bindbee.dev/asyncapi.json
+  status: 404
+transport: https webhook (POST to a subscriber-configured destination URL)
+configuration:
+  method: dashboard
+  location: Configure → Webhooks in the Bindbee dashboard
+  fields:
+  - destination URL (with a Test URL button)
+  - webhook name
+  - webhook type (Production or Development)
+  - event selection
+  environment_scoped: true
+  environment_note: >-
+    A Production webhook receives events only for Production connectors and a Development webhook
+    only for Development connectors. There is no cross-environment delivery.
+  api_support:
+    read_only: true
+    operations:
+    - list_webhooks_api_v1_webhooks_get
+    - list_webhook_logs_api_v1_webhooks_logs_get
+    - get_webhook_log_detail_api_v1_webhooks_logs__log_id__get
+    note: >-
+      The API can list webhooks and read delivery logs but cannot create, update or delete a
+      webhook — subscription management is dashboard-only. An agent cannot provision its own event
+      subscription.
+envelope:
+  properties:
+  - name: webhook
+    description: The webhook that fired — webhook_id, destination url, event.
+    present_in: all events
+  - name: connector
+    description: >-
+      The connector the event concerns — id, display_name, integration_slug, categories[],
+      org_name, origin_id, connector_status, end_user_name, end_user_email.
+    present_in: all events
+  - name: data
+    description: >-
+      The affected payload. An object carrying sync-status fields on connector events; an ARRAY of
+      affected record ids on data-change events. The type of this field varies by event.
+    present_in: all events
+  - name: sync
+    description: The sync job that triggered the event — sync_id, sync_type (MANUAL|AUTOMATED), sync_name.
+    present_in: all events
+  - name: error
+    description: The sync failure — failed_at, message, detail{}.
+    present_in: connector_sync_error only
+events:
+- event: connector_sync_started
+  title: Connector Sync Started
+  description: A connector's sync job has begun.
+  data_shape: object — id, integration_name, category, display_status ("Syncing"), last_sync_start_time
+- event: connector_synced
+  title: Connector Synced
+  description: A connector's sync job finished successfully.
+  data_shape: object — id, integration_name, category, display_status ("Done"), last_sync_start_time
+- event: connector_sync_error
+  title: Connector Sync Error
+  description: A connector's sync job failed.
+  data_shape: object — id, integration_name, category, display_status ("Failed")
+  extra: carries the top-level `error` object
+- event: employee_data_changed
+  title: Employee Data Changed
+  description: One or more employees were created or updated during a sync.
+  data_shape: array of employee ids
+  note: >-
+    The payload carries ids only, not the records. A subscriber must call
+    get_employees_api_hris_v1_employees_get with the returned ids to read what changed.
+- event: connector_data_modified
+  title: Connector Data Modified
+  description: Data on any unified model for the connector was created or modified.
+  data_shape: array of affected record ids
+delivery:
+  method: POST
+  max_retries: 4
+  retry_window: within 60 seconds
+  attempt_timeout: 10 seconds
+  retry_trigger: request/network-layer failures and all non-2xx responses
+  retriable_failures:
+  - timeout errors (connection, read, write, connection pool)
+  - connection errors (connection, read, write, close)
+  - protocol errors (local, remote, unsupported)
+  - proxy error, response decoding error, too many redirects
+  note: >-
+    Four retries inside a 60-second window is a short budget. A subscriber down for more than a
+    minute loses the event permanently — there is no replay endpoint, no dead-letter queue and no
+    documented event-history API. The webhook log operations can show that a delivery failed but
+    cannot re-drive it.
+security:
+  signature_header: X-Bindbee-Webhook-Signature
+  algorithm: HMAC over the request payload using an organization-scoped signature key
+  key_location: Webhooks configuration page, Security section
+  key_rotation: the signature key can be regenerated if compromised
+  verification: >-
+    Compare the X-Bindbee-Webhook-Signature header against an encoded combination of the
+    organization's webhook signature key and the raw request payload before trusting the event.
+  docs: https://docs.bindbee.dev/webhooks/overview
+tier_availability:
+  note: >-
+    The pricing comparison table lists "Webhook Notifications" and "Webhook Delivery Logs" as
+    unavailable on the Lite tier.
+  source: https://bindbee.dev/pricing

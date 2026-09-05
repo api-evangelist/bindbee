@@ -4,140 +4,177 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Bindbee
 providerId: bindbee
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-04'
+generated: '2026-09-04'
+method: searched
+source: https://bindbee.dev/pricing
+description: >-
+  Bindbee's published plans. Replaces the scaffold written by the 2026-05-04 bulk sweep, which
+  invented request quotas and per-minute limits Bindbee does not operate. Bindbee prices per ACTIVE
+  CONNECTION — one customer's link to one HR system — and explicitly does not meter API calls, data
+  volume or webhook events on any tier. No dollar price is published for any tier; every tier ends
+  in "Book Demo". The one hard number Bindbee does publish is a $12,000 minimum annual commitment.
 tags:
   - ATS
   - HR Integration
   - HRIS
   - Workforce
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+pricing_model:
+  unit: active connection
+  definition: >-
+    A connection is an active link between the customer's application and one of their end
+    customers' HRIS systems. It counts as active once it has successfully authenticated and synced
+    data at least once in the billing period.
+  billing_period: monthly fee per active connection, annual commitment
+  metered: false
+  metered_note: >-
+    Unlimited API calls, unlimited data syncs and unlimited webhook events on every plan. No usage
+    metering and no overage fees; monthly cost is determined solely by the number of active
+    connections.
+  minimum_commitment:
+    amount: 12000
+    currency: USD
+    period: year
+    source: https://bindbee.dev/pricing FAQ, "What's the minimum contract size?"
+  public_prices: false
 plans:
-  - id: bindbee-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the Bindbee API surface. Intended for evaluation, prototyping, and
-      low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Bindbee API
-  - id: bindbee-pro
-    name: Professional
+  - id: bindbee-basic
+    name: Basic
+    alias: Lite
     type: paid
-    description: Production tier for Bindbee. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+    price: not published
+    currency: USD
+    billingPeriod: month per active connection
+    description: >-
+      For companies that want user lifecycle management and a do-it-yourself integration. Read
+      access to the employee model only.
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
+      - label: HRIS Integrations
+        name: integrations
+        type: feature
+        limit: 67
+        note: All connectors are included at every tier; there are no per-integration fees.
+      - label: Sync Frequency
+        name: sync_frequency
+        type: feature
+        timeFrame: 24 hours
+      - label: API Calls
+        name: api_calls
         type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains: []
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
         limit: -1
-        timeFrame: month
-        geo: global
-        domains: []
-        unit: 1000
-        price: TBD
-        userMultiplied: false
+        note: Unlimited — not metered.
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Bindbee API
+      - name: Employee model only
+      - name: Read access only
+      - name: All HRIS integrations
+      - name: 24 hour sync frequency
+      - name: REST API access
+      - name: SDKs (Node.js, Python) — as advertised on the pricing page
+      - name: Documentation and guides
+      - name: Ticket support
+      - name: Error tracking and alerts (basic)
+      - name: Dashboard analytics
+      - name: Real-time sync status
+      - name: Passthrough requests
+      - name: Self-serve onboarding
+    excluded:
+      - Custom field mapping
+      - Webhook notifications
+      - Webhook delivery logs
+      - Sandbox environment
+      - SFTP integrations
+      - Custom branding
+      - Embedded connection UI
+      - Audit logs
+      - Slack/Teams support
+  - id: bindbee-pro
+    name: Pro
+    type: paid
+    price: not published
+    currency: USD
+    billingPeriod: month per active connection
+    highlighted: true
+    description: >-
+      For companies that need deeper integrations and dedicated support. Read AND write access
+      across all unified models.
+    entries:
+      - label: HRIS Integrations
+        name: integrations
+        type: feature
+        limit: 67
+      - label: Sync Frequency
+        name: sync_frequency
+        type: feature
+        timeFrame: 12 to 24 hours
+      - label: API Calls
+        name: api_calls
+        type: quota
+        limit: -1
+        note: Unlimited — not metered.
+    elements:
+      - name: All unified models
+      - name: Read and write access
+      - name: 12–24 hour sync frequency
+      - name: Custom field mapping
+      - name: Webhook notifications
+      - name: Webhook delivery logs
+      - name: Data scoping
+      - name: Sandbox environment
+      - name: SFTP integrations
+      - name: Advanced error tracking and alerts
+      - name: Account manager support
+      - name: Slack/Teams support
+      - name: Guided onboarding
+    excluded:
+      - Custom branding
+      - Embedded connection UI
+      - Customer cloud deployment
+      - Audit logs
+      - Custom log retention
+      - Custom integration development
   - id: bindbee-enterprise
     name: Enterprise
     type: enterprise
-    description: Custom-negotiated tier for Bindbee. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+    price: custom
+    currency: USD
+    description: >-
+      For companies that need customizations, their own deployment or a geography-specific tenant.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: HRIS Integrations
+        name: integrations
+        type: feature
         limit: -1
-        timeFrame: month
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains: []
-        unit: 1
-        price: custom
-        userMultiplied: false
+        note: 67+ plus custom connectors built on request (typically 7–10 days once a sandbox is provided).
+      - label: Sync Frequency
+        name: sync_frequency
+        type: feature
+        timeFrame: configurable
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Bindbee API
+      - name: Everything in Pro
+      - name: Custom sync frequency
+      - name: Custom integrations on request
+      - name: On-prem deployment or a tenant in your geography
+      - name: Customer cloud deployment
+      - name: Custom branding
+      - name: Embedded connection UI
+      - name: Audit logs
+      - name: Custom log retention
+      - name: Dedicated success manager
+      - name: White-glove onboarding
+      - name: Custom integration development
+      - name: Custom rate limits on request
+plan_count: 3
+notes:
+  - >-
+    No tier publishes a price. Every call to action on the pricing page is "Book Demo", so a buyer
+    cannot self-serve or estimate cost without contacting sales — a real gap for an evaluating
+    agent, and the reason accessModel onboarding should not be read as self-serve purchasing.
+  - >-
+    Time to live is stated as roughly one week for most customers and two weeks for Enterprise
+    onboarding.
+  - >-
+    Bindbee lists "SDKs (Node.js, Python)" as included at every tier, but no first-party Node or
+    Python package is discoverable on npm or PyPI — see packages/bindbee-packages.yml.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

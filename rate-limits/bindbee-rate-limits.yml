@@ -4,88 +4,75 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Bindbee
 providerId: bindbee
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-09-04'
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/api-reference/basics/rate-limits, corroborated by the 429 responses
+  declared on all 144 operations in https://api.bindbee.dev/openapi.json
+description: >-
+  Bindbee's published rate limits. Replaces the scaffold values written by the 2026-05-04 bulk
+  sweep, which invented per-tier quotas Bindbee does not operate. Bindbee runs ONE limit — 200
+  requests per minute, counted per connector token, not per API key and not per tier — and every
+  plan includes unlimited API calls.
 tags:
   - ATS
   - HR Integration
   - HRIS
   - Workforce
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Bindbee API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
 headers:
   limit: X-RateLimit-Limit
   remaining: X-RateLimit-Remaining
   reset: X-RateLimit-Reset
   retryAfter: Retry-After
-  policy: RateLimit-Policy
+  reset_format: Unix timestamp in seconds
+  present_on: >-
+    X-RateLimit-Limit, X-RateLimit-Remaining and X-RateLimit-Reset are returned on every 2xx
+    response; Retry-After is added on 429.
+  declared_in_openapi: true
 responseCodes:
   throttled: 429
   quotaExceeded: 429
-  serviceUnavailable: 503
+error_body: '{"error": "Rate limit exceeded", "message": "You have exceeded the rate limit of 200 requests per minute"}'
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
+  - name: Unified API default
+    scope: connector-token
     metric: requests_per_minute
-    limit: 10
-    burst: 20
+    limit: 200
     timeFrame: minute
+    burst: null
     applies:
-      - Bindbee API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Bindbee API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Bindbee API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Bindbee API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
+      - all Bindbee API endpoints
+    note: >-
+      Enforced per connector token — each of your end customers has an independent 200/minute
+      budget, so parallelising work across customers is the supported way to increase throughput.
+      Requests made with the same X-Connector-Token all count against the same window.
+  - name: Enterprise custom limit
     scope: contract
     metric: requests_per_minute
-    limit: 1000
-    burst: 5000
+    limit: null
     timeFrame: minute
     applies:
-      - Bindbee API
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+      - negotiated per customer
+    note: >-
+      The documentation invites enterprise customers to request higher per-connector limits through
+      support@bindbee.dev or an account manager. No ceiling is published, so no number is recorded
+      here.
+quotas:
+  published: false
+  note: >-
+    There is no monthly request quota. Bindbee's pricing is per active connection and its pricing
+    FAQ states every plan includes unlimited API calls, unlimited data syncs and unlimited webhook
+    events, with no metering and no overage fees.
+recovery:
+  window_reset: >-
+    60 seconds from when the limit was first exceeded, reported precisely by X-RateLimit-Reset.
+  guidance: >-
+    Wait for Retry-After seconds before retrying. Bindbee's documented best practices are to
+    monitor X-RateLimit-Remaining, back off on 429, distribute work across connector tokens, batch
+    where endpoints allow it, and track usage application-side.
+limit_count: 2
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

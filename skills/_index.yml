@@ -1,0 +1,50 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/.well-known/agent-skills/bindbee/skill.md (provider-published, saved
+  verbatim) plus two skills generated from openapi/_original/bindbee-openapi.json
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Packaged Agent Skills for the Bindbee unified HRIS/ATS/LMS API. Bindbee publishes its own Agent
+  Skill at a well-known path on the documentation host; it is saved here verbatim. The other two
+  are generated from the provider's OpenAPI and documented conventions, grounded in real
+  operationIds.
+skills:
+- file: bindbee-unified-integration.md
+  name: Bindbee
+  method: searched
+  source: https://docs.bindbee.dev/.well-known/agent-skills/bindbee/skill.md
+  http_status: 200
+  fetched: '2026-09-04'
+  description: >-
+    The provider's own Agent Skill, referenced from the A2A agent card at
+    https://docs.bindbee.dev/.well-known/agent-card.json. Saved byte-for-byte.
+- file: bindbee-connect-a-customer-integration.md
+  name: bindbee-connect-a-customer-integration
+  method: generated
+  source: openapi/_original/bindbee-openapi.json + https://docs.bindbee.dev/sdk/bindbee-embed
+  description: >-
+    The Bindbee Embed link flow end to end — integration lookup, link token, temporary token,
+    connector token — and the rules that apply to every later call.
+  operations:
+  - list_integrations_api_v1_lookup_integrations_get
+  - create_link_token_api_embedded_v1_link_create_link_token_post
+  - get_connector_token_api_embedded_v1_connectors_connector_token__temporary_token__get
+  - get_hris_connectors_api_hris_v1_connectors_get
+  - force_resync_connector_api_embedded_v1_connectors_resync_post
+- file: bindbee-read-employee-data.md
+  name: bindbee-read-employee-data
+  method: generated
+  source: openapi/_original/bindbee-openapi.json + https://docs.bindbee.dev/api-reference/basics/pagination
+  description: >-
+    Reading normalized employee, employment and time-off records across any connected HRIS, with
+    cursor pagination and the two documented escapes (custom fields, passthrough) for fields the
+    unified model does not carry.
+  operations:
+  - get_employees_api_hris_v1_employees_get
+  - get_employee_by_id_api_hris_v1_employees__id__get
+  - get_time_off_list_api_hris_v1_time_off_get
+  - get_time_off_balances_list_api_hris_v1_time_off_balances_get
+  - list_custom_fields_api_v1_custom_fields_get
+  - make_passthrough_request_api_v1_passthrough_post

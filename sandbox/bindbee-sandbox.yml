@@ -1,0 +1,68 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/features/environments/development,
+  https://docs.bindbee.dev/features/environments/production, https://bindbee.dev/pricing
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Bindbee's test surface is a full second environment rather than a set of magic test values. A
+  Development API key addresses a Development estate that is completely isolated from Production —
+  separate keys, separate connectors, separate data, no crossover in either direction.
+model: separate-environment
+environments:
+- name: Development
+  key: dev_api_key
+  key_header: 'Authorization: Bearer YOUR_DEV_API_KEY'
+  base_url: https://api.bindbee.dev
+  purpose: Building and testing integrations. Explicitly not for production use.
+  connector_limit: none — unlimited connectors may be created
+  sync: >-
+    NOT automatic. Development connectors never resync on a schedule; a sync must be triggered
+    manually from the dashboard or programmatically via
+    force_resync_connector_api_embedded_v1_connectors_resync_post. This is the single behavioural
+    difference most likely to surprise someone testing against Development.
+  key_sharing: >-
+    The documentation explicitly states Development keys may be shared within a team for testing.
+  docs: https://docs.bindbee.dev/features/environments/development
+- name: Production
+  key: prod_api_key
+  key_header: 'Authorization: Bearer YOUR_PROD_API_KEY'
+  base_url: https://api.bindbee.dev
+  eu_base_url: https://api-eu.bindbee.dev
+  purpose: Live customer integrations against real data.
+  sync: Automatic, once every 24 hours by default (12–24h on Pro, configurable on Enterprise).
+  docs: https://docs.bindbee.dev/features/environments/production
+isolation:
+  complete: true
+  rules:
+  - Development API keys only access Development data.
+  - Production API keys only access Production data.
+  - Connectors and data do not transfer between environments.
+  - >-
+    The environment of a connector is determined by which key created its link token — see
+    create_link_token_api_embedded_v1_link_create_link_token_post.
+key_management:
+  console: https://app.bindbee.dev/settings/keys
+  regeneration: >-
+    Regenerating a Production key invalidates the previous key immediately, with no overlap window
+    documented. Dependent services must be updated first.
+webhooks:
+  environment_scoped: true
+  note: >-
+    Webhooks are created as either Production or Development type and only receive events for
+    connectors in the matching environment.
+test_values:
+  published: false
+  note: >-
+    Bindbee publishes no magic test identifiers, test cards, fixture accounts or hosted sandbox
+    credentials. Testing means connecting a real (typically vendor-provided) sandbox instance of the
+    target HR system through a Development connector, so obtaining test data is a matter between
+    the customer and BambooHR, Workday, Greenhouse and so on. Nothing is invented here — the
+    absence is the finding.
+tier_availability:
+  note: >-
+    The pricing comparison table lists "Sandbox Environment" as available on Pro and Enterprise and
+    NOT on Lite, which is worth flagging: the Development environment documented above appears to
+    be a paid-tier capability rather than universally available.
+  source: https://bindbee.dev/pricing

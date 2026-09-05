@@ -1,17 +1,99 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/bindbee-api.yaml
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/api-reference/basics/authentication,
+  https://docs.bindbee.dev/features/environments/development,
+  https://docs.bindbee.dev/features/environments/production, and
+  openapi/_original/bindbee-openapi.json
+docs: https://docs.bindbee.dev/api-reference/basics/authentication
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Bindbee authenticates in two layers that are used together, not alternately. The API key
+  identifies the CUSTOMER (and picks the environment); the connector token identifies WHICH OF
+  THEIR END USERS' data is being touched. Only the first is declared in the OpenAPI as a security
+  scheme.
 summary:
   types:
+  - http
   - apiKey
+  oauth2: false
+  openIdConnect: false
+  mutualTLS: false
   api_key_in:
   - header
 schemes:
-- name: apiKeyAuth
-  type: apiKey
+- name: HTTPBearer
+  type: http
+  scheme: bearer
   in: header
   parameter: Authorization
-  description: Bearer API key in Authorization header. Also pass x-connector-token for the specific
-    integration.
+  format: 'Bearer <BINDBEE_API_KEY>'
+  scope: organization
+  declared_in_spec: true
+  applied_to_operations: 144
+  description: >-
+    The Bindbee API key. Required on every request. Issued and regenerated in the dashboard at
+    https://app.bindbee.dev/settings/keys.
   sources:
-  - openapi/bindbee-api.yaml
+  - openapi/_original/bindbee-openapi.json
+  - https://docs.bindbee.dev/api-reference/basics/authentication
+- name: ConnectorToken
+  type: apiKey
+  in: header
+  parameter: X-Connector-Token
+  format: '<connector_token>'
+  scope: end customer
+  declared_in_spec: false
+  declared_in_spec_note: >-
+    NOT declared as a securityScheme. It appears on operations as an ordinary header parameter, so
+    generated clients and security tooling do not treat it as a credential. This is the single
+    most consequential gap in the contract's auth description, and
+    overlays/bindbee-unified-api-overlay.yaml declares it.
+  description: >-
+    Per-end-customer token authorizing access to that customer's HR data. Obtained by running the
+    Bindbee Embed / Magic Link flow and exchanging the returned temporary_token at
+    GET /api/embedded/v1/connectors/connector_token/{temporary_token}. Rate limits are counted
+    against this token.
+  required_on: >-
+    every operation that reads or writes an end user's data. Organization-level operations
+    (connector list, custom-field configuration, webhook and log reads, integration lookup) take
+    the API key alone.
+  sources:
+  - https://docs.bindbee.dev/api-reference/basics/authentication
+  - https://docs.bindbee.dev/sdk/get-connector-token
+environments:
+  selection_mechanism: the API key itself
+  keys:
+  - name: dev_api_key
+    environment: Development
+    note: Cannot access Production. May be shared within a team for testing, per the provider's docs.
+  - name: prod_api_key
+    environment: Production
+    note: Cannot access Development.
+  isolation: >-
+    Complete. Keys, connectors and data never cross between environments, and the environment of a
+    connector is fixed by whichever key minted its link token.
+  rotation: >-
+    Regenerating a Production key invalidates the previous key immediately; no overlap or grace
+    window is documented.
+scopes:
+  supported: false
+  note: >-
+    There are no OAuth scopes and no permission model in the contract. Authorization is
+    all-or-nothing per key, narrowed only by which connector token accompanies the request. A
+    403 is documented for a connector token used against the wrong API category, or a model whose
+    writes are disabled for that integration — the only granularity Bindbee expresses.
+failure_modes:
+- status: 401
+  meaning: Missing or invalid bearer credentials.
+  header: WWW-Authenticate challenge returned.
+- status: 403
+  meaning: >-
+    Valid credentials, wrong resource — most often a connector token used on a different API
+    category, or a write attempted on a model where writes are disabled.
+credential_storage_guidance:
+  source: https://docs.bindbee.dev/api-reference/basics/authentication
+  note: >-
+    Bindbee advises storing the API key securely after creation because it cannot be retrieved
+    again — only regenerated.

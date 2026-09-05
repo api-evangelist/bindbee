@@ -1,0 +1,120 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  openapi/_original/bindbee-openapi.json, https://bindbee.dev/pricing, https://trust.bindbee.dev/,
+  https://docs.bindbee.dev/api-reference/basics/rate-limits
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Standards and compliance posture asserted by Bindbee, each entry evidenced against a document we
+  fetched. Bindbee's market — HR data integration — has domain standards (HR Open Standards, SCIM
+  for identity provisioning, ISO/IEC 30414 for human-capital reporting). Bindbee declares none of
+  them in its contract: its unified model is its own, not a standardized one. That is recorded here
+  as a measured absence, and it is the substantive finding.
+conformance:
+- id: openapi-3.1
+  conforms: true
+  evidence: >-
+    https://api.bindbee.dev/openapi.json declares openapi 3.1.0 and parses, with 119 paths and 144
+    operations, 145 component schemas and a declared securityScheme.
+- id: oauth2
+  conforms: false
+  evidence: >-
+    The only securityScheme in the contract is HTTPBearer (http/bearer). No OAuth flows are
+    declared, no scopes exist, and /.well-known/oauth-authorization-server returns 404 on every
+    Bindbee host. Authentication is a static API key plus a per-customer connector token.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on bindbee.dev, api.bindbee.dev, docs.bindbee.dev and app.bindbee.dev.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Errors use a bespoke {"detail": ...} envelope with media type application/json. No
+    application/problem+json response is declared on any of the 144 operations.
+- id: rfc6585-rate-limiting
+  conforms: true
+  evidence: >-
+    429 is declared on all 144 operations with Retry-After, plus X-RateLimit-Limit,
+    X-RateLimit-Remaining and X-RateLimit-Reset headers, documented at
+    https://docs.bindbee.dev/api-reference/basics/rate-limits.
+- id: ietf-ratelimit-headers
+  conforms: false
+  evidence: >-
+    Bindbee uses the de-facto X-RateLimit-* family, not the IETF draft RateLimit / RateLimit-Policy
+    headers.
+- id: idempotency
+  conforms: partial
+  evidence: >-
+    x-idempotency-key is declared on 4 of 35 mutating operations, all HRIS creates. See
+    conventions/bindbee-conventions.yml.
+- id: cursor-pagination
+  conforms: true
+  evidence: >-
+    cursor + page_size on collection reads, documented at
+    https://docs.bindbee.dev/api-reference/basics/pagination.
+- id: a2a
+  conforms: true
+  evidence: >-
+    https://docs.bindbee.dev/.well-known/agent-card.json returns 200 with a conformant A2A agent
+    card (capabilities object, protocolVersion 0.3, skills array). See a2a/bindbee-a2a.yml.
+- id: mcp
+  conforms: true
+  evidence: >-
+    https://docs.bindbee.dev/mcp answers an anonymous JSON-RPC tools/list with 3 tools and full
+    inputSchemas. Documentation-scoped, platform-hosted. See mcp/bindbee-mcp.yml.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on all five Bindbee hosts probed.
+- id: scim
+  conforms: false
+  evidence: >-
+    No SCIM schema URN (urn:ietf:params:scim:schemas:*), no /scim path and no ServiceProviderConfig
+    appears anywhere in the 707KB contract. Relevant because Bindbee's peers in HR-system
+    integration frequently expose a SCIM provisioning surface; Bindbee's employee model is its own
+    normalized shape instead.
+- id: hr-open-standards
+  conforms: false
+  evidence: >-
+    No HR Open Standards (HR-XML) message type or namespace appears in the contract. Bindbee's
+    unified HRIS/ATS/LMS models are proprietary normalizations of each vendor's payload.
+- id: odata
+  conforms: false
+  evidence: No $metadata surface and no OData query options ($filter, $select) in any operation.
+compliance:
+  certifications:
+  - name: SOC 2 Type II
+    status: certified
+    evidence: >-
+      Stated on https://bindbee.dev/pricing ("SOC 2 Type II certified and HIPAA compliant"), with a
+      SOC 2 Type II certification badge rendered on the same page.
+  - name: ISO 27001
+    status: claimed
+    evidence: >-
+      Named on https://bindbee.dev/pricing alongside an ISO 27001 certification badge.
+  - name: HIPAA
+    status: claimed
+    evidence: >-
+      https://bindbee.dev/pricing states Bindbee is HIPAA compliant and provides Business Associate
+      Agreements.
+  - name: GDPR
+    status: claimed
+    evidence: Named on https://bindbee.dev/pricing.
+  trust_center: https://trust.bindbee.dev/
+  note: >-
+    The certifications are named in the pricing FAQ and shown as badges. The trust center itself is
+    a hosted portal at trust.bindbee.dev that renders entirely client-side, so the underlying
+    reports and their audit periods could not be read by a crawler — the claims above are sourced
+    from the pricing page, which is server-rendered.
+domain_standard:
+  applicable: true
+  market: HR / workforce data integration
+  candidates_probed:
+  - SCIM (urn:ietf:params:scim:schemas:*)
+  - HR Open Standards / HR-XML
+  - ISO/IEC 30414 human capital reporting
+  declared: none
+  note: >-
+    REWARD-ONLY check, and Bindbee earns nothing here — not because its market lacks a standard,
+    but because its contract declares none. This is arguably intrinsic to the unified-API business
+    model: the product's value is its own normalization layer across 67+ vendors, and adopting a
+    third-party schema would relocate that value. Recorded as an observation, not a defect.

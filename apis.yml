@@ -1,9 +1,14 @@
 aid: bindbee
 name: Bindbee
 description: >-
-  Bindbee provides a unified HRIS and ATS integration API that allows companies
-  to connect with multiple HR systems through a single integration, simplifying
-  workforce data access and HR automation.
+  Bindbee is a unified API for HRIS, Payroll, ATS and LMS integrations. One integration against
+  Bindbee reaches 67+ third-party HR systems — BambooHR, Workday, ADP, Greenhouse, Lever, Personio,
+  Hibob and the rest — through normalized employee, candidate, job, payroll, time-off and course
+  models, so a B2B software company never builds a one-to-one connector again. Each of its
+  customers' end users authorizes their own system through an embedded link flow and is addressed
+  by a connector token; reads are served from Bindbee's synced copy of the upstream system,
+  refreshed every 24 hours by default, with webhooks for sync and data-change events and a
+  passthrough endpoint for anything the unified model does not cover.
 kind: contract
 deliveryModel:
   model: unknown
@@ -36,16 +41,23 @@ tags:
   - HR Integration
   - HRIS
   - Workforce
+  - Unified API
+  - Payroll
+  - LMS
+  - Employee Data
+  - Integrations
 url: >-
   https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-04-21'
+modified: '2026-09-04'
 specificationVersion: '0.23'
 apis:
 - aid: bindbee:bindbee-candidates-api
   name: Bindbee Candidates API
-  description: Job candidates from connected ATS systems
+  description: Job candidates from connected ATS systems, normalized across Greenhouse, Lever, Workable,
+    Ashby and every other connected ATS.
   humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
   tags:
   - Candidates
   properties:
@@ -53,10 +65,13 @@ apis:
     url: openapi/bindbee-candidates-api-openapi.yml
   - type: Documentation
     url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/ats/candidate/get-candidates
 - aid: bindbee:bindbee-departments-api
   name: Bindbee Departments API
-  description: Organizational departments
+  description: Organizational departments from connected HRIS and ATS systems.
   humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
   tags:
   - Departments
   properties:
@@ -66,8 +81,10 @@ apis:
     url: https://docs.bindbee.dev/
 - aid: bindbee:bindbee-employees-api
   name: Bindbee Employees API
-  description: Employee records from connected HRIS systems
+  description: Normalized employee records from connected HRIS systems, including employment,
+    compensation, benefits, groups and reporting hierarchy.
   humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
   tags:
   - Employees
   properties:
@@ -75,10 +92,13 @@ apis:
     url: openapi/bindbee-employees-api-openapi.yml
   - type: Documentation
     url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/hris/employee/get-employees
 - aid: bindbee:bindbee-jobs-api
   name: Bindbee Jobs API
-  description: Job listings from connected ATS systems
+  description: Job listings and requisitions from connected ATS systems.
   humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
   tags:
   - Job
   tags_raw:
@@ -90,8 +110,9 @@ apis:
     url: https://docs.bindbee.dev/
 - aid: bindbee:bindbee-time-off-api
   name: Bindbee Time Off API
-  description: Employee time-off requests and balances
+  description: Employee time-off requests and accrued balances from connected HRIS systems.
   humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
   tags:
   - Time Off
   properties:
@@ -99,9 +120,106 @@ apis:
     url: openapi/bindbee-time-off-api-openapi.yml
   - type: Documentation
     url: https://docs.bindbee.dev/
+- aid: bindbee:bindbee-unified-api
+  name: Bindbee Unified API
+  description: The complete Bindbee contract as the provider publishes it — 119 paths and 144
+    operations across the HRIS, ATS, LMS, Custom Fields, Embedded and platform namespaces, fetched
+    verbatim from https://api.bindbee.dev/openapi.json.
+  humanURL: https://docs.bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Unified API
+  - HRIS
+  - ATS
+  - LMS
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-unified-api-openapi.json
+  - type: Overlay
+    url: overlays/bindbee-unified-api-overlay.yaml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
 common:
+  - type: Website
+    url: https://www.bindbee.dev/
   - type: AgenticAccess
     url: agentic-access/bindbee-agentic-access.yml
+  - type: AgentCard
+    url: a2a/bindbee-a2a.yml
+  - type: MCPServer
+    url: mcp/bindbee-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: WellKnown
+    url: well-known/bindbee-well-known.yml
+  - type: Conventions
+    url: conventions/bindbee-conventions.yml
+  - type: Idempotency
+    url: conventions/bindbee-conventions.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/bindbee-lifecycle.yml
+  - type: StatusPage
+    url: https://status.bindbee.dev/
+  - type: Conformance
+    url: conformance/bindbee-conformance.yml
+  - type: Compliance
+    url: conformance/bindbee-conformance.yml
+  - type: TrustCenter
+    url: security/bindbee-trust-center.yml
+  - type: Packages
+    url: packages/bindbee-packages.yml
+  - type: SDKs
+    url: packages/bindbee-packages.yml
+  - type: Components
+    url: components/bindbee-components.yml
+  - type: Sandbox
+    url: sandbox/bindbee-sandbox.yml
+  - type: Webhooks
+    url: asyncapi/bindbee-webhooks.yml
+  - type: Overlay
+    url: overlays/bindbee-unified-api-overlay.yaml
+  - type: Plans
+    url: plans/bindbee-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/bindbee-rate-limits.yml
+  - type: LLMsTxt
+    url: llms/bindbee-llms.txt
+  - type: Examples
+    url: examples/bindbee-employees-response-example.json
+  - type: JSONSchema
+    url: json-schema/bindbee-employees-response-schema.json
+  - type: DeveloperPortal
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: GettingStarted
+    url: https://docs.bindbee.dev/features/overview
+  - type: Pricing
+    url: https://bindbee.dev/pricing
+  - type: SignUp
+    url: https://app.bindbee.dev/login
+  - type: TermsOfService
+    url: https://www.bindbee.dev/policies/terms-of-use
+  - type: PrivacyPolicy
+    url: https://www.bindbee.dev/policies/privacy-policy
+  - type: Support
+    url: mailto:support@bindbee.dev
+  - type: GitHubOrganization
+    url: https://github.com/unifyXX
   - type: DomainSecurity
     url: security/bindbee-domain-security.yml
   - type: Authentication
@@ -116,8 +234,6 @@ common:
     url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/rules/bindbee-spectral-rules.yml
   - type: Vocabulary
     url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/vocabulary/bindbee-vocabulary.yaml
-  - type: X-NaftikoCapability
-    url: https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/capabilities/hr-integration.yaml
   - type: Features
     data:
     - name: Unified HRIS API
@@ -228,3 +344,8 @@ maintainers:
     email: kin@apievangelist.com
 access: 3rd-Party
 position: Consuming
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 24
+  pass: local-v3

@@ -1,0 +1,102 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Bindbee unified API
+  version: 1.0.0
+extends: ../openapi/bindbee-unified-api-openapi.json
+x-provenance:
+  generated: '2026-09-04'
+  method: generated
+  source: >-
+    Enhancements derived from Bindbee's own documentation (docs.bindbee.dev) and applied over the
+    verbatim contract fetched from https://api.bindbee.dev/openapi.json on 2026-09-04. The original
+    is never mutated.
+  note: >-
+    Every value added here is published by Bindbee somewhere — the servers block comes from the
+    OpenAPI fragment Bindbee renders on its own pagination page, the contact and licence from the
+    site, the connector-token description from the authentication page. Nothing is invented.
+actions:
+- target: $.info
+  description: >-
+    The published contract carries only a title and a version. Add the description, contact and
+    licence a consumer needs to identify and reach the provider.
+  update:
+    description: >-
+      Bindbee is a unified API for HRIS, Payroll, ATS and LMS integrations. One integration against
+      Bindbee reaches 67+ third-party HR systems through normalized models. Reads are served from
+      Bindbee's synced copy of the upstream system (refreshed every 24 hours by default), not
+      live pass-through. Authentication is a bearer API key plus a per-customer connector token;
+      the API key also selects the Development or Production environment.
+    contact:
+      name: Bindbee Support
+      email: support@bindbee.dev
+      url: https://docs.bindbee.dev/
+    termsOfService: https://www.bindbee.dev/policies/terms-of-use
+    license:
+      name: Proprietary
+      url: https://www.bindbee.dev/policies/terms-of-use
+- target: $
+  description: >-
+    The published contract declares no servers block at all, so a generated client has no base URL.
+    Bindbee publishes both hosts in the OpenAPI fragment rendered at
+    https://docs.bindbee.dev/api-reference/basics/pagination.
+  update:
+    servers:
+    - url: https://api.bindbee.dev
+      description: Bindbee global API
+    - url: https://api-eu.bindbee.dev
+      description: Bindbee EU API
+    externalDocs:
+      description: Bindbee documentation
+      url: https://docs.bindbee.dev/
+- target: $.components.securitySchemes.HTTPBearer
+  description: >-
+    HTTPBearer is declared with no description. Say what the token is and where it comes from.
+  update:
+    description: >-
+      Bindbee API key, sent as `Authorization: Bearer <BINDBEE_API_KEY>`. Managed at
+      https://app.bindbee.dev/settings/keys. The key determines the environment — a Development key
+      addresses Development connectors only, a Production key Production connectors only.
+    bearerFormat: opaque
+- target: $.components.securitySchemes
+  description: >-
+    The connector token is required on every end-user data operation but is carried as an
+    undeclared header parameter rather than a security scheme, so tooling does not treat it as a
+    credential. Declare it.
+  update:
+    ConnectorToken:
+      type: apiKey
+      in: header
+      name: X-Connector-Token
+      description: >-
+        Per-end-customer connector token obtained from the Bindbee Embed flow
+        (GET /api/embedded/v1/connectors/connector_token/{temporary_token}). Required alongside the
+        API key on every operation that reads or writes an end user's data. Rate limits are counted
+        against this token, not the API key.
+- target: $.tags
+  description: >-
+    The contract tags 51 operation groups but declares no tags array, so no group carries a
+    description. Declare the five top-level product areas.
+  update:
+  - name: Employee
+    description: Normalized employee records from any connected HRIS.
+  - name: Candidate
+    description: Normalized candidate records from any connected ATS.
+  - name: Connector
+    description: >-
+      One customer's authorized link to one third-party system. Deleting a connector is permanent
+      and invalidates its connector token.
+  - name: Webhooks
+    description: >-
+      Read-only access to webhook configuration and delivery logs. Subscriptions are created in the
+      dashboard, not through the API.
+  - name: Passthrough
+    description: >-
+      Forward a raw request to the underlying HR system. Vendor-specific by definition — anything
+      built on passthrough stops being portable across connectors.
+- target: $.paths['/api/v1/passthrough'].post
+  description: Flag the portability cost of the passthrough escape hatch on the operation itself.
+  update:
+    x-portability: vendor-specific
+    x-caution: >-
+      Requests and responses are the underlying vendor's own API shape. Code written against
+      passthrough must branch per integration and will not work across connectors.

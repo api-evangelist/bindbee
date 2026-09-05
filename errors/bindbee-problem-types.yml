@@ -1,0 +1,129 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/bindbee-openapi.json (responses declared on all 144 operations), enriched from
+  https://docs.bindbee.dev/api-reference/basics/rate-limits and
+  https://docs.bindbee.dev/api-reference/basics/authentication
+provider: Bindbee
+providerId: bindbee
+format: bespoke
+rfc9457: false
+description: >-
+  Error catalogue for the Bindbee unified API. Bindbee does not use RFC 9457 problem+json. It
+  returns two different JSON shapes under the same `detail` key: a plain string for ordinary
+  errors, and an array of FastAPI validation objects for 422. There is no machine-readable error
+  code — the string is the only discriminator — so clients cannot branch on a stable identifier.
+envelope:
+  media_type: application/json
+  standard:
+    schema: ErrorResponse
+    example: '{"detail": "Rate limit exceeded"}'
+    fields:
+    - name: detail
+      type: string
+      required: true
+  validation:
+    schema: HTTPValidationError
+    example: '{"detail": [{"loc": ["query", "page_size"], "msg": "Input should be a valid integer", "type": "int_parsing"}]}'
+    fields:
+    - name: detail
+      type: array of ValidationError
+      required: true
+    - name: detail[].loc
+      type: array of string|integer
+      required: true
+      description: Path to the offending element — e.g. ["header", "x-connector-token"].
+    - name: detail[].msg
+      type: string
+      required: true
+    - name: detail[].type
+      type: string
+      required: true
+      description: Pydantic error type slug, e.g. missing, int_parsing, string_type.
+    - name: detail[].input
+      required: false
+    - name: detail[].ctx
+      type: object
+      required: false
+  warning: >-
+    `detail` is a string on 401/403/404/429 and an array on 422. Deserialize defensively.
+problem_types:
+- status: 401
+  title: Missing or invalid bearer authentication credentials
+  declared_on_operations: 144
+  headers:
+  - name: WWW-Authenticate
+    description: Bearer authentication challenge.
+  causes:
+  - No Authorization header
+  - Malformed Authorization header (missing the "Bearer " prefix)
+  - Revoked or regenerated API key
+  remediation: >-
+    Send `Authorization: Bearer <BINDBEE_API_KEY>`. Keys are managed at
+    https://app.bindbee.dev/settings/keys and can be regenerated there.
+  retryable: false
+- status: 403
+  title: Credentials valid but not permitted for this resource
+  declared_on_operations: 144
+  causes:
+  - A connector token used against a different API category than the one it was created for
+  - A model whose writes are disabled for the connected integration
+  - Using a Development key against a Production connector, or the reverse
+  remediation: >-
+    Confirm the connector token belongs to the category being called (HRIS token on /api/hris/v1,
+    ATS token on /api/ats/v1) and that the key and the connector are in the same environment.
+  retryable: false
+- status: 404
+  title: The requested resource was not found
+  declared_on_operations: 54
+  causes:
+  - Unknown normalized id
+  - >-
+    A record that exists upstream but has not yet reached Bindbee's synced copy — reads are served
+    from the last sync, not live
+  remediation: >-
+    Verify the id, or force a resync and retry. If the record was created moments ago in the
+    upstream HR system, wait for the next sync or use passthrough.
+  retryable: conditionally
+- status: 422
+  title: Request validation failed
+  declared_on_operations: 143
+  schema: HTTPValidationError
+  causes:
+  - A required parameter or body field is missing or the wrong type
+  - >-
+    On custom-field mapping: neither or both of `connector_token` and `integration_slug` supplied —
+    the contract states exactly one must be provided
+  remediation: >-
+    Read `detail[].loc` to find the offending element. For write bodies, fetch the request schema
+    the connected system expects from GET /api/{category}/v1/{model}/meta/post first.
+  retryable: false
+- status: 429
+  title: Rate limit exceeded
+  declared_on_operations: 144
+  headers:
+  - name: X-RateLimit-Limit
+    description: Maximum requests allowed in the current window (200).
+  - name: X-RateLimit-Remaining
+    description: Always 0 on a 429.
+  - name: X-RateLimit-Reset
+    description: Unix timestamp (seconds) at which the window resets.
+  - name: Retry-After
+    description: Seconds to wait before retrying.
+  causes:
+  - More than 200 requests in one minute against a single connector token
+  remediation: >-
+    Sleep for `Retry-After` seconds and retry. Limits are per connector token, so work for
+    different customers can proceed in parallel without competing for the same budget.
+  retryable: true
+  docs: https://docs.bindbee.dev/api-reference/basics/rate-limits
+observations:
+- >-
+  Response coverage in the contract is unusually complete: 401, 403 and 429 are declared on all 144
+  operations and 422 on 143, each with a schema, and the 429 declares its four rate-limit headers.
+  An agent can generate correct retry behaviour from the spec alone.
+- >-
+  No 500-class response is declared on any operation, so server-side failures are undocumented.
+- >-
+  No stable error code exists. Two different failures can return the same 403 with different prose
+  in `detail`, and matching on that prose is the only discrimination available.

@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Candidates Departments API
+  description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
+  version: v1
+  contact:
+    name: Bindbee Support
+    url: https://docs.bindbee.dev/
+  license:
+    name: Proprietary
+    url: https://bindbee.dev/
+  x-generated-from: documentation
+servers:
+- url: https://api.bindbee.dev/v1
+  description: Bindbee Unified API
+tags:
+- name: Departments
+  description: Organizational departments
+paths:
+  /hris/departments:
+    get:
+      operationId: listDepartments
+      summary: Bindbee List Departments
+      description: Returns a list of departments from the connected HRIS system.
+      tags:
+      - Departments
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of departments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentsResponse'
+              examples:
+                ListDepartments200Example:
+                  summary: Default listDepartments 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: dept-abc123
+                      name: Engineering
+                      parent_id: null
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Department:
+      title: Department
+      description: An organizational department from a connected HRIS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Department ID.
+          example: dept-abc123
+        name:
+          type: string
+          description: Department name.
+          example: Engineering
+        parent_id:
+          type:
+          - string
+          - 'null'
+          description: Parent department ID for nested structures.
+          example: null
+    DepartmentsResponse:
+      title: Departments Response
+      description: List of departments.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of department records.
+          items:
+            $ref: '#/components/schemas/Department'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.

@@ -1,0 +1,118 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Candidates Jobs API
+  description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
+  version: v1
+  contact:
+    name: Bindbee Support
+    url: https://docs.bindbee.dev/
+  license:
+    name: Proprietary
+    url: https://bindbee.dev/
+  x-generated-from: documentation
+servers:
+- url: https://api.bindbee.dev/v1
+  description: Bindbee Unified API
+tags:
+- name: Jobs
+  description: Job listings from connected ATS systems
+paths:
+  /ats/jobs:
+    get:
+      operationId: listJobs
+      summary: Bindbee List Jobs
+      description: Returns a list of job postings from the connected ATS system.
+      tags:
+      - Jobs
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - open
+          - closed
+          - draft
+        description: Filter by job status.
+      responses:
+        '200':
+          description: List of job postings.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobsResponse'
+              examples:
+                ListJobs200Example:
+                  summary: Default listJobs 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: job-abc123
+                      title: Senior Software Engineer
+                      department: Engineering
+                      location: Remote
+                      status: open
+                      created_at: '2024-04-01T00:00:00Z'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Job:
+      title: Job
+      description: A job posting from a connected ATS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Job ID.
+          example: job-abc123
+        title:
+          type: string
+          description: Job title.
+          example: Senior Software Engineer
+        department:
+          type: string
+          description: Hiring department.
+          example: Engineering
+        location:
+          type: string
+          description: Job location or remote.
+          example: Remote
+        status:
+          type: string
+          description: Job posting status.
+          enum:
+          - open
+          - closed
+          - draft
+          example: open
+        created_at:
+          type: string
+          format: date-time
+          description: Job creation timestamp.
+          example: '2024-04-01T00:00:00Z'
+    JobsResponse:
+      title: Jobs Response
+      description: List of job postings.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of job postings.
+          items:
+            $ref: '#/components/schemas/Job'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.

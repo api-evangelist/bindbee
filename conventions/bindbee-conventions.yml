@@ -1,0 +1,216 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.bindbee.dev/api-reference/basics/authentication,
+  https://docs.bindbee.dev/api-reference/basics/pagination,
+  https://docs.bindbee.dev/api-reference/basics/rate-limits,
+  https://docs.bindbee.dev/api-reference/basics/sync-frequency,
+  https://docs.bindbee.dev/.well-known/agent-skills/bindbee/skill.md, and
+  openapi/_original/bindbee-openapi.json
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Cross-cutting runtime semantics for the Bindbee unified HRIS/ATS/LMS API — the rules that hold
+  across all 144 operations regardless of which HR system sits behind the connector.
+base_urls:
+- https://api.bindbee.dev
+- https://api-eu.bindbee.dev
+authentication:
+  style: two-header
+  headers:
+  - name: Authorization
+    format: Bearer <BINDBEE_API_KEY>
+    scope: organization
+    required: always
+  - name: X-Connector-Token
+    format: <connector_token>
+    scope: end customer
+    required: >-
+      on every operation that reads or writes an end user's data; organization-level operations
+      (connector list, custom-field configuration, webhooks) take the API key alone
+  oauth: false
+  note: >-
+    The API key also selects the environment. A Development key creates and addresses Development
+    connectors; a Production key creates and addresses Production connectors, and the two are
+    isolated. The spec declares one securityScheme, HTTPBearer (http/bearer); the connector token
+    is carried as a plain header parameter, not as a declared scheme.
+  detail: authentication/bindbee-authentication.yml
+idempotency:
+  supported: true
+  coverage: partial
+  mechanism: header
+  header: x-idempotency-key
+  required: false
+  scope:
+  - create_employee_api_hris_v1_employees_post
+  - create_employee_payroll_run_api_hris_v1_employee_payroll_runs_post
+  - create_time_off_api_hris_v1_time_off_post
+  - create_timesheet_api_hris_v1_timesheet_entry_post
+  value: any unique string; the provider's own skill recommends a UUID
+  retention: not published
+  note: >-
+    Measured against the provider's OpenAPI: `x-idempotency-key` is declared on exactly 4 of the
+    35 mutating operations, and all four are HRIS creates. It is absent from every ATS create
+    (candidate, application, offer, scorecard, attachment and the rest), from both custom-field
+    PATCHes, from all five connector DELETEs and from the two embedded-flow POSTs. Bindbee's own
+    published Agent Skill states the header more broadly than the contract does ("Write operations
+    include X-Idempotency-Key header to prevent duplicates"), so an agent following the skill will
+    send it on ATS writes where it is not honoured. Retention window is not documented anywhere,
+    so a client cannot know how long a replayed key stays deduplicated.
+  discrepancy:
+    documented_as: applies to write operations generally
+    contract_says: 4 of 35 mutating operations
+    sources:
+    - https://docs.bindbee.dev/.well-known/agent-skills/bindbee/skill.md
+    - openapi/_original/bindbee-openapi.json
+reversibility:
+  grade: none
+  writes_present: true
+  note: >-
+    Bindbee publishes no reversal operation for any write. There is no cancel, void, undo,
+    rollback or restore anywhere in the 144-operation contract. Records created through the unified
+    API (employee, candidate, application, offer, time off, timesheet) have no delete or cancel
+    counterpart — Bindbee writes them into the customer's own HR system, and reversing them is done
+    in that system, not through Bindbee.
+  destructive_operations:
+  - operationId: delete_hris_connector_api_hris_v1_connectors__connector_id__delete_delete
+    effect: >-
+      Removes the connector. Every stored connector token for that customer stops working and the
+      customer must complete the Bindbee Embed flow again.
+    reversal: none published
+    window: none published
+  - operationId: delete_ats_connector_api_ats_v1_connectors__connector_id__delete_delete
+    effect: Removes the ATS connector.
+    reversal: none published
+    window: none published
+  - operationId: delete_lms_connector_api_lms_v1_connectors__connector_id__delete_delete
+    effect: Removes the LMS connector.
+    reversal: none published
+    window: none published
+  - operationId: delete_custom_field_api_v1_custom_fields__custom_field_id__delete
+    effect: Removes a custom field definition.
+    reversal: >-
+      none — a field can be created again with the same name, but that is a new object, not a
+      restore
+    window: none published
+  - operationId: delete_custom_field_mapping_api_v1_custom_fields_mapping__custom_field_mapping_id__delete
+    effect: Removes a custom-field mapping.
+    reversal: none — recreate with create_custom_field_mapping_api_v1_custom_fields_mapping_post
+    window: none published
+  caution: >-
+    No documented restore window was found for any of these, and none is asserted here. An agent
+    should treat every Bindbee DELETE as permanent.
+dry_run_mode:
+  supported: partial
+  operations:
+  - operationId: preview_custom_field_api_v1_custom_fields_preview_post
+    path: /api/v1/custom-fields/preview
+    description: >-
+      Evaluates a JMESPath expression against a connector's real data without persisting a mapping.
+      The provider describes it as a dry run and recommends it before creating a mapping.
+  note: >-
+    Rehearsal exists only for custom-field mapping. No record-creating operation (employee,
+    candidate, time off, timesheet) offers a validate-only or dry-run mode. The nearest thing is
+    the meta endpoints — GET /api/{category}/v1/{model}/meta/post — which return the request schema
+    the connected system expects, so a client can validate its body shape before submitting, but
+    they do not simulate the write.
+pagination:
+  style: cursor
+  request_params:
+  - name: cursor
+    in: query
+    description: Opaque cursor returned by the previous page.
+  - name: page_size
+    in: query
+    description: Results per page. Maximum 200 per the provider's Agent Skill.
+  offset_supported: false
+  docs: https://docs.bindbee.dev/api-reference/basics/pagination
+  note: There is no offset or page-number parameter; follow the cursor or stop.
+filtering:
+  common_params:
+  - ids
+  - remote_id
+  - manager_id
+  - company_id
+  - employment_status
+  - include_raw_data
+  - include_custom_fields
+  note: >-
+    `remote_id` is the identifier the upstream HR system uses; Bindbee's own `id` is a normalized
+    UUID. `include_raw_data=true` returns the untransformed upstream payload alongside the
+    normalized object.
+field_expansion:
+  supported: true
+  mechanism: >-
+    include_custom_fields=true adds custom-field values; include_raw_data=true adds the raw
+    upstream record. There is no generic `expand` parameter.
+metadata:
+  supported: true
+  mechanism: >-
+    Custom Fields — define a field, map it to an upstream attribute with a JMESPath expression, and
+    request it on reads. Scoped either org-wide by integration_slug or per-connector by
+    connector_token; exactly one of the two must be supplied (422 otherwise).
+  docs: https://docs.bindbee.dev/custom-fields/overview
+request_id_tracing:
+  supported: unknown
+  note: >-
+    No request-id or trace header is documented, and none is declared in the OpenAPI. Webhook
+    delivery logs and dashboard logs are the published debugging surfaces instead
+    (https://docs.bindbee.dev/features/logs).
+versioning:
+  style: path
+  current: v1
+  pattern: /api/{hris|ats|lms|embedded|v1}/v1/...
+  spec_version: 0.1.0
+  note: >-
+    Every path is pinned to v1. The OpenAPI's info.version is 0.1.0, which tracks the document, not
+    the API. No version header, no date-based pinning, no published deprecation policy.
+error_envelope:
+  primary:
+    schema: ErrorResponse
+    shape: '{"detail": "<string>"}'
+    applies_to: 401, 403, 404, 429
+  validation:
+    schema: HTTPValidationError
+    shape: '{"detail": [{"loc": [...], "msg": "...", "type": "...", "input": ..., "ctx": {...}}]}'
+    applies_to: 422
+  rfc9457: false
+  note: >-
+    `detail` is a string on ordinary errors and an ARRAY of validation objects on 422 — the same
+    field name carries two different types. Clients must branch on the type of `detail`, not just
+    on its presence. There is no error code field, no problem type URI and no
+    application/problem+json media type.
+  detail: errors/bindbee-problem-types.yml
+rate_limit_signal:
+  limit: 200 requests per minute
+  scope: per connector token
+  status_on_exhaustion: 429
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  - X-RateLimit-Reset
+  - Retry-After
+  declared_in_spec: true
+  note: >-
+    The rate-limit headers are declared on the 429 response of all 144 operations in the OpenAPI,
+    not only in prose — an agent can read them from the contract.
+  detail: rate-limits/bindbee-rate-limits.yml
+data_freshness:
+  model: scheduled sync, not live pass-through
+  default_interval: every 24 hours
+  by_tier:
+    lite: every 24 hours
+    pro: every 12 to 24 hours
+    enterprise: configurable
+  force_refresh: force_resync_connector_api_embedded_v1_connectors_resync_post
+  escape_hatch: make_passthrough_request_api_v1_passthrough_post
+  note: >-
+    This is the single most important semantic on the API. A read returns Bindbee's last synced
+    copy, so a value written moments ago through a different channel will not be visible until the
+    next sync. Agents that need current state must force a resync, subscribe to the
+    sync-completed webhook, or go through passthrough.
+  docs: https://docs.bindbee.dev/api-reference/basics/sync-frequency
+events:
+  webhooks: true
+  detail: asyncapi/bindbee-webhooks.yml
+lifecycle: lifecycle/bindbee-lifecycle.yml

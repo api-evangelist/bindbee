@@ -1,9 +1,47 @@
 {
-  "id": "cand-abc123",
-  "first_name": "John",
-  "last_name": "Doe",
-  "email": "jdoe@example.com",
-  "job_id": "job-abc123",
-  "stage": "interview",
-  "created_at": "2024-04-13T00:00:00Z"
+  "x-provenance": {
+    "generated": "2026-09-04",
+    "method": "derived",
+    "source": "openapi/_original/bindbee-openapi.json",
+    "schema": "AtsCandidate",
+    "operation": "GET /api/ats/v1/candidates/{id}",
+    "note": "Field names and structure taken from the provider-published contract; values are the provider's own declared examples where the spec carries them, and null where it does not. Replaces a 2026-era scaffold whose envelope (data/next_cursor/has_more) does not exist in the Bindbee API."
+  },
+  "example": {
+    "id": "018b18ef-c487-703c-afd9-0ca478ccd9d6",
+    "remote_id": "123321",
+    "modified_at": "2021-10-16T00:00:00Z",
+    "raw_data": {
+      "key_1": "Platform dependent data 1",
+      "key_2": "Platform dependent data 2"
+    },
+    "custom_fields": {
+      "category_group": "REG",
+      "disability_type": "ASBERG",
+      "hire_date": "1991-03-16T00:00:00",
+      "hire_source": "REFER",
+      "nationality": "USA",
+      "original_hire_date": "1991-03-16T00:00:00"
+    },
+    "first_name": "John",
+    "last_name": "Doe",
+    "company": "Google",
+    "title": "SOFTWARE ENGINEER",
+    "last_interaction_at": "2021-07-01T00:00:00Z",
+    "is_private": true,
+    "can_email": true,
+    "locations": "San Francisco",
+    "phone_numbers": "123-456-7890",
+    "email_addresses": "john@doe.com",
+    "urls": {
+      "type": "LINKEDIN",
+      "value": "https://www.linkedin.com/in/johndoe"
+    },
+    "tags": "JUNIOR",
+    "applications": "018b4bfb-5ece-70b1-ad5e-862a9433aa65",
+    "attachments": "018b4bfb-5ece-70b1-ad5e-862a9433aa65",
+    "remote_created_at": "2021-07-01T00:00:00Z",
+    "remote_updated_at": "2021-07-01T00:00:00Z",
+    "avatar": "https://www.example.com/avatar.jpg"
+  }
 }

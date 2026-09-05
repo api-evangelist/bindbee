@@ -1,0 +1,272 @@
+generated: '2026-09-04'
+method: derived
+source: openapi/_original/bindbee-openapi.json (145 component schemas, 144 operations)
+provider: Bindbee
+providerId: bindbee
+description: >-
+  The Bindbee unified data model, read out of the provider's own OpenAPI. Three independent
+  namespaces — HRIS, ATS and LMS — each rooted on a connector, plus a cross-cutting Custom Fields
+  layer that extends any model in any namespace. Relationships below are derived from the reference
+  fields actually declared on each schema; nothing is inferred from naming alone.
+identity:
+  primary_key: id
+  format: UUID (UUIDv7-shaped in the provider's own examples)
+  upstream_key: remote_id
+  upstream_key_note: >-
+    Every unified object carries both. `id` is Bindbee's normalized identifier and is stable across
+    the Bindbee tenant; `remote_id` is the identifier of the same record in the underlying HR
+    system and is the join key back to that vendor. Collection reads accept `remote_id` as a
+    filter, which is the supported way to resolve a vendor id to a Bindbee object.
+  no_prefixes: >-
+    Bindbee does not use type-prefixed identifiers (no "emp_", "cand_"). An id alone does not say
+    what it identifies — the caller must track the type.
+common_fields:
+  present_on_every_unified_object:
+  - name: id
+    description: Bindbee normalized UUID.
+  - name: remote_id
+    description: The third-party system's identifier for the same record.
+  - name: modified_at
+    description: When Bindbee last observed a change to this record.
+  - name: raw_data
+    description: >-
+      The untransformed upstream payload. Returned only when include_raw_data=true. This is the
+      escape hatch for fields the unified model does not carry.
+  - name: custom_fields
+    description: >-
+      Values for org- or connector-scoped custom fields. Returned only when
+      include_custom_fields=true.
+namespaces:
+- name: HRIS
+  path_prefix: /api/hris/v1
+  operations: 52
+  root: connector
+- name: ATS
+  path_prefix: /api/ats/v1
+  operations: 53
+  root: connector
+- name: LMS
+  path_prefix: /api/lms/v1
+  operations: 17
+  root: connector
+- name: Platform
+  path_prefix: /api/v1
+  operations: 19
+  description: Custom fields, lookups, webhooks, passthrough and org health — namespace-agnostic.
+- name: Embedded
+  path_prefix: /api/embedded/v1
+  operations: 3
+  description: The link-token flow that produces a connector.
+entities:
+- name: Connector
+  schema: ConnectorResponse
+  namespace: all
+  description: >-
+    The root of everything. A connector is one customer's authorized link to one third-party
+    system, addressed by its connector token. Every unified record read or written belongs to
+    exactly one connector, and deleting the connector is permanent.
+  relationships:
+  - has_many: all unified records in its category
+    via: connector_token header
+- name: Employee
+  schema: HrisEmployeeResponse
+  namespace: HRIS
+  description: The central HRIS entity — the object most consumers of Bindbee are actually after.
+  relationships:
+  - belongs_to: Company
+    via: company
+  - belongs_to: Employee
+    via: manager
+    note: self-reference forming the reporting hierarchy
+  - belongs_to: Department
+    via: department
+  - has_many: Group
+    via: groups
+  - belongs_to: Location
+    via: home_location
+  - has_many: Location
+    via: work_locations
+  - belongs_to: PayGroup
+    via: pay_group
+  - belongs_to: PayrollRunCalendar
+    via: payroll_run_calendar
+  sensitive_fields:
+  - ssn
+  - date_of_birth
+  - gender
+  - ethnicity
+  - marital_status
+  - tobacco_use
+  - personal_email
+  - home_phone_number
+  sensitive_note: >-
+    The employee model carries SSN, date of birth and EEO-class attributes. Any agent operating on
+    this API is handling regulated personal data by default, not by exception.
+- name: Employment
+  schema: HrisEmployment
+  namespace: HRIS
+  relationships:
+  - belongs_to: Employee
+    via: employee
+  - belongs_to: Department
+    via: department
+- name: TimeOff
+  schema: HrisTimeOff
+  namespace: HRIS
+  relationships:
+  - belongs_to: Employee
+    via: employee
+  - belongs_to: Employee
+    via: approver
+- name: TimeOffBalance
+  schema: HrisTimeOffBalance
+  namespace: HRIS
+  relationships:
+  - belongs_to: Employee
+    via: employee
+- name: EmployeePayrollRun
+  schema: HrisEmployeePayrollRun
+  namespace: HRIS
+  relationships:
+  - belongs_to: Employee
+    via: employee
+  - belongs_to: PayrollRun
+    via: payroll_run
+  - has_many: Earning
+    via: earnings
+  - has_many: Deduction
+    via: deductions
+  - has_many: Tax
+    via: taxes
+- name: Company
+  schema: HrisCompany
+  namespace: HRIS
+- name: Compensation
+  schema: HrisCompensation
+  namespace: HRIS
+- name: Benefit
+  schema: HrisBenefit
+  namespace: HRIS
+  relationships:
+  - has_many: BenefitCoverage
+    via: HrisBenefitCoverage
+  - has_many: DependentBenefit
+    via: HrisDependentBenefit
+- name: Dependent
+  schema: HrisDependent
+  namespace: HRIS
+- name: BankInfo
+  schema: HrisBankInfo
+  namespace: HRIS
+- name: TimesheetEntry
+  schema: HrisTimeSheetEntry
+  namespace: HRIS
+- name: Candidate
+  schema: AtsCandidate
+  namespace: ATS
+  relationships:
+  - has_many: Application
+    via: applications
+  - has_many: Attachment
+    via: attachments
+  - has_many: Tag
+    via: tags
+  - has_many: AtsUrl
+    via: urls
+- name: Application
+  schema: AtsApplication
+  namespace: ATS
+  description: The join between a candidate and a job — the spine of the ATS namespace.
+  relationships:
+  - belongs_to: Candidate
+    via: candidate
+  - belongs_to: Job
+    via: job
+  - belongs_to: JobInterviewStage
+    via: current_stage
+  - belongs_to: RejectReason
+    via: reject_reason
+  - belongs_to: RemoteUser
+    via: credited_to
+- name: Job
+  schema: AtsJob
+  namespace: ATS
+  relationships:
+  - belongs_to: RemoteUser
+    via: remote_user_id
+    note: declared on CreateAtsJob
+  - has_many: Office
+    via: AtsOffice
+  - has_many: Department
+    via: AtsDepartment
+- name: Offer
+  schema: AtsOffer
+  namespace: ATS
+- name: ScheduledInterview
+  schema: AtsScheduledInterview
+  namespace: ATS
+- name: Scorecard
+  schema: AtsScorecard
+  namespace: ATS
+- name: EEOC
+  schema: AtsEEOC
+  namespace: ATS
+  sensitive_note: EEO demographic data — regulated in the United States.
+- name: LmsUser
+  schema: LmsUser
+  namespace: LMS
+- name: Course
+  schema: LmsCourse
+  namespace: LMS
+  relationships:
+  - has_many: Content
+    via: LmsContent
+  - has_many: Category
+    via: LmsCategory
+- name: Enrollment
+  schema: LmsEnrollment
+  namespace: LMS
+  relationships:
+  - belongs_to: LmsUser
+    via: user
+  - belongs_to: Course
+    via: course
+  - belongs_to: Completion
+    via: completion
+- name: CustomField
+  schema: CustomFieldExternal
+  namespace: Platform
+  description: >-
+    A user-defined extension to any unified model, resolved from the upstream payload by a JMESPath
+    expression.
+  relationships:
+  - has_many: CustomFieldMapping
+    via: custom_field_id
+- name: CustomFieldMapping
+  schema: CustomFieldMappingExternal
+  namespace: Platform
+  relationships:
+  - belongs_to: CustomField
+    via: custom_field_id
+  scoping: >-
+    Exactly one of integration_slug (org-wide) or connector_token (single connector) must be
+    supplied; supplying neither or both returns 422.
+- name: Webhook
+  schema: WebhookListItemExternal
+  namespace: Platform
+  relationships:
+  - has_many: WebhookLogEntry
+    via: connector_id
+observations:
+- >-
+  The three namespaces do not cross-reference. An HRIS employee and an ATS candidate for the same
+  person carry no shared key, and Bindbee declares no link between them — correlating a hire back to
+  the candidate who was hired is the consumer's problem.
+- >-
+  Every relationship above is an embedded reference object or an id field on the parent, not a
+  hypermedia link. There are no URLs in the payloads, so an agent must construct follow-up calls
+  from path templates it already knows.
+- >-
+  Write coverage is uneven and asymmetric with read coverage: 109 reads against 35 mutations, and
+  entire read namespaces (benefits, compensation, payroll codes, all of LMS) have no write
+  counterpart at all.

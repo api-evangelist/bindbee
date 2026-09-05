@@ -1,7 +1,5 @@
 # Bindbee Docs
 
-## Docs
-
 - [Overview](https://docs.bindbee.dev/features/overview.md): Bindbee ensure that B2B technology companies can do HRIS, Payroll, ATS and LMS integrations without writing much code. We have built Unified APIs that ensure that our customers never have to build 1-on-1 integrations. And, all the third party HRIS, Payroll, ATS and LMS integrations can be done in le…
 - [Production](https://docs.bindbee.dev/features/environments/production.md): Bindbee Production environment for live customer integrations.
 - [Development](https://docs.bindbee.dev/features/environments/development.md): Bindbee Development environment for building and testing integrations.
@@ -155,5 +153,4 @@
 
 ## OpenAPI Specs
 
-- [spec](https://docs.bindbee.dev/spec.json)
-- [new-spec](https://docs.bindbee.dev/new-spec.json)
+- [spec](/spec.json)

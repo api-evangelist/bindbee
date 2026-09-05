@@ -1,0 +1,94 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  mcp/bindbee-mcp.yml (tools/list probed live at https://docs.bindbee.dev/mcp) bound against
+  openapi/_original/bindbee-openapi.json (144 operations)
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Crosswalk between Bindbee's live MCP tools and its REST operations. The finding is a clean
+  separation rather than an overlap: every MCP tool is documentation-facing and NONE of them binds
+  to a Bindbee API operation, while all 144 REST operations are unreachable from MCP. An agent that
+  connects only to the MCP server can learn how Bindbee works but cannot operate it.
+surfaces:
+  openapi:
+    url: https://api.bindbee.dev/openapi.json
+    local: openapi/_original/bindbee-openapi.json
+    operations: 144
+    gated: false
+  mcp:
+    url: https://docs.bindbee.dev/mcp
+    tools: 3
+    gated: false
+    kind: documentation
+  graphql: null
+crosswalk: []
+mcp_only:
+- tool: search_bindbee_docs
+  reason: >-
+    Documentation search over the Mintlify content index. Bindbee's REST API publishes no search
+    operation and no documentation operation; there is nothing to bind to.
+- tool: query_docs_filesystem_bindbee_docs
+  reason: >-
+    Read-only virtual filesystem over documentation pages and specs. Again a docs-platform
+    capability with no REST counterpart.
+- tool: submit_feedback
+  reason: >-
+    Documentation feedback submission handled by the docs platform. Not part of the Bindbee API.
+rest_only:
+  count: 144
+  note: >-
+    Every Bindbee API operation is REST-only. Listed below by area rather than exhaustively; the
+    full set is in openapi/_original/bindbee-openapi.json.
+  areas:
+  - area: HRIS
+    path_prefix: /api/hris/v1
+    operations: 52
+    examples:
+    - get_employees_api_hris_v1_employees_get
+    - create_employee_api_hris_v1_employees_post
+    - get_time_off_list_api_hris_v1_time_off_get
+    - get_hris_connectors_api_hris_v1_connectors_get
+  - area: ATS
+    path_prefix: /api/ats/v1
+    operations: 53
+    examples:
+    - get_candidates_api_ats_v1_candidates_get
+    - create_candidate_api_ats_v1_candidates_post
+    - create_application_api_ats_v1_applications_post
+  - area: LMS
+    path_prefix: /api/lms/v1
+    operations: 17
+    examples:
+    - get_lms_connectors_api_lms_v1_connectors_get
+  - area: Custom Fields
+    path_prefix: /api/v1/custom-fields
+    operations: 12
+    examples:
+    - list_custom_fields_api_v1_custom_fields_get
+    - create_custom_field_mapping_api_v1_custom_fields_mapping_post
+  - area: Embedded / Link
+    path_prefix: /api/embedded/v1
+    operations: 3
+    examples:
+    - create_link_token_api_embedded_v1_link_create_link_token_post
+    - get_connector_token_api_embedded_v1_connectors_connector_token__temporary_token__get
+    - force_resync_connector_api_embedded_v1_connectors_resync_post
+  - area: Platform
+    path_prefix: /api/v1
+    operations: 7
+    examples:
+    - list_webhooks_api_v1_webhooks_get
+    - make_passthrough_request_api_v1_passthrough_post
+    - list_integrations_api_v1_lookup_integrations_get
+    - org_health_check_api_v1_org_check_post
+coverage:
+  mcp_tools: 3
+  mcp_tools_bound_to_rest: 0
+  rest_operations: 144
+  rest_operations_bound_to_mcp: 0
+  overlap_percent: 0
+  confidence: high
+  basis: >-
+    Both sides were read from live machine-readable sources on 2026-09-04 — an anonymous MCP
+    tools/list and the provider's own OpenAPI — so this is a measured zero, not an assumed one.

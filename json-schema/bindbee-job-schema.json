@@ -1,44 +1,352 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Job",
-  "type": "object",
-  "description": "A job posting from a connected ATS system.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bindbee/main/json-schema/bindbee-job-schema.json",
+  "title": "AtsJob",
+  "x-provenance": {
+    "generated": "2026-09-04",
+    "method": "derived",
+    "source": "openapi/_original/bindbee-openapi.json",
+    "source_url": "https://api.bindbee.dev/openapi.json",
+    "note": "Extracted verbatim from the provider-published contract, with $refs rewritten from #/components/schemas to #/$defs. Replaces a scaffold whose envelope (data/next_cursor/has_more) does not exist in the Bindbee API \u2014 the real one is cursor/page_size/items."
+  },
   "properties": {
     "id": {
       "type": "string",
-      "description": "Job ID.",
-      "example": "job-abc123"
+      "format": "uuid",
+      "title": "Id",
+      "examples": [
+        "018b18ef-c487-703c-afd9-0ca478ccd9d6"
+      ]
     },
-    "title": {
-      "type": "string",
-      "description": "Job title.",
-      "example": "Senior Software Engineer"
-    },
-    "department": {
-      "type": "string",
-      "description": "Hiring department.",
-      "example": "Engineering"
-    },
-    "location": {
-      "type": "string",
-      "description": "Job location or remote.",
-      "example": "Remote"
-    },
-    "status": {
-      "type": "string",
-      "description": "Job posting status.",
-      "enum": [
-        "open",
-        "closed",
-        "draft"
+    "remote_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
       ],
-      "example": "open"
+      "title": "Remote Id",
+      "description": "The third-party API ID of the matching object.",
+      "examples": [
+        "123321"
+      ]
     },
-    "created_at": {
+    "modified_at": {
       "type": "string",
       "format": "date-time",
-      "description": "Job creation timestamp.",
-      "example": "2024-04-01T00:00:00Z"
+      "title": "Modified At",
+      "description": "This is the datetime that this object was last updated by Bindbee",
+      "examples": [
+        "2021-10-16T00:00:00Z"
+      ]
+    },
+    "raw_data": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Raw Data",
+      "description": "This is the Raw data",
+      "examples": [
+        {
+          "key_1": "Platform dependent data 1",
+          "key_2": "Platform dependent data 2"
+        }
+      ]
+    },
+    "custom_fields": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Custom Fields",
+      "description": "The custom fields related to the model",
+      "examples": [
+        {
+          "category_group": "REG",
+          "disability_type": "ASBERG",
+          "hire_date": "1991-03-16T00:00:00",
+          "hire_source": "REFER",
+          "nationality": "USA",
+          "original_hire_date": "1991-03-16T00:00:00"
+        }
+      ]
+    },
+    "name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Name",
+      "description": "The name of the job.",
+      "examples": [
+        "SOFTWARE ENGINEER"
+      ]
+    },
+    "description": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Description",
+      "description": "A detailed description of the job.",
+      "examples": [
+        "We are looking for a software engineer to join our team."
+      ]
+    },
+    "code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Code",
+      "description": "The internal or external code that identifies the job.",
+      "examples": [
+        "SE-2021-01"
+      ]
+    },
+    "status": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "enum": [
+        "OPEN",
+        "CLOSED",
+        "DRAFT",
+        "ARCHIVED",
+        "PENDING",
+        "-"
+      ],
+      "title": "Status",
+      "description": "The current status of the job posting. If the value is not one of the defined enum values, the original value passed through will be returned.",
+      "examples": [
+        "OPEN"
+      ]
+    },
+    "job_posting_urls": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/AtsUrl"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Job Posting Urls",
+      "description": "A list of URLs where the job is posted.",
+      "examples": [
+        "https://www.company.com/careers/software-engineer"
+      ]
+    },
+    "remote_created_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Remote Created At",
+      "description": "The ISO date string when the job was first created in the ATS.",
+      "examples": [
+        "2021-01-01T00:00:00Z"
+      ]
+    },
+    "remote_updated_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Remote Updated At",
+      "description": "The ISO date string when the job was last updated in the ATS.",
+      "examples": [
+        "2021-01-01T00:00:00Z"
+      ]
+    },
+    "confidential": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Confidential",
+      "description": "Whether the job posting is confidential.",
+      "examples": [
+        false
+      ]
+    },
+    "departments": {
+      "anyOf": [
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Departments",
+      "description": "A list of department identifiers associated with the job.",
+      "examples": [
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa65",
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa23"
+      ]
+    },
+    "offices": {
+      "anyOf": [
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Offices",
+      "description": "A list of office identifiers where the job is located.",
+      "examples": [
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa65",
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa23"
+      ]
+    },
+    "hiring_managers": {
+      "anyOf": [
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Hiring Managers",
+      "description": "A list of identifiers for hiring managers associated with the job.",
+      "examples": [
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa65",
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa23"
+      ]
+    },
+    "recruiters": {
+      "anyOf": [
+        {
+          "items": {},
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Recruiters",
+      "description": "A list of identifiers for recruiters associated with the job.",
+      "examples": [
+        "018b4bfb-5ece-70b1-ad5e-862a9433aa65"
+      ]
+    }
+  },
+  "type": "object",
+  "required": [
+    "id",
+    "remote_id",
+    "modified_at",
+    "custom_fields",
+    "name",
+    "description",
+    "code",
+    "status",
+    "job_posting_urls",
+    "remote_created_at",
+    "remote_updated_at",
+    "confidential",
+    "departments",
+    "offices",
+    "hiring_managers",
+    "recruiters"
+  ],
+  "description": "The AtsJob object represents a job posting within the ATS.",
+  "$defs": {
+    "AtsUrl": {
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Value",
+          "description": "The site's url."
+        },
+        "url_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "enum": [
+            "PERSONAL",
+            "COMPANY",
+            "PORTFOLIO",
+            "BLOG",
+            "SOCIAL_MEDIA",
+            "OTHER",
+            "JOB_POSTING",
+            "-"
+          ],
+          "title": "Url Type",
+          "description": "The type of site. If the value is not one of the defined enum values, the original value passed through will be returned."
+        }
+      },
+      "type": "object",
+      "required": [
+        "value",
+        "url_type"
+      ],
+      "title": "AtsUrl"
     }
   }
 }

@@ -1,0 +1,87 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  registry.npmjs.org search + package metadata, data.jsdelivr.com, pypi.org, github.com/unifyXX,
+  https://docs.bindbee.dev/sdk/bindbee-embed
+provider: Bindbee
+providerId: bindbee
+description: >-
+  First-party client distributions for Bindbee. The catalogue is small and front-end only: Bindbee
+  ships the Embed link widget as a React package and an unpinned CDN script. There is no
+  first-party server SDK on any registry despite the pricing page listing "SDKs (Node.js, Python)"
+  as an included feature at every tier — that claim could not be substantiated on npm, PyPI or the
+  public GitHub organization on 2026-09-04.
+packages:
+- name: '@bindbee/react-link'
+  registry: npm
+  url: https://www.npmjs.com/package/@bindbee/react-link
+  official: true
+  official_basis: >-
+    Published by npm user "bindbee" from engineering@bindbee.dev, repository
+    github.com/unifyXX/react-link (unifyXX is Bindbee's GitHub organization — the same "unifyx"
+    identity that serves its documentation images and Mintlify tenant).
+  language: TypeScript
+  description: React hook wrapper for Bindbee's connector link flow (Bindbee Embed).
+  version: 0.1.0
+  published: '2026-06-01'
+  license: MIT
+  repository: https://github.com/unifyXX/react-link
+  release_history:
+  - 0.0.3
+  - 0.0.4
+  - 0.0.5
+  - 0.0.6
+  - 0.0.7
+  - 0.1.0
+  note: >-
+    Still pre-1.0 after six releases. Version and date read from registry.npmjs.org on 2026-09-04;
+    the release is three months old and current relative to the API.
+- name: bindbee-embed-js
+  registry: cdn
+  url: https://cdn.bindbee.dev/initialize.min.js
+  official: true
+  official_basis: Served from Bindbee's own cdn.bindbee.dev host and documented at https://docs.bindbee.dev/sdk/bindbee-embed.
+  language: JavaScript
+  description: >-
+    Browser build of Bindbee Embed, loaded by script tag for frontends that are not React.
+  version: null
+  published: '2024-11-18'
+  note: >-
+    No registry and no version in the URL — the distribution is UNPINNED and floats to whatever the
+    CDN currently serves, so a consumer cannot tell what build they are running and cannot roll
+    back. `version: null` is a checked absence, not a missing check. The Last-Modified header on the
+    asset (HTTP 200, 2,533 bytes, 2024-11-18) is the only dating signal available; there is no
+    changelog, no integrity hash and no SRI attribute documented.
+absent:
+- registry: npm
+  probed:
+  - bindbee
+  - bindbee-node
+  - '@bindbee/embed'
+  result: 404 — no first-party Node/TypeScript server SDK
+- registry: pypi
+  probed:
+  - bindbee
+  - bindbee-python
+  result: 404 — no first-party Python SDK
+- registry: maven-central
+  result: not probed — no evidence of a JVM client in the docs or the GitHub organization
+- registry: nuget
+  result: not probed — no evidence of a .NET client
+- registry: rubygems
+  result: not probed — no evidence of a Ruby client
+- registry: crates.io
+  result: not probed — no evidence of a Rust client
+- registry: pkg.go.dev
+  result: not probed — no evidence of a Go client
+findings:
+- >-
+  github.com/unifyXX is public and holds exactly one repository, react-link. The organization
+  publishes no server SDK, no CLI and no examples repository.
+- >-
+  The Bindbee documentation shows Python, cURL and JavaScript request samples written against the
+  raw REST API with `requests` / `fetch`, not against any Bindbee client library — consistent with
+  there being no server SDK to show.
+- >-
+  Gap worth reporting to the provider: the pricing comparison table advertises "SDKs (Node.js,
+  Python)" on Lite, Pro and Enterprise, but no such package is discoverable on npm or PyPI.

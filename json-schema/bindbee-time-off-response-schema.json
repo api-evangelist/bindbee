@@ -1,15 +1,317 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "TimeOffResponse",
-  "type": "object",
-  "description": "List of time-off requests.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/bindbee/main/json-schema/bindbee-time-off-response-schema.json",
+  "title": "PaginatedResponse[HrisTimeOff]",
+  "x-provenance": {
+    "generated": "2026-09-04",
+    "method": "derived",
+    "source": "openapi/_original/bindbee-openapi.json",
+    "source_url": "https://api.bindbee.dev/openapi.json",
+    "note": "Extracted verbatim from the provider-published contract, with $refs rewritten from #/components/schemas to #/$defs. Replaces a scaffold whose envelope (data/next_cursor/has_more) does not exist in the Bindbee API \u2014 the real one is cursor/page_size/items."
+  },
   "properties": {
-    "data": {
-      "type": "array",
-      "description": "Array of time-off requests.",
+    "cursor": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Cursor",
+      "description": "Cursor value to fetch next set of items",
+      "examples": [
+        "MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1"
+      ]
+    },
+    "page_size": {
+      "type": "integer",
+      "title": "Page Size",
+      "description": "Indicates the count of items in the response",
+      "examples": [
+        50
+      ]
+    },
+    "items": {
       "items": {
-        "$ref": "#/components/schemas/TimeOffRequest"
-      }
+        "$ref": "#/$defs/HrisTimeOff"
+      },
+      "type": "array",
+      "title": "Items",
+      "description": "List of items in the current response"
+    }
+  },
+  "type": "object",
+  "required": [
+    "cursor",
+    "page_size",
+    "items"
+  ],
+  "$defs": {
+    "HrisTimeOff": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "title": "Id",
+          "examples": [
+            "018b18ef-c487-703c-afd9-0ca478ccd9d6"
+          ]
+        },
+        "remote_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Remote Id",
+          "description": "The third-party API ID of the matching object.",
+          "examples": [
+            "123321"
+          ]
+        },
+        "modified_at": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Modified At",
+          "description": "This is the datetime that this object was last updated by Bindbee",
+          "examples": [
+            "2021-10-16T00:00:00Z"
+          ]
+        },
+        "raw_data": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Raw Data",
+          "description": "This is the Raw data",
+          "examples": [
+            {
+              "key_1": "Platform dependent data 1",
+              "key_2": "Platform dependent data 2"
+            }
+          ]
+        },
+        "custom_fields": {
+          "anyOf": [
+            {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Custom Fields",
+          "description": "The custom fields related to the model",
+          "examples": [
+            {
+              "category_group": "REG",
+              "disability_type": "ASBERG",
+              "hire_date": "1991-03-16T00:00:00",
+              "hire_source": "REFER",
+              "nationality": "USA",
+              "original_hire_date": "1991-03-16T00:00:00"
+            }
+          ]
+        },
+        "employee": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Employee",
+          "description": "The employee requesting time off.",
+          "examples": [
+            "018b4bfb-5ece-70b1-ad5e-862a9433aa65"
+          ]
+        },
+        "approver": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Approver",
+          "description": "The Bindbee ID of the employee with the ability to approve the time off request.",
+          "examples": [
+            "018b4bfb-6065-7f83-b11d-e85ea49e37c3"
+          ]
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "enum": [
+            "REQUESTED",
+            "APPROVED",
+            "DECLINED",
+            "CANCELLED",
+            "DELETED"
+          ],
+          "title": "Status",
+          "description": "The status of this time off request. If the value is not one of the defined enum values, the original value passed through will be returned.",
+          "examples": [
+            "APPROVED"
+          ]
+        },
+        "employee_note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Employee Note",
+          "description": "The employee note for this time off request.",
+          "examples": [
+            "Paid paid vacation! Scuba diving in Hawaii."
+          ]
+        },
+        "units": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "enum": [
+            "HOURS",
+            "DAYS"
+          ],
+          "title": "Units",
+          "description": "The measurement that the third-party integration uses to count time requested. If the value is not one of the defined enum values, the original value passed through will be returned.",
+          "examples": [
+            "HOURS"
+          ]
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Amount",
+          "description": "The time off quantity measured by the prescribed \u201cunits\u201d.",
+          "examples": [
+            12
+          ]
+        },
+        "request_type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "enum": [
+            "VACATION",
+            "SICK",
+            "PERSONAL",
+            "JURY_DUTY",
+            "VOLUNTEER",
+            "BEREAVEMENT",
+            "MATERNITY",
+            "ANNUAL_LEAVE",
+            "EMERGENCY_LEAVE",
+            "LEAVE_OF_ABSENCE",
+            "PATERNITY",
+            "PAID_TIME_OFF",
+            "LONG_TERM_DISABILITY",
+            "SHORT_TERM_DISABILITY",
+            "COMP_OFF",
+            "WORK_FROM_HOME",
+            "COMPASSIONATE",
+            "TIME_OFF",
+            "FMLA"
+          ],
+          "title": "Request Type",
+          "description": "The type of time off request. If the value is not one of the defined enum values, the original value passed through will be returned.",
+          "examples": [
+            "VACATION"
+          ]
+        },
+        "start_time": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Start Time",
+          "description": "The day and time of the start of the time requested off.",
+          "examples": [
+            "2023-04-10T00:00:00Z"
+          ]
+        },
+        "end_time": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "End Time",
+          "description": "The day and time of the end of the time requested off.",
+          "examples": [
+            "2023-04-10T00:00:00Z"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "id",
+        "remote_id",
+        "modified_at",
+        "custom_fields",
+        "employee",
+        "approver",
+        "status",
+        "employee_note",
+        "units",
+        "amount",
+        "request_type",
+        "start_time",
+        "end_time"
+      ],
+      "title": "HrisTimeOff",
+      "description": "The TimeOff object is used to represent all employees' Time Off entries."
     }
   }
 }

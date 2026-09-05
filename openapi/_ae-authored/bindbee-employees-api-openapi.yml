@@ -1,0 +1,211 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Candidates Employees API
+  description: The Bindbee API provides a unified HRIS and ATS integration layer that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, Lever, and others through a single normalized API. Access employee data, job listings, candidates, payroll, time-off, and departments without managing individual integrations.
+  version: v1
+  contact:
+    name: Bindbee Support
+    url: https://docs.bindbee.dev/
+  license:
+    name: Proprietary
+    url: https://bindbee.dev/
+  x-generated-from: documentation
+servers:
+- url: https://api.bindbee.dev/v1
+  description: Bindbee Unified API
+tags:
+- name: Employees
+  description: Employee records from connected HRIS systems
+paths:
+  /hris/employees:
+    get:
+      operationId: listEmployees
+      summary: Bindbee List Employees
+      description: Returns a paginated list of employees from the connected HRIS system. Normalized across providers like BambooHR, Workday, and ADP.
+      tags:
+      - Employees
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        description: The connector token for the specific HR system integration.
+        schema:
+          type: string
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 25
+        description: Number of results per page.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Pagination cursor from previous response.
+      responses:
+        '200':
+          description: List of employees.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeesResponse'
+              examples:
+                ListEmployees200Example:
+                  summary: Default listEmployees 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - id: emp-abc123
+                      first_name: Jane
+                      last_name: Smith
+                      email: jsmith@example.com
+                      job_title: Software Engineer
+                      department: Engineering
+                      employment_status: active
+                      start_date: '2022-03-15'
+                    next_cursor: cursor-xyz
+                    has_more: true
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /hris/employees/{id}:
+    get:
+      operationId: getEmployee
+      summary: Bindbee Get Employee
+      description: Returns a single employee record by ID.
+      tags:
+      - Employees
+      security:
+      - apiKeyAuth: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+        example: emp-abc123
+      responses:
+        '200':
+          description: Employee record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+              examples:
+                GetEmployee200Example:
+                  summary: Default getEmployee 200 response
+                  x-microcks-default: true
+                  value:
+                    id: emp-abc123
+                    first_name: Jane
+                    last_name: Smith
+                    email: jsmith@example.com
+                    job_title: Software Engineer
+                    department: Engineering
+                    employment_status: active
+                    start_date: '2022-03-15'
+        '404':
+          description: Employee not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Employee:
+      title: Employee
+      description: A normalized employee record from a connected HRIS system.
+      type: object
+      properties:
+        id:
+          type: string
+          description: Bindbee employee ID.
+          example: emp-abc123
+        first_name:
+          type: string
+          description: Employee first name.
+          example: Jane
+        last_name:
+          type: string
+          description: Employee last name.
+          example: Smith
+        email:
+          type: string
+          description: Employee work email.
+          example: jsmith@example.com
+        job_title:
+          type: string
+          description: Job title.
+          example: Software Engineer
+        department:
+          type: string
+          description: Department name.
+          example: Engineering
+        employment_status:
+          type: string
+          description: Employment status.
+          enum:
+          - active
+          - inactive
+          - terminated
+          example: active
+        start_date:
+          type: string
+          format: date
+          description: Employment start date.
+          example: '2022-03-15'
+    EmployeesResponse:
+      title: Employees Response
+      description: Paginated list of employee records.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of employee records.
+          items:
+            $ref: '#/components/schemas/Employee'
+        next_cursor:
+          type: string
+          description: Cursor for next page.
+          example: cursor-xyz
+        has_more:
+          type: boolean
+          description: Whether more records exist.
+          example: true
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message.
+          example: resource not found
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 404
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.

@@ -1,0 +1,48 @@
+generated: '2026-09-04'
+method: searched
+source: https://trust.bindbee.dev/ and https://bindbee.dev/pricing
+provider: Bindbee
+providerId: bindbee
+trust_center:
+  url: https://trust.bindbee.dev/
+  http_status: 200
+  checked: '2026-09-04'
+  title: Trust Vault
+  hosted: true
+  readable: false
+  note: >-
+    Bindbee runs a dedicated trust portal on its own subdomain. The page is a Next.js application
+    that renders its content entirely client-side (the server response carries only the shell and a
+    sites/[slug] route keyed on "trust.bindbee.dev"), so no certification, report or subprocessor
+    list could be read from it by a crawler. The certifications below are therefore sourced from
+    the server-rendered pricing page, not from the trust center itself.
+certifications:
+- name: SOC 2 Type II
+  status: certified
+  source: https://bindbee.dev/pricing
+- name: ISO 27001
+  status: claimed
+  source: https://bindbee.dev/pricing
+- name: HIPAA
+  status: claimed
+  detail: Business Associate Agreements offered.
+  source: https://bindbee.dev/pricing
+- name: GDPR
+  status: claimed
+  source: https://bindbee.dev/pricing
+policies:
+  privacy: https://www.bindbee.dev/policies/privacy-policy
+  terms: https://www.bindbee.dev/policies/terms-of-use
+  index: https://bindbee.dev/policies
+security_program:
+  vulnerability_disclosure: not published
+  security_txt: absent — /.well-known/security.txt returns 404 on all five Bindbee hosts
+  bug_bounty: none found on HackerOne, Bugcrowd or Intigriti
+  security_contact: >-
+    No dedicated security address is published. support@bindbee.dev is the only contact stated in
+    the documentation.
+  note: >-
+    A company holding SOC 2 Type II and claiming ISO 27001 has a vulnerability-management process
+    by definition; what is missing is a public front door to it. Publishing an RFC 9116
+    security.txt naming a Contact and a Policy URL is the smallest possible fix and would make the
+    existing program discoverable.

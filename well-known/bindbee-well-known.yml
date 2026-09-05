@@ -1,0 +1,119 @@
+generated: '2026-09-04'
+method: probed
+source: live probes of every host in the Bindbee record, 2026-09-04
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Probe of the RFC 8615 well-known namespace across every Bindbee host: the registrable domain and
+  www, the API host, the EU API host, the documentation host and the application/console host.
+  Only the documentation host serves anything — an A2A agent card and a Mintlify MCP descriptor.
+  Every other path on every host 404s.
+hosts:
+- host: bindbee.dev
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  note: >-
+    The Webflow marketing site answers every /.well-known/* path with an HTML page reading
+    "Invalid .well-known request" under HTTP 404.
+- host: www.bindbee.dev
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+  - path: /.well-known/openid-configuration
+    status: 301
+  - path: /.well-known/oauth-authorization-server
+    status: 301
+  - path: /.well-known/api-catalog
+    status: 301
+  - path: /.well-known/ai-plugin.json
+    status: 301
+  - path: /.well-known/agent-card.json
+    status: 301
+  - path: /.well-known/agent.json
+    status: 301
+  note: www redirects permanently to the apex, which serves none of these documents.
+- host: api.bindbee.dev
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  note: >-
+    The API host is a FastAPI application; unknown paths return {"detail":"Not Found"} with 404.
+    It does serve its OpenAPI at /openapi.json and interactive docs at /docs and /redoc, which are
+    not well-known paths.
+- host: docs.bindbee.dev
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: bindbee-agent-card.json
+  - path: /.well-known/mcp.json
+    status: 200
+    file: bindbee-mcp.json
+  - path: /.well-known/agent-skills/bindbee/skill.md
+    status: 200
+    file: ../skills/bindbee-unified-integration.md
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  note: >-
+    The documentation host (Mintlify) is the only Bindbee host serving well-known documents. The
+    agent card and the MCP descriptor are real JSON documents, not SPA shells.
+- host: app.bindbee.dev
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  note: The Next.js console returns its own 404 HTML shell for every well-known path.
+findings:
+  security_txt: absent on every host — Bindbee publishes no RFC 9116 security.txt
+  api_catalog: absent on every host
+  oauth_metadata: >-
+    absent — Bindbee authenticates with a bearer API key plus a connector token, not OAuth, so
+    there is no authorization-server metadata to publish
+  agent_card: served, conformant — see a2a/bindbee-a2a.yml

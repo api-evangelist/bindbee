@@ -1,0 +1,86 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://status.bindbee.dev/, openapi/_original/bindbee-openapi.json,
+  https://docs.bindbee.dev/api-reference/basics/sync-frequency, https://bindbee.dev/pricing
+provider: Bindbee
+providerId: bindbee
+description: >-
+  Versioning, deprecation, availability and support posture for the Bindbee unified API. Bindbee
+  runs a real status page with two regional estates, but publishes no versioning policy, no
+  deprecation policy and no public SLA.
+versioning:
+  scheme: path
+  current: v1
+  pattern: /api/{hris|ats|lms|embedded|v1}/v1/...
+  policy_published: false
+  note: >-
+    Every one of the 144 operations sits under a v1 path segment. No second version exists, and no
+    document states how a v2 would be introduced or how long v1 would be supported alongside it.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No operation in the contract carries `deprecated: true`, and neither Sunset nor Deprecation
+    response headers are declared anywhere. Nothing in the documentation describes a notice period.
+    This is an absence, measured across the whole spec — not an unchecked field.
+status_page:
+  url: https://status.bindbee.dev/
+  http_status: 200
+  checked: '2026-09-04'
+  provider_hosted: true
+  state_at_check: fully operational
+  components:
+  - region: US
+    components: 3
+    uptime_window_reported: 100% (Jun 2026 – Sep 2026)
+  - region: EU
+    components: 3
+    uptime_window_reported: 100% (Jun 2026 – Sep 2026)
+  subscribe: true
+  note: >-
+    The status page splits US and EU estates, which corroborates the two API hosts the
+    documentation publishes (api.bindbee.dev and api-eu.bindbee.dev). Historical uptime is shown
+    for a rolling three-month window.
+sla:
+  published: false
+  note: >-
+    No numeric availability target is published. The pricing page offers Enterprise customers
+    dedicated support and a success manager, and the rate-limit page invites enterprise customers
+    to negotiate custom limits, but no uptime commitment is stated publicly.
+support:
+  email: support@bindbee.dev
+  channels:
+  - Documentation and guides (all tiers)
+  - Ticket support (all tiers)
+  - Slack/Teams shared channel (Pro and Enterprise)
+  - Dedicated success manager (Enterprise)
+  source: https://bindbee.dev/pricing
+changelog:
+  published: false
+  probed:
+  - url: https://bindbee.dev/changelog
+    status: 404
+  - url: https://docs.bindbee.dev/changelog
+    status: 404
+  note: >-
+    Bindbee publishes no dated API changelog. The company blog at https://bindbee.dev/blog is
+    marketing content, not release notes, and the npm package @bindbee/react-link has release
+    history but covers only the Embed widget.
+data_lifecycle:
+  sync_interval_default: 24 hours
+  sync_interval_by_tier:
+    lite: every 24 hours
+    pro: every 12 to 24 hours
+    enterprise: configurable
+  force_resync: force_resync_connector_api_embedded_v1_connectors_resync_post
+  connector_deletion: >-
+    DELETE /api/{hris|ats|lms}/v1/connectors/{connector_id}/delete is permanent — no restore
+    operation and no restore window is published. See conventions/bindbee-conventions.yml.
+  log_retention:
+    note: >-
+      The pricing comparison table lists "Custom Log Retention" and "Audit Logs" as Enterprise-only
+      features; no default retention period is stated for any tier.
