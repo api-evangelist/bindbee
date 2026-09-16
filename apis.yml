@@ -41,6 +41,16 @@ tags:
   - HR Integration
   - HRIS
   - Workforce
+  - Unified-API
+  - Payroll
+  - LMS
+  - Employee Data
+  - Integration
+tags_raw:
+  - ATS
+  - HR Integration
+  - HRIS
+  - Workforce
   - Unified API
   - Payroll
   - LMS
@@ -54,8 +64,9 @@ specificationVersion: '0.23'
 apis:
 - aid: bindbee:bindbee-candidates-api
   name: Bindbee Candidates API
-  description: Job candidates from connected ATS systems, normalized across Greenhouse, Lever, Workable,
-    Ashby and every other connected ATS.
+  description: >-
+    Job candidates from connected ATS systems, normalized across Greenhouse, Lever, Workable, Ashby and
+    every other connected ATS.
   humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
@@ -81,8 +92,9 @@ apis:
     url: https://docs.bindbee.dev/
 - aid: bindbee:bindbee-employees-api
   name: Bindbee Employees API
-  description: Normalized employee records from connected HRIS systems, including employment,
-    compensation, benefits, groups and reporting hierarchy.
+  description: >-
+    Normalized employee records from connected HRIS systems, including employment, compensation, benefits,
+    groups and reporting hierarchy.
   humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
@@ -120,23 +132,996 @@ apis:
     url: openapi/bindbee-time-off-api-openapi.yml
   - type: Documentation
     url: https://docs.bindbee.dev/
-- aid: bindbee:bindbee-unified-api
-  name: Bindbee Unified API
-  description: The complete Bindbee contract as the provider publishes it — 119 paths and 144
-    operations across the HRIS, ATS, LMS, Custom Fields, Embedded and platform namespaces, fetched
-    verbatim from https://api.bindbee.dev/openapi.json.
-  humanURL: https://docs.bindbee.dev/
+- aid: bindbee:bindbee-activity-api
+  name: Bindbee Activity API
+  description: The Activity API from Bindbee — 2 operation(s) for activity.
+  humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
-  - Unified API
-  - HRIS
-  - ATS
-  - LMS
+  - Activity
   properties:
   - type: OpenAPI
-    url: openapi/bindbee-unified-api-openapi.json
-  - type: Overlay
-    url: overlays/bindbee-unified-api-overlay.yaml
+    url: openapi/bindbee-activity-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-application-api
+  name: Bindbee Application API
+  description: The Application API from Bindbee — 2 operation(s) for application.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Application
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-application-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-attachment-api
+  name: Bindbee Attachment API
+  description: The Attachment API from Bindbee — 2 operation(s) for attachment.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Attachment
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-attachment-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-bank-info-api
+  name: Bindbee Bank Info API
+  description: The Bank Info API from Bindbee — 2 operation(s) for bank info.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Bank Info
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-bank-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-benefit-coverages-api
+  name: Bindbee Benefit Coverages API
+  description: The Benefit Coverages API from Bindbee — 2 operation(s) for benefit coverages.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Benefit Coverages
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-benefit-coverages-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-benefits-api
+  name: Bindbee Benefits API
+  description: The Benefits API from Bindbee — 2 operation(s) for benefits.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Benefits
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-benefits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-candidate-api
+  name: Bindbee Candidate API
+  description: The Candidate API from Bindbee — 4 operation(s) for candidate.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Candidate
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-candidate-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-categories-api
+  name: Bindbee Categories API
+  description: The Categories API from Bindbee — 2 operation(s) for categories.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-categories-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-company-api
+  name: Bindbee Company API
+  description: The Company API from Bindbee — 2 operation(s) for company.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-company-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-compensation-api
+  name: Bindbee Compensation API
+  description: The Compensation API from Bindbee — 2 operation(s) for compensation.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Compensation
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-compensation-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-completions-api
+  name: Bindbee Completions API
+  description: The Completions API from Bindbee — 2 operation(s) for completions.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Completions
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-completions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-connector-api
+  name: Bindbee Connector API
+  description: The Connector API from Bindbee — 8 operation(s) for connector.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Connector
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-connector-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-contents-api
+  name: Bindbee Contents API
+  description: The Contents API from Bindbee — 2 operation(s) for contents.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Contents
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-contents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-courses-api
+  name: Bindbee Courses API
+  description: The Courses API from Bindbee — 2 operation(s) for courses.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Courses
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-courses-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-custom-fields-api
+  name: Bindbee Custom Fields API
+  description: The Custom Fields API from Bindbee — 7 operation(s) for custom fields.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Custom Fields
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-custom-fields-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-department-api
+  name: Bindbee Department API
+  description: The Department API from Bindbee — 2 operation(s) for department.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Department
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-department-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-dependent-benefits-api
+  name: Bindbee Dependent Benefits API
+  description: The Dependent Benefits API from Bindbee — 2 operation(s) for dependent benefits.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Dependent Benefits
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-dependent-benefits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-dependents-api
+  name: Bindbee Dependents API
+  description: The Dependents API from Bindbee — 2 operation(s) for dependents.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Dependents
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-dependents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-eeoc-api
+  name: Bindbee EEOC API
+  description: The EEOC API from Bindbee — 2 operation(s) for eeoc.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - EEOC
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-eeoc-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-employee-api
+  name: Bindbee Employee API
+  description: The Employee API from Bindbee — 4 operation(s) for employee.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Employee
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-employee-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-employee-payroll-runs-api
+  name: Bindbee Employee Payroll Runs API
+  description: The Employee Payroll Runs API from Bindbee — 3 operation(s) for employee payroll runs.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Employee Payroll Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-employee-payroll-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-employer-benefits-api
+  name: Bindbee Employer Benefits API
+  description: The Employer Benefits API from Bindbee — 2 operation(s) for employer benefits.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Employer Benefits
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-employer-benefits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-employments-api
+  name: Bindbee Employments API
+  description: The Employments API from Bindbee — 2 operation(s) for employments.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Employments
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-employments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-enrollments-api
+  name: Bindbee Enrollments API
+  description: The Enrollments API from Bindbee — 2 operation(s) for enrollments.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Enrollments
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-enrollments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-group-api
+  name: Bindbee Group API
+  description: The Group API from Bindbee — 2 operation(s) for group.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Group
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-group-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-health-check-api
+  name: Bindbee Health Check API
+  description: The Health Check API from Bindbee — 1 operation(s) for health check.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Health Check
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-health-check-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-integration-api
+  name: Bindbee Integration API
+  description: The Integration API from Bindbee — 3 operation(s) for integration.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Integration
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-integration-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-job-api
+  name: Bindbee Job API
+  description: The Job API from Bindbee — 2 operation(s) for job.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Job
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-job-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-job-interview-stage-api
+  name: Bindbee Job Interview Stage API
+  description: The Job Interview Stage API from Bindbee — 2 operation(s) for job interview stage.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Job Interview Stage
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-job-interview-stage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-link-api
+  name: Bindbee Link API
+  description: The Link API from Bindbee — 1 operation(s) for link.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Link
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-link-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-location-api
+  name: Bindbee Location API
+  description: The Location API from Bindbee — 2 operation(s) for location.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Location
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-location-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-lookup-api
+  name: Bindbee Lookup API
+  description: The Lookup API from Bindbee — 2 operation(s) for lookup.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Lookup
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-lookup-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-offer-api
+  name: Bindbee Offer API
+  description: The Offer API from Bindbee — 2 operation(s) for offer.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Offer
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-offer-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-office-api
+  name: Bindbee Office API
+  description: The Office API from Bindbee — 2 operation(s) for office.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Office
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-office-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-passthrough-api
+  name: Bindbee Passthrough API
+  description: The Passthrough API from Bindbee — 1 operation(s) for passthrough.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Passthrough
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-passthrough-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-pay-groups-api
+  name: Bindbee Pay Groups API
+  description: The Pay Groups API from Bindbee — 2 operation(s) for pay groups.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Pay Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-pay-groups-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-payroll-codes-api
+  name: Bindbee Payroll Codes API
+  description: The Payroll Codes API from Bindbee — 2 operation(s) for payroll codes.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Payroll Codes
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-payroll-codes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-payroll-run-calendars-api
+  name: Bindbee Payroll Run Calendars API
+  description: The Payroll Run Calendars API from Bindbee — 2 operation(s) for payroll run calendars.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Payroll Run Calendars
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-payroll-run-calendars-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-payroll-runs-api
+  name: Bindbee Payroll Runs API
+  description: The Payroll Runs API from Bindbee — 2 operation(s) for payroll runs.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Payroll Runs
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-payroll-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-reject-reason-api
+  name: Bindbee Reject Reason API
+  description: The Reject Reason API from Bindbee — 2 operation(s) for reject reason.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Reject Reason
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-reject-reason-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-remote-user-api
+  name: Bindbee Remote User API
+  description: The Remote User API from Bindbee — 2 operation(s) for remote user.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Remote User
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-remote-user-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-scheduled-interview-api
+  name: Bindbee Scheduled Interview API
+  description: The Scheduled Interview API from Bindbee — 2 operation(s) for scheduled interview.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Scheduled Interview
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-scheduled-interview-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-scorecard-api
+  name: Bindbee Scorecard API
+  description: The Scorecard API from Bindbee — 2 operation(s) for scorecard.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Scorecard
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-scorecard-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-screening-question-api
+  name: Bindbee Screening Question API
+  description: The Screening Question API from Bindbee — 2 operation(s) for screening question.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Screening Question
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-screening-question-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-skills-api
+  name: Bindbee Skills API
+  description: The Skills API from Bindbee — 2 operation(s) for skills.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Skills
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-skills-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-tag-api
+  name: Bindbee Tag API
+  description: The Tag API from Bindbee — 2 operation(s) for tag.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Tag
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-tag-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-time-off-balance-api
+  name: Bindbee Time Off Balance API
+  description: The Time Off Balance API from Bindbee — 2 operation(s) for time off balance.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Time Off Balance
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-time-off-balance-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-timesheet-entry-api
+  name: Bindbee Timesheet Entry API
+  description: The Timesheet Entry API from Bindbee — 3 operation(s) for timesheet entry.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Timesheet Entry
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-timesheet-entry-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-users-api
+  name: Bindbee Users API
+  description: The Users API from Bindbee — 2 operation(s) for users.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.bindbee.dev/
+  - type: APIReference
+    url: https://docs.bindbee.dev/api-reference/basics/authentication
+  - type: DataModel
+    url: data-model/bindbee-data-model.yml
+  - type: ErrorCatalog
+    url: errors/bindbee-problem-types.yml
+  - type: ToolCrosswalk
+    url: mcp/bindbee-tool-crosswalk.yml
+- aid: bindbee:bindbee-webhooks-api
+  name: Bindbee Webhooks API
+  description: The Webhooks API from Bindbee — 3 operation(s) for webhooks.
+  humanURL: https://bindbee.dev/
+  baseURL: https://api.bindbee.dev
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/bindbee-webhooks-api-openapi.yml
   - type: Documentation
     url: https://docs.bindbee.dev/
   - type: APIReference
