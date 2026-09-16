@@ -1,17 +1,899 @@
-generated: '2026-07-15'
+generated: '2026-09-16'
 method: generated
-source: openapi/bindbee-api.yaml
+source: openapi/bindbee-activity-api-openapi.yml, openapi/bindbee-application-api-openapi.yml,
+  openapi/bindbee-attachment-api-openapi.yml, openapi/bindbee-bank-info-api-openapi.yml, openapi/bindbee-benefit-coverages-api-openapi.yml,
+  openapi/bindbee-benefits-api-openapi.yml, openapi/bindbee-candidate-api-openapi.yml, openapi/bindbee-candidates-api-openapi.yml,
+  openapi/bindbee-categories-api-openapi.yml, openapi/bindbee-company-api-openapi.yml, openapi/bindbee-compensation-api-openapi.yml,
+  openapi/bindbee-completions-api-openapi.yml, openapi/bindbee-connector-api-openapi.yml, openapi/bindbee-contents-api-openapi.yml,
+  openapi/bindbee-courses-api-openapi.yml, openapi/bindbee-custom-fields-api-openapi.yml, openapi/bindbee-department-api-openapi.yml,
+  openapi/bindbee-departments-api-openapi.yml, openapi/bindbee-dependent-benefits-api-openapi.yml,
+  openapi/bindbee-dependents-api-openapi.yml, openapi/bindbee-eeoc-api-openapi.yml, openapi/bindbee-employee-api-openapi.yml,
+  openapi/bindbee-employee-payroll-runs-api-openapi.yml, openapi/bindbee-employees-api-openapi.yml,
+  openapi/bindbee-employer-benefits-api-openapi.yml, openapi/bindbee-employments-api-openapi.yml,
+  openapi/bindbee-enrollments-api-openapi.yml, openapi/bindbee-group-api-openapi.yml, openapi/bindbee-health-check-api-openapi.yml,
+  openapi/bindbee-integration-api-openapi.yml, openapi/bindbee-job-api-openapi.yml, openapi/bindbee-job-interview-stage-api-openapi.yml,
+  openapi/bindbee-jobs-api-openapi.yml, openapi/bindbee-link-api-openapi.yml, openapi/bindbee-location-api-openapi.yml,
+  openapi/bindbee-lookup-api-openapi.yml, openapi/bindbee-offer-api-openapi.yml, openapi/bindbee-office-api-openapi.yml,
+  openapi/bindbee-passthrough-api-openapi.yml, openapi/bindbee-pay-groups-api-openapi.yml, openapi/bindbee-payroll-codes-api-openapi.yml,
+  openapi/bindbee-payroll-run-calendars-api-openapi.yml, openapi/bindbee-payroll-runs-api-openapi.yml,
+  openapi/bindbee-reject-reason-api-openapi.yml, openapi/bindbee-remote-user-api-openapi.yml,
+  openapi/bindbee-scheduled-interview-api-openapi.yml, openapi/bindbee-scorecard-api-openapi.yml,
+  openapi/bindbee-screening-question-api-openapi.yml, openapi/bindbee-skills-api-openapi.yml,
+  openapi/bindbee-tag-api-openapi.yml, openapi/bindbee-time-off-api-openapi.yml, openapi/bindbee-time-off-balance-api-openapi.yml,
+  openapi/bindbee-timesheet-entry-api-openapi.yml, openapi/bindbee-users-api-openapi.yml, openapi/bindbee-webhooks-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 7
+  operations: 151
   by_action_class:
-    connected: 7
+    connected: 116
+    acting: 35
   by_consequence:
-    read: 7
+    read: 116
+    write: 35
   human_in_the_loop_required: 0
 operations:
+- path: /api/ats/v1/activities
+  method: get
+  operationId: get_activities_api_ats_v1_activities_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/activities
+  method: post
+  operationId: create_activity_api_ats_v1_activities_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/activities/{id}
+  method: get
+  operationId: get_activity_by_id_api_ats_v1_activities__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/applications
+  method: get
+  operationId: get_applications_api_ats_v1_applications_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/applications
+  method: post
+  operationId: create_application_api_ats_v1_applications_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/applications/{id}
+  method: get
+  operationId: get_application_by_id_api_ats_v1_applications__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/attachments
+  method: get
+  operationId: get_attachments_api_ats_v1_attachments_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/attachments
+  method: post
+  operationId: create_attachment_api_ats_v1_attachments_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/attachments/{id}
+  method: get
+  operationId: get_attachment_by_id_api_ats_v1_attachments__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/bank-info
+  method: get
+  operationId: get_bank_info_list_api_hris_v1_bank_info_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/bank-info/{id}
+  method: get
+  operationId: get_bank_info_by_id_api_hris_v1_bank_info__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/benefit-coverages
+  method: get
+  operationId: get_benefit_coverages_api_hris_v1_benefit_coverages_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/benefit-coverages/{id}
+  method: get
+  operationId: get_benefit_coverage_by_id_api_hris_v1_benefit_coverages__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/benefits
+  method: get
+  operationId: get_benefits_api_hris_v1_benefits_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/benefits/{id}
+  method: get
+  operationId: get_benefit_by_id_api_hris_v1_benefits__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/candidates
+  method: get
+  operationId: get_candidates_api_ats_v1_candidates_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/candidates
+  method: post
+  operationId: create_candidate_api_ats_v1_candidates_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/candidates/create/meta
+  method: get
+  operationId: get_create_candidate_request_body_api_ats_v1_candidates_create_meta_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/candidates/{id}
+  method: get
+  operationId: get_candidate_by_id_api_ats_v1_candidates__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/candidates/{candidate_id}/attachments
+  method: post
+  operationId: create_candidate_attachment_api_ats_v1_candidates__candidate_id__attachments_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /ats/candidates
+  method: get
+  operationId: listCandidates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /ats/candidates/{id}
+  method: get
+  operationId: getCandidate
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/categories
+  method: get
+  operationId: get_lms_categories_api_lms_v1_categories_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/categories/{id}
+  method: get
+  operationId: get_lms_category_by_id_api_lms_v1_categories__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/companies
+  method: get
+  operationId: get_companies_api_hris_v1_companies_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/companies/{id}
+  method: get
+  operationId: get_company_by_id_api_hris_v1_companies__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/compensations
+  method: get
+  operationId: get_compensations_api_hris_v1_compensations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/compensations/{id}
+  method: get
+  operationId: get_compensation_by_id_api_hris_v1_compensations__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/completions
+  method: get
+  operationId: get_lms_completions_api_lms_v1_completions_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/completions/{id}
+  method: get
+  operationId: get_lms_completion_by_id_api_lms_v1_completions__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/connectors
+  method: get
+  operationId: get_hris_connectors_api_hris_v1_connectors_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/connectors/{connector_id}/delete
+  method: delete
+  operationId: delete_hris_connector_api_hris_v1_connectors__connector_id__delete_delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/connectors
+  method: get
+  operationId: get_ats_connectors_api_ats_v1_connectors_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/connectors/{connector_id}/delete
+  method: delete
+  operationId: delete_ats_connector_api_ats_v1_connectors__connector_id__delete_delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/lms/v1/connectors
+  method: get
+  operationId: get_lms_connectors_api_lms_v1_connectors_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/connectors/{connector_id}/delete
+  method: delete
+  operationId: delete_lms_connector_api_lms_v1_connectors__connector_id__delete_delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/embedded/v1/connectors/connector_token/{temporary_token}
+  method: get
+  operationId: get_connector_token_api_embedded_v1_connectors_connector_token__temporary_token__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/embedded/v1/connectors/resync
+  method: post
+  operationId: force_resync_connector_api_embedded_v1_connectors_resync_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/lms/v1/contents
+  method: get
+  operationId: get_lms_contents_api_lms_v1_contents_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/contents/{id}
+  method: get
+  operationId: get_lms_content_by_id_api_lms_v1_contents__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/courses
+  method: get
+  operationId: get_lms_courses_api_lms_v1_courses_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/courses/{id}
+  method: get
+  operationId: get_lms_course_by_id_api_lms_v1_courses__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/custom-fields
+  method: post
+  operationId: create_custom_field_api_v1_custom_fields_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/custom-fields
+  method: get
+  operationId: list_custom_fields_api_v1_custom_fields_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/custom-fields/mapping
+  method: post
+  operationId: create_custom_field_mapping_api_v1_custom_fields_mapping_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/custom-fields/mapping
+  method: get
+  operationId: list_custom_field_mappings_api_v1_custom_fields_mapping_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/custom-fields/mapping/{custom_field_mapping_id}
+  method: patch
+  operationId: update_custom_field_mapping_api_v1_custom_fields_mapping__custom_field_mapping_id__patch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/custom-fields/mapping/{custom_field_mapping_id}
+  method: delete
+  operationId: delete_custom_field_mapping_api_v1_custom_fields_mapping__custom_field_mapping_id__delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/custom-fields/raw-data
+  method: get
+  operationId: get_raw_data_api_v1_custom_fields_raw_data_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/custom-fields/preview
+  method: post
+  operationId: preview_custom_field_api_v1_custom_fields_preview_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/custom-fields/configuration
+  method: get
+  operationId: get_custom_fields_configuration_api_v1_custom_fields_configuration_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/custom-fields/{custom_field_id}
+  method: get
+  operationId: get_custom_field_api_v1_custom_fields__custom_field_id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/custom-fields/{custom_field_id}
+  method: patch
+  operationId: update_custom_field_api_v1_custom_fields__custom_field_id__patch
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/v1/custom-fields/{custom_field_id}
+  method: delete
+  operationId: delete_custom_field_api_v1_custom_fields__custom_field_id__delete
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/departments
+  method: get
+  operationId: get_departments_api_ats_v1_departments_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/departments
+  method: post
+  operationId: create_department_api_ats_v1_departments_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/departments/{id}
+  method: get
+  operationId: get_department_by_id_api_ats_v1_departments__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /hris/departments
+  method: get
+  operationId: listDepartments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/dependent-benefits
+  method: get
+  operationId: get_dependent_benefits_api_hris_v1_dependent_benefits_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/dependent-benefits/{id}
+  method: get
+  operationId: get_dependent_benefit_by_id_api_hris_v1_dependent_benefits__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/dependents
+  method: get
+  operationId: get_dependents_api_hris_v1_dependents_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/dependents/{id}
+  method: get
+  operationId: get_dependent_by_id_api_hris_v1_dependents__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/eeocs
+  method: get
+  operationId: get_eeocs_api_ats_v1_eeocs_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/eeocs
+  method: post
+  operationId: create_eeoc_api_ats_v1_eeocs_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/eeocs/{id}
+  method: get
+  operationId: get_eeoc_by_id_api_ats_v1_eeocs__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employees
+  method: get
+  operationId: get_employees_api_hris_v1_employees_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employees
+  method: post
+  operationId: create_employee_api_hris_v1_employees_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/employees/create/meta
+  method: get
+  operationId: get_create_employee_request_body_api_hris_v1_employees_create_meta_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employees/meta/post
+  method: get
+  operationId: get_create_employee_meta_api_hris_v1_employees_meta_post_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employees/{id}
+  method: get
+  operationId: get_employee_by_id_api_hris_v1_employees__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employee-payroll-runs
+  method: get
+  operationId: get_employee_payroll_runs_api_hris_v1_employee_payroll_runs_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employee-payroll-runs
+  method: post
+  operationId: create_employee_payroll_run_api_hris_v1_employee_payroll_runs_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/employee-payroll-runs/meta/post
+  method: get
+  operationId: get_create_employee_payroll_run_meta_api_hris_v1_employee_payroll_runs_meta_post_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employee-payroll-runs/{id}
+  method: get
+  operationId: get_employee_payroll_runs_by_id_api_hris_v1_employee_payroll_runs__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /hris/employees
   method: get
   operationId: listEmployees
@@ -32,9 +914,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /hris/departments
+- path: /api/hris/v1/employer-benefits
   method: get
-  operationId: listDepartments
+  operationId: get_employer_benefits_api_hris_v1_employer_benefits_get
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -42,9 +924,187 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /hris/time-off
+- path: /api/hris/v1/employer-benefits/{id}
   method: get
-  operationId: listTimeOff
+  operationId: get_employer_benefit_by_id_api_hris_v1_employer_benefits__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employments
+  method: get
+  operationId: get_employments_api_hris_v1_employments_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/employments/{id}
+  method: get
+  operationId: get_employment_by_id_api_hris_v1_employments__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/enrollments
+  method: get
+  operationId: get_lms_enrollments_api_lms_v1_enrollments_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/enrollments/{id}
+  method: get
+  operationId: get_lms_enrollment_by_id_api_lms_v1_enrollments__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/groups
+  method: get
+  operationId: get_groups_api_hris_v1_groups_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/groups/{id}
+  method: get
+  operationId: get_group_by_id_api_hris_v1_groups__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/org-check
+  method: post
+  operationId: org_health_check_api_v1_org_check_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/integrations
+  method: get
+  operationId: get_org_integrations_api_hris_v1_integrations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/integrations
+  method: get
+  operationId: get_org_integrations_api_ats_v1_integrations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/integrations
+  method: get
+  operationId: get_org_integrations_api_lms_v1_integrations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/jobs
+  method: get
+  operationId: get_jobs_api_ats_v1_jobs_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/jobs
+  method: post
+  operationId: create_job_api_ats_v1_jobs_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/jobs/{id}
+  method: get
+  operationId: get_job_by_id_api_ats_v1_jobs__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/job-interview-stages
+  method: get
+  operationId: get_job_interview_stages_api_ats_v1_job_interview_stages_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/job-interview-stages
+  method: post
+  operationId: create_job_interview_stage_api_ats_v1_job_interview_stages_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/job-interview-stages/{id}
+  method: get
+  operationId: get_job_interview_stage_by_id_api_ats_v1_job_interview_stages__id__get
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -62,9 +1122,25 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /ats/candidates
+- path: /api/embedded/v1/link/create-link-token
+  method: post
+  operationId: create_link_token_api_embedded_v1_link_create_link_token_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/locations
   method: get
-  operationId: listCandidates
+  operationId: get_locations_api_hris_v1_locations_get
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -72,9 +1148,605 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /ats/candidates/{id}
+- path: /api/hris/v1/locations/{id}
   method: get
-  operationId: getCandidate
+  operationId: get_location_by_id_api_hris_v1_locations__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/lookup/integrations
+  method: get
+  operationId: list_integrations_api_v1_lookup_integrations_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/lookup/models
+  method: get
+  operationId: list_models_api_v1_lookup_models_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/offers
+  method: get
+  operationId: get_offers_api_ats_v1_offers_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/offers
+  method: post
+  operationId: create_offer_api_ats_v1_offers_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/offers/{id}
+  method: get
+  operationId: get_offer_by_id_api_ats_v1_offers__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/offices
+  method: get
+  operationId: get_offices_api_ats_v1_offices_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/offices
+  method: post
+  operationId: create_office_api_ats_v1_offices_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/offices/{id}
+  method: get
+  operationId: get_office_by_id_api_ats_v1_offices__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/passthrough
+  method: post
+  operationId: make_passthrough_request_api_v1_passthrough_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/pay-groups
+  method: get
+  operationId: get_pay_groups_api_hris_v1_pay_groups_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/pay-groups/{id}
+  method: get
+  operationId: get_pay_group_by_id_api_hris_v1_pay_groups__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/payroll-codes
+  method: get
+  operationId: get_payroll_codes_api_hris_v1_payroll_codes_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/payroll-codes/{id}
+  method: get
+  operationId: get_payroll_code_by_id_api_hris_v1_payroll_codes__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/payroll-run-calendars
+  method: get
+  operationId: get_payroll_run_calendars_api_hris_v1_payroll_run_calendars_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/payroll-run-calendars/{id}
+  method: get
+  operationId: get_payroll_calendar_run_by_id_api_hris_v1_payroll_run_calendars__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/payroll-runs
+  method: get
+  operationId: get_payroll_runs_api_hris_v1_payroll_runs_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/payroll-runs/{id}
+  method: get
+  operationId: get_payroll_run_by_id_api_hris_v1_payroll_runs__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/reject-reasons
+  method: get
+  operationId: get_reject_reasons_api_ats_v1_reject_reasons_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/reject-reasons
+  method: post
+  operationId: create_reject_reason_api_ats_v1_reject_reasons_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/reject-reasons/{id}
+  method: get
+  operationId: get_reject_reason_by_id_api_ats_v1_reject_reasons__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/remote-users
+  method: get
+  operationId: get_remote_users_api_ats_v1_remote_users_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/remote-users
+  method: post
+  operationId: create_remote_user_api_ats_v1_remote_users_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/remote-users/{id}
+  method: get
+  operationId: get_remote_user_by_id_api_ats_v1_remote_users__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/scheduled-interviews
+  method: get
+  operationId: get_scheduled_interviews_api_ats_v1_scheduled_interviews_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/scheduled-interviews
+  method: post
+  operationId: create_scheduled_interview_api_ats_v1_scheduled_interviews_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/scheduled-interviews/{id}
+  method: get
+  operationId: get_scheduled_interview_by_id_api_ats_v1_scheduled_interviews__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/scorecards
+  method: get
+  operationId: get_scorecards_api_ats_v1_scorecards_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/scorecards
+  method: post
+  operationId: create_scorecard_api_ats_v1_scorecards_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/scorecards/{id}
+  method: get
+  operationId: get_scorecard_by_id_api_ats_v1_scorecards__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/screening-questions
+  method: get
+  operationId: get_screening_questions_api_ats_v1_screening_questions_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/screening-questions
+  method: post
+  operationId: create_screening_question_api_ats_v1_screening_questions_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/screening-questions/{id}
+  method: get
+  operationId: get_screening_question_by_id_api_ats_v1_screening_questions__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/skills
+  method: get
+  operationId: get_lms_skills_api_lms_v1_skills_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/skills/{id}
+  method: get
+  operationId: get_lms_skill_by_id_api_lms_v1_skills__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/tags
+  method: get
+  operationId: get_tags_api_ats_v1_tags_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/ats/v1/tags
+  method: post
+  operationId: create_tag_api_ats_v1_tags_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/ats/v1/tags/{id}
+  method: get
+  operationId: get_tag_by_id_api_ats_v1_tags__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/time-off
+  method: get
+  operationId: get_time_off_list_api_hris_v1_time_off_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/time-off
+  method: post
+  operationId: create_time_off_api_hris_v1_time_off_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/time-off/meta/post
+  method: get
+  operationId: get_create_time_off_meta_api_hris_v1_time_off_meta_post_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/time-off/{id}
+  method: get
+  operationId: get_time_off_by_id_api_hris_v1_time_off__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /hris/time-off
+  method: get
+  operationId: listTimeOff
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/time-off-balances
+  method: get
+  operationId: get_time_off_balances_list_api_hris_v1_time_off_balances_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/time-off-balances/{id}
+  method: get
+  operationId: get_time_off_balance_by_id_api_hris_v1_time_off_balances__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/timesheet-entry
+  method: get
+  operationId: get_timesheet_list_api_hris_v1_timesheet_entry_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/timesheet-entry
+  method: post
+  operationId: create_timesheet_api_hris_v1_timesheet_entry_post
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/hris/v1/timesheet-entry/meta/post
+  method: get
+  operationId: get_create_timesheet_meta_api_hris_v1_timesheet_entry_meta_post_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/hris/v1/timesheet-entry/{id}
+  method: get
+  operationId: get_timesheet_by_id_api_hris_v1_timesheet_entry__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/users
+  method: get
+  operationId: get_lms_users_api_lms_v1_users_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/lms/v1/users/{id}
+  method: get
+  operationId: get_lms_user_by_id_api_lms_v1_users__id__get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/webhooks
+  method: get
+  operationId: list_webhooks_api_v1_webhooks_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/webhooks/logs
+  method: get
+  operationId: list_webhook_logs_api_v1_webhooks_logs_get
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/v1/webhooks/logs/{log_id}
+  method: get
+  operationId: get_webhook_log_detail_api_v1_webhooks_logs__log_id__get
   x-agentic-access:
     action-class: connected
     consequence: read
