@@ -1,0 +1,1174 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Connector API
+  version: 0.1.0
+tags:
+- name: Connector
+paths:
+  /api/hris/v1/connectors:
+    get:
+      tags:
+      - Connector
+      summary: Get Hris Connectors
+      description: Returns a list of HRIS connectors
+      operationId: get_hris_connectors_api_hris_v1_connectors_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: connector_token
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The connector token for the connector
+          examples:
+          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
+          title: Connector Token
+        description: The connector token for the connector
+      - name: is_active
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Filter connectors by active status
+          examples:
+          - true
+          title: Is Active
+        description: Filter connectors by active status
+      - name: origin_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter connectors by end user origin ID
+          examples:
+          - user_123
+          title: Origin Id
+        description: Filter connectors by end user origin ID
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_HrisConnectorResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/hris/v1/connectors/{connector_id}/delete:
+    delete:
+      tags:
+      - Connector
+      summary: Delete Hris Connector
+      description: Deletes the provided connector
+      operationId: delete_hris_connector_api_hris_v1_connectors__connector_id__delete_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: connector_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Connector Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessageResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/ats/v1/connectors:
+    get:
+      tags:
+      - Connector
+      summary: Get Ats Connectors
+      description: Returns a list of ATS connectors
+      operationId: get_ats_connectors_api_ats_v1_connectors_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: connector_token
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The connector token for the connector
+          examples:
+          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
+          title: Connector Token
+        description: The connector token for the connector
+      - name: is_active
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Filter connectors by active status
+          examples:
+          - true
+          title: Is Active
+        description: Filter connectors by active status
+      - name: origin_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter connectors by end user origin ID
+          examples:
+          - user_123
+          title: Origin Id
+        description: Filter connectors by end user origin ID
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_ConnectorResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/ats/v1/connectors/{connector_id}/delete:
+    delete:
+      tags:
+      - Connector
+      summary: Delete Ats Connector
+      description: Deletes the provided connector
+      operationId: delete_ats_connector_api_ats_v1_connectors__connector_id__delete_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: connector_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Connector Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessageResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/lms/v1/connectors:
+    get:
+      tags:
+      - Connector
+      summary: Get Lms Connectors
+      description: Returns a list of LMS connectors
+      operationId: get_lms_connectors_api_lms_v1_connectors_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: connector_token
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The connector token for the connector
+          examples:
+          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
+          title: Connector Token
+        description: The connector token for the connector
+      - name: is_active
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Filter connectors by active status
+          examples:
+          - true
+          title: Is Active
+        description: Filter connectors by active status
+      - name: origin_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Filter connectors by end user origin ID
+          examples:
+          - user_123
+          title: Origin Id
+        description: Filter connectors by end user origin ID
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_ConnectorResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/lms/v1/connectors/{connector_id}/delete:
+    delete:
+      tags:
+      - Connector
+      summary: Delete Lms Connector
+      description: Deletes the provided connector
+      operationId: delete_lms_connector_api_lms_v1_connectors__connector_id__delete_delete
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: connector_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Connector Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessMessageResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/embedded/v1/connectors/connector_token/{temporary_token}:
+    get:
+      tags:
+      - Connector
+      summary: Get Connector Token
+      operationId: get_connector_token_api_embedded_v1_connectors_connector_token__temporary_token__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: temporary_token
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Temporary Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentConnectorResponseModel'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/embedded/v1/connectors/resync:
+    post:
+      tags:
+      - Connector
+      summary: Force Resync Connector
+      operationId: force_resync_connector_api_embedded_v1_connectors_resync_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Force Resync Connector Api Embedded V1 Connectors Resync Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Category:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - LMS
+      title: Category
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    JobDisplayStatus:
+      type: string
+      enum:
+      - Syncing
+      - Done
+      - Failed
+      title: JobDisplayStatus
+    ConnectorResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Id of the connector
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        is_active:
+          type: boolean
+          title: Is Active
+          description: Flag to indicate if connector is active or not
+          examples:
+          - true
+        status:
+          $ref: '#/components/schemas/ConnectorStatus'
+          description: Link status of the connector
+          examples:
+          - COMPLETE
+        integration_slug:
+          type: string
+          title: Integration Slug
+          description: Integration slug for the particular connector
+          examples:
+          - ukg-pro
+        end_user:
+          type: string
+          title: End User
+          description: Name of the end user which is used when creating corresponding connector
+          examples:
+          - Acme Corp.
+        origin_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Id
+          description: Origin ID of the end user
+          examples:
+          - user_123
+        sync_status:
+          anyOf:
+          - $ref: '#/components/schemas/JobDisplayStatus'
+          - type: 'null'
+          description: Latest Sync status of the connector
+          examples:
+          - Done
+        last_sync_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Sync Start Time
+          description: This time represent last sync start time
+          examples:
+          - '2024-10-16T00:00:00Z'
+        next_sync_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Sync Start Time
+          description: This time represent next sync start time
+          examples:
+          - '2024-10-17T00:00:00Z'
+        connector_token:
+          type: string
+          title: Connector Token
+          description: Connector token for this connector
+          examples:
+          - LJITuCJFqpGXeKfZtn4I9ZcahzA-lkCSO6uhDKj5xw9EzPL96qk7ObgIHQQ1GnxH
+        category:
+          $ref: '#/components/schemas/Category'
+          description: Category of the connector
+          examples:
+          - HRIS
+        relink_needed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Relink Needed At
+          description: Time at which credentials were deemed invalid
+          examples:
+          - '2024-10-17T00:00:00Z'
+        is_test_connector:
+          type: boolean
+          title: Is Test Connector
+          description: Flag indicating if connector is test connector or not
+          examples:
+          - false
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+          description: Indicated time at which connector has been linked properly
+          examples:
+          - '2024-10-17T00:00:00Z'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: Connector creation time
+          examples:
+          - '2024-10-17T00:00:00Z'
+      type: object
+      required:
+      - id
+      - is_active
+      - status
+      - integration_slug
+      - end_user
+      - origin_id
+      - sync_status
+      - last_sync_start_time
+      - next_sync_start_time
+      - connector_token
+      - category
+      - relink_needed_at
+      - is_test_connector
+      - completed_at
+      - created_at
+      title: ConnectorResponse
+    HrisConnectorResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Id of the connector
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        is_active:
+          type: boolean
+          title: Is Active
+          description: Flag to indicate if connector is active or not
+          examples:
+          - true
+        status:
+          $ref: '#/components/schemas/ConnectorStatus'
+          description: Link status of the connector
+          examples:
+          - COMPLETE
+        integration_slug:
+          type: string
+          title: Integration Slug
+          description: Integration slug for the particular connector
+          examples:
+          - ukg-pro
+        end_user:
+          type: string
+          title: End User
+          description: Name of the end user which is used when creating corresponding connector
+          examples:
+          - Acme Corp.
+        origin_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Id
+          description: Origin ID of the end user
+          examples:
+          - user_123
+        sync_status:
+          anyOf:
+          - $ref: '#/components/schemas/JobDisplayStatus'
+          - type: 'null'
+          description: Latest Sync status of the connector
+          examples:
+          - Done
+        last_sync_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Sync Start Time
+          description: This time represent last sync start time
+          examples:
+          - '2024-10-16T00:00:00Z'
+        next_sync_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Sync Start Time
+          description: This time represent next sync start time
+          examples:
+          - '2024-10-17T00:00:00Z'
+        connector_token:
+          type: string
+          title: Connector Token
+          description: Connector token for this connector
+          examples:
+          - LJITuCJFqpGXeKfZtn4I9ZcahzA-lkCSO6uhDKj5xw9EzPL96qk7ObgIHQQ1GnxH
+        category:
+          $ref: '#/components/schemas/Category'
+          description: Category of the connector
+          examples:
+          - HRIS
+        relink_needed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Relink Needed At
+          description: Time at which credentials were deemed invalid
+          examples:
+          - '2024-10-17T00:00:00Z'
+        is_test_connector:
+          type: boolean
+          title: Is Test Connector
+          description: Flag indicating if connector is test connector or not
+          examples:
+          - false
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+          description: Indicated time at which connector has been linked properly
+          examples:
+          - '2024-10-17T00:00:00Z'
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+          description: Connector creation time
+          examples:
+          - '2024-10-17T00:00:00Z'
+        sync_progress:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Sync Progress
+          description: Progress of the currently running sync as a percentage (0-100). Null when no sync is active or when the sync is pending/failed; use `sync_status` for those states.
+          examples:
+          - 42
+        total_employees:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Employees
+          description: Total number of employees synced for this connector. Populated after the first sync completes; null during initial sync.
+          examples:
+          - 128
+        active_employees:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Active Employees
+          description: Number of active employees synced for this connector. Populated after the first sync completes; null during initial sync.
+          examples:
+          - 120
+        avg_sync_duration:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avg Sync Duration
+          description: Human-readable average sync duration for this connector (e.g. `15 min 30 sec`). null until the first sync completes.
+          examples:
+          - 15 min 30 sec
+      type: object
+      required:
+      - id
+      - is_active
+      - status
+      - integration_slug
+      - end_user
+      - origin_id
+      - sync_status
+      - last_sync_start_time
+      - next_sync_start_time
+      - connector_token
+      - category
+      - relink_needed_at
+      - is_test_connector
+      - completed_at
+      - created_at
+      title: HrisConnectorResponse
+    ConnectorStatus:
+      type: string
+      enum:
+      - COMPLETE
+      - INCOMPLETE
+      - RELINK_NEEDED
+      title: ConnectorStatus
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SuccessMessageResponseModel:
+      properties:
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: SuccessMessageResponseModel
+    PaginatedResponse_HrisConnectorResponse_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisConnectorResponse'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisConnectorResponse]
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    CurrentConnectorResponseModel:
+      properties:
+        connector_token:
+          type: string
+          title: Connector Token
+          description: Connector token of the connector using which you can make API calls to Bindbee
+          examples:
+          - jk23h4jk23hk4j2h3kj4h23kjh4k23jh4k2j3h4
+        connector_id:
+          type: string
+          format: uuid
+          title: Connector Id
+          description: The ID of the connector associated with the request
+          examples:
+          - 123e4567-e89b-12d3-a456-426614174000
+      type: object
+      required:
+      - connector_token
+      - connector_id
+      title: CurrentConnectorResponseModel
+    PaginatedResponse_ConnectorResponse_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/ConnectorResponse'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[ConnectorResponse]
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

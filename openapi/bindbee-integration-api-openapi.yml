@@ -1,0 +1,407 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Integration API
+  version: 0.1.0
+tags:
+- name: Integration
+paths:
+  /api/hris/v1/integrations:
+    get:
+      tags:
+      - Integration
+      summary: Get Org Integrations
+      description: Returns a list of Integrations
+      operationId: get_org_integrations_api_hris_v1_integrations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_IntegrationResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/ats/v1/integrations:
+    get:
+      tags:
+      - Integration
+      summary: Get Org Integrations
+      description: Returns a list of Integrations
+      operationId: get_org_integrations_api_ats_v1_integrations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_IntegrationResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/lms/v1/integrations:
+    get:
+      tags:
+      - Integration
+      summary: Get Org Integrations
+      description: Returns a list of Integrations
+      operationId: get_org_integrations_api_lms_v1_integrations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_IntegrationResponse_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    PaginatedResponse_IntegrationResponse_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/IntegrationResponse'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[IntegrationResponse]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IntegrationResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Id of the integration object
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        integration_id:
+          type: string
+          format: uuid
+          title: Integration Id
+          description: Id of the integration
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Enabled boolean flag
+          examples:
+          - true
+        integration_slug:
+          type: string
+          title: Integration Slug
+          description: Integration slug
+          examples:
+          - ukg_pro
+        integration_type:
+          type: string
+          title: Integration Type
+          description: Integration Type
+          examples:
+          - API
+        category:
+          type: string
+          title: Category
+          description: Categories this integration falls into
+          examples:
+          - HRIS
+        display_name:
+          type: string
+          title: Display Name
+          description: Name of the integration
+          examples:
+          - BambooHR
+        icon_url:
+          type: string
+          title: Icon Url
+          description: The url for icon
+          examples:
+          - https://images.unifyx.dev/logos/icon/ats/recruitee.svg
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description of integration
+          examples:
+          - BambooHR is an intuitive HRIS solution designed to streamline HR processes, offering features for employee onboarding, performance management, and HR analytics, providing organizations with a user-friendly platform for effective workforce management.
+      type: object
+      required:
+      - id
+      - integration_id
+      - is_enabled
+      - integration_slug
+      - integration_type
+      - category
+      - display_name
+      - icon_url
+      - description
+      title: IntegrationResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Health Check API
+  version: 0.1.0
+tags:
+- name: Health Check
+paths:
+  /api/v1/org-check:
+    post:
+      tags:
+      - Health Check
+      summary: Org Health Check
+      operationId: org_health_check_api_v1_org_check_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

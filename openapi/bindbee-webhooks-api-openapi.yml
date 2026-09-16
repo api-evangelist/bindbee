@@ -1,0 +1,665 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Webhooks API
+  version: 0.1.0
+tags:
+- name: Webhooks
+paths:
+  /api/v1/webhooks:
+    get:
+      tags:
+      - Webhooks
+      summary: List Webhooks
+      description: List webhooks configured for the caller's organization.
+      operationId: list_webhooks_api_v1_webhooks_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: is_active
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          description: Filter webhooks by active status.
+          examples:
+          - true
+          title: Is Active
+        description: Filter webhooks by active status.
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          description: Number of results to return per page.
+          default: 20
+          title: Page Size
+        description: Number of results to return per page.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_WebhookListItemExternal_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/webhooks/logs:
+    get:
+      tags:
+      - Webhooks
+      summary: List Webhook Logs
+      description: List webhook delivery attempts for the caller's organization. Filter by `webhook_id` (see `GET /webhooks` for available ids) or `connector_id` to narrow the results.
+      operationId: list_webhook_logs_api_v1_webhooks_logs_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 50
+          minimum: 1
+          description: Number of results to return per page.
+          default: 25
+          title: Page Size
+        description: Number of results to return per page.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      - name: webhook_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Restrict results to deliveries for this webhook.
+          title: Webhook Id
+        description: Restrict results to deliveries for this webhook.
+      - name: connector_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Restrict results to deliveries triggered for this connector.
+          title: Connector Id
+        description: Restrict results to deliveries triggered for this connector.
+      - name: webhook_action
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated webhook event types to filter logs by.
+          examples:
+          - connector_synced,employee_data_changed
+          title: Webhook Action
+        description: Comma-separated webhook event types to filter logs by.
+      - name: response_code
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Comma-separated HTTP response codes to filter logs by.
+          examples:
+          - 200,403,503
+          title: Response Code
+        description: Comma-separated HTTP response codes to filter logs by.
+      - name: created_at_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Only logs created at or after this datetime. Format: ISO 8601. If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Created At From
+        description: 'Only logs created at or after this datetime. Format: ISO 8601. If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: created_at_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'Only logs created at or before this datetime. Format: ISO 8601. If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Created At To
+        description: 'Only logs created at or before this datetime. Format: ISO 8601. If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: errors_only
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: If true, only error logs (HTTP response code >= 400) are returned.
+          default: false
+          title: Errors Only
+        description: If true, only error logs (HTTP response code >= 400) are returned.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_WebhookLogEntryExternal_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/webhooks/logs/{log_id}:
+    get:
+      tags:
+      - Webhooks
+      summary: Get Webhook Log Detail
+      description: Get the full request/response detail for a single webhook delivery attempt.
+      operationId: get_webhook_log_detail_api_v1_webhooks_logs__log_id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: log_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Log Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookLogDetailExternal'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    WebhookLogEntryExternal:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Unique identifier of the delivery attempt.
+        connector_id:
+          type: string
+          format: uuid
+          title: Connector Id
+          description: Connector this delivery was triggered for.
+        method:
+          anyOf:
+          - $ref: '#/components/schemas/HTTPMethod-Output'
+          - type: 'null'
+          description: HTTP method used to deliver the webhook.
+        url:
+          type: string
+          title: Url
+          description: URL the webhook was delivered to.
+        response_code:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Response Code
+          description: HTTP status code returned by the receiving endpoint.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        integration_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Integration Name
+          description: Integration of the connector that triggered this delivery.
+        end_user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End User Name
+          description: End user of the connector that triggered this delivery.
+        origin_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Id
+          description: Origin ID of the end user associated with the connector.
+        webhook_action:
+          anyOf:
+          - $ref: '#/components/schemas/WebhookActions'
+          - type: 'null'
+          description: Event that triggered this delivery.
+        webhook_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Webhook Name
+          description: Name of the webhook.
+      type: object
+      required:
+      - id
+      - connector_id
+      - url
+      title: WebhookLogEntryExternal
+      description: 'Client-facing webhook delivery entry. Omits dashboard-only image fields and
+
+        generic log fields that webhook deliveries never populate (model_id,
+
+        sync_job_id, status), with webhook_action/method typed against their enums.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WebhookListItemExternal:
+      properties:
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+          description: Unique identifier of the webhook.
+          examples:
+          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
+        name:
+          type: string
+          title: Name
+          description: Name of the webhook.
+        url:
+          type: string
+          title: Url
+          description: URL the webhook is delivered to.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the webhook is currently enabled.
+        for_test_connector:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: For Test Connector
+          description: Whether this webhook is scoped to a demo/test connector.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        last_triggered_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Triggered At
+          description: When this webhook last fired, if ever.
+      type: object
+      required:
+      - webhook_id
+      - name
+      - url
+      - is_enabled
+      title: WebhookListItemExternal
+    WebhookActions:
+      type: string
+      enum:
+      - connector_synced
+      - connector_sync_started
+      - connector_data_modified
+      - employee_data_changed
+      - connector_sync_error
+      title: WebhookActions
+    WebhookLogDetailExternal:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Unique identifier of the delivery attempt.
+        connector_id:
+          type: string
+          format: uuid
+          title: Connector Id
+          description: Connector this delivery was triggered for.
+        method:
+          anyOf:
+          - $ref: '#/components/schemas/HTTPMethod-Output'
+          - type: 'null'
+          description: HTTP method used to deliver the webhook.
+        url:
+          type: string
+          title: Url
+          description: URL the webhook was delivered to.
+        response_code:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Response Code
+          description: HTTP status code returned by the receiving endpoint.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        integration_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Integration Name
+          description: Integration of the connector that triggered this delivery.
+        end_user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End User Name
+          description: End user of the connector that triggered this delivery.
+        origin_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Id
+          description: Origin ID of the end user associated with the connector.
+        webhook_action:
+          anyOf:
+          - $ref: '#/components/schemas/WebhookActions'
+          - type: 'null'
+          description: Event that triggered this delivery.
+        webhook_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Webhook Name
+          description: Name of the webhook.
+        request:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Request
+          description: Request sent to the webhook url.
+        response:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Response
+          description: Response received from the webhook url.
+      type: object
+      required:
+      - id
+      - connector_id
+      - url
+      title: WebhookLogDetailExternal
+    PaginatedResponse_WebhookLogEntryExternal_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/WebhookLogEntryExternal'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[WebhookLogEntryExternal]
+    PaginatedResponse_WebhookListItemExternal_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/WebhookListItemExternal'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[WebhookListItemExternal]
+    HTTPMethod-Output:
+      type: string
+      enum:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      title: HTTPMethod
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

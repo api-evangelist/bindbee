@@ -1,0 +1,287 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Lookup API
+  version: 0.1.0
+tags:
+- name: Lookup
+paths:
+  /api/v1/lookup/integrations:
+    get:
+      tags:
+      - Lookup
+      summary: List Integrations
+      description: List integrations enabled for the caller's organization. Each row carries the categories the org has enabled for that integration. Use `slug` as `integration_slug` when creating org-level custom field mappings.
+      operationId: list_integrations_api_v1_lookup_integrations_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: category
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/Category'
+          - type: 'null'
+          description: Filter to integrations the org has enabled for this category.
+          examples:
+          - HRIS
+          title: Category
+        description: Filter to integrations the org has enabled for this category.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/lookup/models:
+    get:
+      tags:
+      - Lookup
+      summary: List Models
+      description: List unified models enabled for the caller's organization. Use `slug` as `model` when creating custom fields or mappings.
+      operationId: list_models_api_v1_lookup_models_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: category
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/Category'
+          - type: 'null'
+          description: Filter to models in this category.
+          examples:
+          - HRIS
+          title: Category
+        description: Filter to models in this category.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelListResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Category:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - LMS
+      title: Category
+    ModelListResponse:
+      properties:
+        models:
+          items:
+            $ref: '#/components/schemas/ModelListItem'
+          type: array
+          title: Models
+      type: object
+      required:
+      - models
+      title: ModelListResponse
+    IntegrationListItem:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: Stable identifier for the integration. Use this as `integration_slug` when creating org-level mappings.
+          examples:
+          - workday
+        display_name:
+          type: string
+          title: Display Name
+          description: Human-readable name of the integration.
+          examples:
+          - Workday
+        categories:
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+          title: Categories
+          description: Categories of unified models the org has enabled for this integration.
+          examples:
+          - - HRIS
+      type: object
+      required:
+      - slug
+      - display_name
+      - categories
+      title: IntegrationListItem
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    IntegrationListResponse:
+      properties:
+        integrations:
+          items:
+            $ref: '#/components/schemas/IntegrationListItem'
+          type: array
+          title: Integrations
+      type: object
+      required:
+      - integrations
+      title: IntegrationListResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ModelListItem:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: Stable identifier for the model. Use this as `model` when creating custom fields or mappings.
+          examples:
+          - employee
+        display_name:
+          type: string
+          title: Display Name
+          description: Human-readable name of the model.
+          examples:
+          - Employee
+        category:
+          $ref: '#/components/schemas/Category'
+          description: Category this model belongs to.
+          examples:
+          - HRIS
+      type: object
+      required:
+      - slug
+      - display_name
+      - category
+      title: ModelListItem
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

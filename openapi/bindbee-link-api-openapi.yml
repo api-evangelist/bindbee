@@ -1,0 +1,196 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Link API
+  version: 0.1.0
+tags:
+- name: Link
+paths:
+  /api/embedded/v1/link/create-link-token:
+    post:
+      tags:
+      - Link
+      summary: Create Link Token
+      operationId: create_link_token_api_embedded_v1_link_create_link_token_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkTokenCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkTokenResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - HTTPBearer: []
+components:
+  schemas:
+    LinkTokenResponse:
+      properties:
+        link_token:
+          type: string
+          title: Link Token
+          description: Link token to be used for generating unify link
+          examples:
+          - KJDXZk8zC8Tdr-suQCy7zkALZVLjhKXyMd83leqheEGQpBx_evXrHA
+      type: object
+      required:
+      - link_token
+      title: LinkTokenResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UnifiedApiCategory:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - CUSTOM
+      - LMS
+      title: UnifiedApiCategory
+    EndUserCreate:
+      properties:
+        email:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Email
+          description: Email of the end_user
+          examples:
+          - my_email@gmail.com
+        org_name:
+          type: string
+          minLength: 2
+          title: Organization Name
+          description: Name of the organization to which end user belongs
+          examples:
+          - Kunal Organization
+        origin_id:
+          type: string
+          minLength: 2
+          title: Unique Identifier
+          description: Unique identifier to identify Connector
+          examples:
+          - 2kh3ub45
+      type: object
+      required:
+      - org_name
+      - origin_id
+      title: EndUserCreate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    LinkTokenCreate:
+      properties:
+        end_user_data:
+          $ref: '#/components/schemas/EndUserCreate'
+          title: End user data
+          description: End user data
+        category:
+          $ref: '#/components/schemas/UnifiedApiCategory'
+          title: Categories
+          description: Categories which will be shown in unify link
+          examples:
+          - HRIS
+        integration:
+          type: string
+          title: Integration
+          description: Integration slug of the integration
+          examples:
+          - bamboohr
+      type: object
+      required:
+      - end_user_data
+      - category
+      - integration
+      title: LinkTokenCreate
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

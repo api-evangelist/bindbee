@@ -1,38 +1,20 @@
 openapi: 3.2.0
 info:
-  title: Bindbee Time Off API
-  x-refined-note:
-  - x-generated-from differs across the merged source definitions and was not carried
-  version: '1.0'
-  description: 'Operations tagged Time Off across 2 of this provider''s published API definitions: bindbee-openapi.json, bindbee-api.yaml. Each path carries the servers of the definition it was published in.'
-servers:
-- url: https://api.bindbee.dev/v1
-  description: Bindbee Unified API
+  title: Bindbee Timesheet Entry API
+  version: 0.1.0
 tags:
-- name: Time Off
+- name: Timesheet Entry
 paths:
-  /api/hris/v1/time-off:
+  /api/hris/v1/timesheet-entry:
     get:
       tags:
-      - Time Off
-      summary: Get Time Off List
-      description: Returns a list of TimeOff objects.
-      operationId: get_time_off_list_api_hris_v1_time_off_get
+      - Timesheet Entry
+      summary: Get Timesheet List
+      description: Returns a list of Timesheet entry objects.
+      operationId: get_timesheet_list_api_hris_v1_timesheet_entry_get
       security:
       - HTTPBearer: []
       parameters:
-      - name: ids
-        in: query
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The ID of the time offs to fetch
-          examples:
-          - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
-          title: Ids
-        description: The ID of the time offs to fetch
       - name: remote_id
         in: query
         required: false
@@ -45,6 +27,18 @@ paths:
           - '3235005483341316245'
           title: Remote Id
         description: The third-party API ID of the matching object.
+      - name: ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The ID of the timesheet entries to fetch
+          examples:
+          - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
+          title: Ids
+        description: The ID of the timesheet entries to fetch
       - name: employee_id
         in: query
         required: false
@@ -52,27 +46,11 @@ paths:
           anyOf:
           - type: string
           - type: 'null'
-          description: The ID of the employees to fetch time offs for
+          description: The ID of the employees to fetch timesheet entries for
           examples:
           - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
           title: Employee Id
-        description: The ID of the employees to fetch time offs for
-      - name: status
-        in: query
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: The status of the time off to filter by
-          examples:
-          - REQUESTED
-          - APPROVED
-          - DECLINED
-          - CANCELLED
-          - DELETED
-          title: Status
-        description: The status of the time off to filter by
+        description: The ID of the employees to fetch timesheet entries for
       - name: include_raw_data
         in: query
         required: false
@@ -116,18 +94,6 @@ paths:
           description: The pagination cursor value.
           title: Cursor
         description: The pagination cursor value.
-      - name: expand
-        in: query
-        required: false
-        schema:
-          anyOf:
-          - type: string
-          - type: 'null'
-          description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
-          examples:
-          - manager[first_name,last_name]
-          title: Expand
-        description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
       - name: modified_after
         in: query
         required: false
@@ -140,6 +106,66 @@ paths:
           - '2024-02-21T21:22:12.993Z'
           title: Modified After
         description: 'If provided, only objects synced by Bindbee after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: expand
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+          examples:
+          - manager[first_name,last_name]
+          title: Expand
+        description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+      - name: start_time_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, will only return objects with start time same or after this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2023-10-01T00:00:00Z'
+          title: Start Time From
+        description: 'If provided, will only return objects with start time same or after this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: start_time_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, will only return objects with start time same or before this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2023-10-31T23:59:59Z'
+          title: Start Time To
+        description: 'If provided, will only return objects with start time same or before this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: end_time_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, will only return objects with end time same or after this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2023-10-01T00:00:00Z'
+          title: End Time From
+        description: 'If provided, will only return objects with end time same or after this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: end_time_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, will only return objects with end time same or before this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2023-10-31T23:59:59Z'
+          title: End Time To
+        description: 'If provided, will only return objects with end time same or before this value. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
       - name: x-connector-token
         in: header
         required: true
@@ -152,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaginatedResponse_HrisTimeOff_'
+                $ref: '#/components/schemas/PaginatedResponse_HrisTimeSheetEntry_'
         '422':
           description: Validation Error
           content:
@@ -201,10 +227,10 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
     post:
       tags:
-      - Time Off
-      summary: Create Time Off
-      description: Creates a TimeOff object with the given values.
-      operationId: create_time_off_api_hris_v1_time_off_post
+      - Timesheet Entry
+      summary: Create Timesheet
+      description: Creates a Time sheet object with the given values.
+      operationId: create_timesheet_api_hris_v1_timesheet_entry_post
       security:
       - HTTPBearer: []
       parameters:
@@ -276,13 +302,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/hris/v1/time-off/meta/post:
+  /api/hris/v1/timesheet-entry/meta/post:
     get:
       tags:
-      - Time Off
-      summary: Get Create Time Off Meta
-      description: Returns request schema for POST Time off request.
-      operationId: get_create_time_off_meta_api_hris_v1_time_off_meta_post_get
+      - Timesheet Entry
+      summary: Get Create Timesheet Meta
+      description: Returns request schema for POST Timesheet entry request.
+      operationId: get_create_timesheet_meta_api_hris_v1_timesheet_entry_meta_post_get
       security:
       - HTTPBearer: []
       parameters:
@@ -300,7 +326,7 @@ paths:
               schema:
                 type: object
                 additionalProperties: true
-                title: Response Get Create Time Off Meta Api Hris V1 Time Off Meta Post Get
+                title: Response Get Create Timesheet Meta Api Hris V1 Timesheet Entry Meta Post Get
         '422':
           description: Validation Error
           content:
@@ -347,13 +373,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /api/hris/v1/time-off/{id}:
+  /api/hris/v1/timesheet-entry/{id}:
     get:
       tags:
-      - Time Off
-      summary: Get Time Off By Id
-      description: Returns a TimeOff object with the given id.
-      operationId: get_time_off_by_id_api_hris_v1_time_off__id__get
+      - Timesheet Entry
+      summary: Get Timesheet By Id
+      description: Returns a Timesheet object with the given id.
+      operationId: get_timesheet_by_id_api_hris_v1_timesheet_entry__id__get
       security:
       - HTTPBearer: []
       parameters:
@@ -410,7 +436,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HrisTimeOff'
+                $ref: '#/components/schemas/HrisTimeSheetEntry'
         '422':
           description: Validation Error
           content:
@@ -463,55 +489,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
-  /hris/time-off:
-    get:
-      operationId: listTimeOff
-      summary: Bindbee List Time Off
-      description: Returns time-off requests and balances from the connected HRIS system.
-      tags:
-      - Time Off
-      security:
-      - apiKeyAuth: []
-      parameters:
-      - name: x-connector-token
-        in: header
-        required: true
-        schema:
-          type: string
-      - name: employee_id
-        in: query
-        required: false
-        schema:
-          type: string
-        description: Filter by employee ID.
-      responses:
-        '200':
-          description: List of time-off requests.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TimeOffResponse'
-              examples:
-                ListTimeOff200Example:
-                  summary: Default listTimeOff 200 response
-                  x-microcks-default: true
-                  value:
-                    data:
-                    - id: to-abc123
-                      employee_id: emp-abc123
-                      type: vacation
-                      status: approved
-                      start_date: '2024-07-01'
-                      end_date: '2024-07-05'
-      x-microcks-operation:
-        delay: 0
-        dispatcher: FALLBACK
-    servers:
-    - url: https://api.bindbee.dev/v1
-      description: Bindbee Unified API
 components:
   schemas:
-    HrisTimeOff:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HrisTimeSheetEntry:
       properties:
         id:
           type: string
@@ -563,105 +569,51 @@ components:
           - {}
           - type: 'null'
           title: Employee
-          description: The employee requesting time off.
+          description: The employee the timesheet entry is for.
           examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        approver:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Approver
-          description: The Bindbee ID of the employee with the ability to approve the time off request.
-          examples:
-          - 018b4bfb-6065-7f83-b11d-e85ea49e37c3
-        status:
+          - 018abccc-4a0a-7e7d-a9d7-56881f57a6b4
+        date:
           anyOf:
           - type: string
           - type: 'null'
-          enum:
-          - REQUESTED
-          - APPROVED
-          - DECLINED
-          - CANCELLED
-          - DELETED
-          title: Status
-          description: The status of this time off request. If the value is not one of the defined enum values, the original value passed through will be returned.
+          title: Date
+          description: The day the time was logged.
           examples:
-          - APPROVED
-        employee_note:
+          - '2023-11-10T00:00:00Z'
+        hours_worked:
           anyOf:
-          - type: string
-          - type: 'null'
-          title: Employee Note
-          description: The employee note for this time off request.
-          examples:
-          - Paid paid vacation! Scuba diving in Hawaii.
-        units:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - HOURS
-          - DAYS
-          title: Units
-          description: The measurement that the third-party integration uses to count time requested. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - HOURS
-        amount:
-          anyOf:
-          - type: integer
           - type: number
           - type: 'null'
-          title: Amount
-          description: The time off quantity measured by the prescribed “units”.
+          title: Hours Worked
+          description: The number of hours logged by the employee.
           examples:
-          - 12
-        request_type:
+          - 12.0
+        break_duration:
           anyOf:
-          - type: string
+          - type: number
           - type: 'null'
-          enum:
-          - VACATION
-          - SICK
-          - PERSONAL
-          - JURY_DUTY
-          - VOLUNTEER
-          - BEREAVEMENT
-          - MATERNITY
-          - ANNUAL_LEAVE
-          - EMERGENCY_LEAVE
-          - LEAVE_OF_ABSENCE
-          - PATERNITY
-          - PAID_TIME_OFF
-          - LONG_TERM_DISABILITY
-          - SHORT_TERM_DISABILITY
-          - COMP_OFF
-          - WORK_FROM_HOME
-          - COMPASSIONATE
-          - TIME_OFF
-          - FMLA
-          title: Request Type
-          description: The type of time off request. If the value is not one of the defined enum values, the original value passed through will be returned.
+          title: Break Duration
+          description: The number of hours the employee took for a break.
           examples:
-          - VACATION
+          - 2.5
         start_time:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
           title: Start Time
-          description: The day and time of the start of the time requested off.
+          description: The day and time of the start of the time entry.
           examples:
-          - '2023-04-10T00:00:00Z'
+          - '2023-11-10T00:00:00Z'
         end_time:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
           title: End Time
-          description: The day and time of the end of the time requested off.
+          description: The day and time of the end of the time entry.
           examples:
-          - '2023-04-10T00:00:00Z'
+          - '2023-11-10T00:00:00Z'
       type: object
       required:
       - id
@@ -669,43 +621,14 @@ components:
       - modified_at
       - custom_fields
       - employee
-      - approver
-      - status
-      - employee_note
-      - units
-      - amount
-      - request_type
+      - date
+      - hours_worked
+      - break_duration
       - start_time
       - end_time
-      title: HrisTimeOff
-      description: The TimeOff object is used to represent all employees' Time Off entries.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PaginatedResponse_HrisTimeOff_:
+      title: HrisTimeSheetEntry
+      description: The Timesheet Entry object is used to track coverage for Hours Worked by an Employee.
+    PaginatedResponse_HrisTimeSheetEntry_:
       properties:
         cursor:
           anyOf:
@@ -723,7 +646,7 @@ components:
           - 50
         items:
           items:
-            $ref: '#/components/schemas/HrisTimeOff'
+            $ref: '#/components/schemas/HrisTimeSheetEntry'
           type: array
           title: Items
           description: List of items in the current response
@@ -732,7 +655,7 @@ components:
       - cursor
       - page_size
       - items
-      title: PaginatedResponse[HrisTimeOff]
+      title: PaginatedResponse[HrisTimeSheetEntry]
     HTTPValidationError:
       properties:
         detail:
@@ -749,65 +672,7 @@ components:
       properties:
         detail:
           type: string
-    TimeOffRequest:
-      title: Time Off Request
-      description: An employee time-off request from a connected HRIS system.
-      type: object
-      properties:
-        id:
-          type: string
-          description: Time-off request ID.
-          example: to-abc123
-        employee_id:
-          type: string
-          description: Employee ID.
-          example: emp-abc123
-        type:
-          type: string
-          description: Type of time off.
-          enum:
-          - vacation
-          - sick
-          - personal
-          - other
-          example: vacation
-        status:
-          type: string
-          description: Approval status.
-          enum:
-          - pending
-          - approved
-          - rejected
-          example: approved
-        start_date:
-          type: string
-          format: date
-          description: Time-off start date.
-          example: '2024-07-01'
-        end_date:
-          type: string
-          format: date
-          description: Time-off end date.
-          example: '2024-07-05'
-    TimeOffResponse:
-      title: Time Off Response
-      description: List of time-off requests.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of time-off requests.
-          items:
-            $ref: '#/components/schemas/TimeOffRequest'
   securitySchemes:
     HTTPBearer:
       type: http
       scheme: bearer
-    apiKeyAuth:
-      type: apiKey
-      in: header
-      name: Authorization
-      description: Bearer API key in Authorization header. Also pass x-connector-token for the specific integration.
-x-refined-from:
-- bindbee-openapi.json
-- bindbee-api.yaml

@@ -1,0 +1,236 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Passthrough API
+  version: 0.1.0
+tags:
+- name: Passthrough
+paths:
+  /api/v1/passthrough:
+    post:
+      tags:
+      - Passthrough
+      summary: Make Passthrough Request
+      operationId: make_passthrough_request_api_v1_passthrough_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PassThroughRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    HTTPMethod-Input:
+      type: string
+      enum:
+      - CONNECT
+      - DELETE
+      - GET
+      - HEAD
+      - OPTIONS
+      - PATCH
+      - POST
+      - PUT
+      - TRACE
+      title: HTTPMethod
+      description: "HTTP methods and descriptions\n\nMethods from the following RFCs are all observed:\n\n    * RFC 9110: HTTP Semantics, obsoletes 7231, which obsoleted 2616\n    * RFC 5789: PATCH Method for HTTP"
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ResponseFormatEnum:
+      type: string
+      enum:
+      - JSON
+      - XML
+      - MULTIPART
+      - BINARY
+      title: ResponseFormatEnum
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RequestFormatEnum:
+      type: string
+      enum:
+      - JSON
+      - XML
+      - MULTIPART
+      title: RequestFormatEnum
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    PassThroughRequest:
+      properties:
+        method:
+          $ref: '#/components/schemas/HTTPMethod-Input'
+          title: method
+          description: Method of the request
+          examples:
+          - POST
+        path:
+          type: string
+          title: path
+          description: Path of the request
+          examples:
+          - /employees
+        headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: headers
+          description: headers of the request
+          examples:
+          - Content-Type: application/json
+        params:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: params
+          description: params of the request
+          examples:
+          - a: 1
+            b: 2
+        data:
+          anyOf:
+          - type: string
+          - items: {}
+            type: array
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: data
+          description: Body of the request
+          examples:
+          - a: 1
+            b: 2
+        request_format:
+          anyOf:
+          - $ref: '#/components/schemas/RequestFormatEnum'
+          - type: 'null'
+          title: Request Format
+          description: format of the request
+          default: JSON
+          examples:
+          - JSON
+        response_format:
+          anyOf:
+          - $ref: '#/components/schemas/ResponseFormatEnum'
+          - type: 'null'
+          title: Response Format
+          description: format of the response
+          default: JSON
+          examples:
+          - JSON
+        timeout:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timeout
+          description: timeout of the request
+          examples:
+          - 300.0
+      type: object
+      required:
+      - method
+      - path
+      - headers
+      title: PassThroughRequest
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,551 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Screening Question API
+  version: 0.1.0
+tags:
+- name: Screening Question
+paths:
+  /api/ats/v1/screening-questions:
+    get:
+      tags:
+      - Screening Question
+      summary: Get Screening Questions
+      description: Returns a list of ScreeningQuestion objects.
+      operationId: get_screening_questions_api_ats_v1_screening_questions_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The ID of the screening questions to fetch
+          examples:
+          - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
+          title: Ids
+        description: The ID of the screening questions to fetch
+      - name: job
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The job ids for the screening questions to fetch
+          examples:
+          - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
+          title: Job
+        description: The job ids for the screening questions to fetch
+      - name: include_raw_data
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Include raw data in the response
+          examples:
+          - false
+          default: false
+          title: Include Raw Data
+        description: Include raw data in the response
+      - name: include_custom_fields
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include custom fields in the response.
+          examples:
+          - false
+          default: false
+          title: Include Custom Fields
+        description: Whether to include custom fields in the response.
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      - name: modified_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects synced by Bindbee after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Modified After
+        description: 'If provided, only objects synced by Bindbee after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: expand
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+          examples:
+          - manager[first_name,last_name]
+          title: Expand
+        description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_AtsScreeningQuestion_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      tags:
+      - Screening Question
+      summary: Create Screening Question
+      description: Creates a ScreeningQuestion object with the given values.
+      operationId: create_screening_question_api_ats_v1_screening_questions_post
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Create Screening Question Api Ats V1 Screening Questions Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/ats/v1/screening-questions/{id}:
+    get:
+      tags:
+      - Screening Question
+      summary: Get Screening Question By Id
+      description: Returns a ScreeningQuestion object with the given id.
+      operationId: get_screening_question_by_id_api_ats_v1_screening_questions__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: include_raw_data
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Include raw data in the response
+          examples:
+          - false
+          default: false
+          title: Include Raw Data
+        description: Include raw data in the response
+      - name: include_custom_fields
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include custom fields in the response.
+          examples:
+          - false
+          default: false
+          title: Include Custom Fields
+        description: Whether to include custom fields in the response.
+      - name: expand
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+          examples:
+          - manager[first_name,last_name]
+          title: Expand
+        description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AtsScreeningQuestion'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_AtsScreeningQuestion_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/AtsScreeningQuestion'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[AtsScreeningQuestion]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AtsScreeningQuestion:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        remote_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Id
+          description: The third-party API ID of the matching object.
+          examples:
+          - '123321'
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: This is the datetime that this object was last updated by Bindbee
+          examples:
+          - '2021-10-16T00:00:00Z'
+        raw_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Raw Data
+          description: This is the Raw data
+          examples:
+          - key_1: Platform dependent data 1
+            key_2: Platform dependent data 2
+        custom_fields:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Custom Fields
+          description: The custom fields related to the model
+          examples:
+          - category_group: REG
+            disability_type: ASBERG
+            hire_date: '1991-03-16T00:00:00'
+            hire_source: REFER
+            nationality: USA
+            original_hire_date: '1991-03-16T00:00:00'
+        job:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Job
+          description: The identifier of the job to which this screening question is related.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A detailed description of the screening question.
+          examples:
+          - Please describe your experience with Python.
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The title of the screening question.
+          examples:
+          - Python Experience
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - DATE
+          - FILE
+          - SINGLE_SELECT
+          - MULTI_SELECT
+          - SINGLE_LINE_TEXT
+          - MULTI_LINE_TEXT
+          - NUMERIC
+          - BOOLEAN
+          title: Type
+          description: The type of screening question. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - SINGLE_LINE_TEXT
+        required:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Required
+          description: Indicates whether answering the question is required for the applicant.
+          examples:
+          - true
+        options:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Options
+          description: The possible options for answering the question, if applicable.
+          examples:
+          - 'Yes'
+          - 'No'
+          - N/A
+      type: object
+      required:
+      - id
+      - remote_id
+      - modified_at
+      - custom_fields
+      - job
+      - description
+      - title
+      - type
+      - required
+      - options
+      title: AtsScreeningQuestion
+      description: The AtsScreeningQuestion object represents a question used to screen candidates for a job within the ATS.
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

@@ -1,0 +1,599 @@
+openapi: 3.2.0
+info:
+  title: Bindbee Payroll Runs API
+  version: 0.1.0
+tags:
+- name: Payroll Runs
+paths:
+  /api/hris/v1/payroll-runs:
+    get:
+      tags:
+      - Payroll Runs
+      summary: Get Payroll Runs
+      description: Returns a list of PayrollRun objects.
+      operationId: get_payroll_runs_api_hris_v1_payroll_runs_get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The ID of the payroll runs to fetch
+          examples:
+          - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
+          title: Ids
+        description: The ID of the payroll runs to fetch
+      - name: run_type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: "The type of the payroll run Possible values include: REGULAR, \n        OFF_CYCLE, CORRECTION, TERMINATION, SIGN_ON_BONUS. In cases where there is \n        no clear mapping, the original value passed through will be returned."
+          examples:
+          - REGULAR
+          title: Run Type
+        description: "The type of the payroll run Possible values include: REGULAR, \n        OFF_CYCLE, CORRECTION, TERMINATION, SIGN_ON_BONUS. In cases where there is \n        no clear mapping, the original value passed through will be returned."
+      - name: run_state
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: "The state of the payroll run Possible values include: PAID, \n        DRAFT, APPROVED, FAILED, CLOSED. In cases where there is no clear mapping, \n        the original value passed through will be returned."
+          examples:
+          - PAID
+          title: Run State
+        description: "The state of the payroll run Possible values include: PAID, \n        DRAFT, APPROVED, FAILED, CLOSED. In cases where there is no clear mapping, \n        the original value passed through will be returned."
+      - name: remote_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The third-party API ID of the matching object.
+          examples:
+          - '3235005483341316245'
+          title: Remote Id
+        description: The third-party API ID of the matching object.
+      - name: pay_group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The ID of the pay group to filter by
+          examples:
+          - 01931edf-04b6-7391-8a5c-93ac4b395316,01931edf-04c8-7649-a470-d85f6161bd1a
+          title: Pay Group Id
+        description: The ID of the pay group to filter by
+      - name: include_raw_data
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include the original data Bindbee fetched from the third-party to produce these models.
+          examples:
+          - false
+          default: false
+          title: Include Raw Data
+        description: Whether to include the original data Bindbee fetched from the third-party to produce these models.
+      - name: include_custom_fields
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include custom fields in the response.
+          examples:
+          - false
+          default: false
+          title: Include Custom Fields
+        description: Whether to include custom fields in the response.
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 200
+          minimum: 1
+          description: Number of results to return per page. Maximum size is 200.
+          default: 50
+          title: Page Size
+        description: Number of results to return per page. Maximum size is 200.
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: The pagination cursor value.
+          title: Cursor
+        description: The pagination cursor value.
+      - name: modified_after
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects synced by Bindbee after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Modified After
+        description: 'If provided, only objects synced by Bindbee after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: start_date_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects with start_date same or after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Start Date From
+        description: 'If provided, only objects with start_date same or after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: start_date_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects with start_date same or before this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Start Date To
+        description: 'If provided, only objects with start_date same or before this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: end_date_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects with end_date same or after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: End Date From
+        description: 'If provided, only objects with end_date same or after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: end_date_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects with end_date same or before this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: End Date To
+        description: 'If provided, only objects with end_date same or before this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: check_date_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects with check_date same or after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Check Date From
+        description: 'If provided, only objects with check_date same or after this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: check_date_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: 'If provided, only objects with check_date same or before this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+          examples:
+          - '2024-02-21T21:22:12.993Z'
+          title: Check Date To
+        description: 'If provided, only objects with check_date same or before this date time will be returned. Format: DateTime (ISO 8601). If no timezone offset is supplied, the value is interpreted as UTC.'
+      - name: expand
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+          examples:
+          - manager[first_name,last_name]
+          title: Expand
+        description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedResponse_HrisPayrollRun_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/hris/v1/payroll-runs/{id}:
+    get:
+      tags:
+      - Payroll Runs
+      summary: Get Payroll Run By Id
+      description: Returns a PayrollRun object with the given id.
+      operationId: get_payroll_run_by_id_api_hris_v1_payroll_runs__id__get
+      security:
+      - HTTPBearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: include_raw_data
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include the original data Bindbee fetched from the third-party to produce these models.
+          examples:
+          - false
+          default: false
+          title: Include Raw Data
+        description: Whether to include the original data Bindbee fetched from the third-party to produce these models.
+      - name: include_custom_fields
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include custom fields in the response.
+          examples:
+          - false
+          default: false
+          title: Include Custom Fields
+        description: Whether to include custom fields in the response.
+      - name: expand
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+          examples:
+          - manager[first_name,last_name]
+          title: Expand
+        description: Which relations should be returned in expanded form. Multiple relation names should be comma separated without spaces. You can also specify required fields in [] for each relation name.
+      - name: x-connector-token
+        in: header
+        required: true
+        schema:
+          type: string
+          title: X-Connector-Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HrisPayrollRun'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+        '401':
+          description: Missing or invalid bearer authentication credentials.
+          headers:
+            WWW-Authenticate:
+              description: Bearer authentication challenge.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: The credentials are valid but do not permit access to this resource, e.g. a connector token used on a different API category or a model whose writes are disabled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          headers:
+            X-RateLimit-Limit:
+              description: Maximum requests allowed in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Remaining:
+              description: Requests remaining in the current window.
+              schema:
+                type: integer
+            X-RateLimit-Reset:
+              description: Unix timestamp (seconds since epoch) at which the current rate-limit window resets.
+              schema:
+                type: integer
+            Retry-After:
+              description: Seconds to wait before retrying the request.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: The requested resource was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_HrisPayrollRun_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisPayrollRun'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisPayrollRun]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    HrisPayrollRun:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        remote_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Id
+          description: The third-party API ID of the matching object.
+          examples:
+          - '123321'
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: This is the datetime that this object was last updated by Bindbee
+          examples:
+          - '2021-10-16T00:00:00Z'
+        raw_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Raw Data
+          description: This is the Raw data
+          examples:
+          - key_1: Platform dependent data 1
+            key_2: Platform dependent data 2
+        custom_fields:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Custom Fields
+          description: The custom fields related to the model
+          examples:
+          - category_group: REG
+            disability_type: ASBERG
+            hire_date: '1991-03-16T00:00:00'
+            hire_source: REFER
+            nationality: USA
+            original_hire_date: '1991-03-16T00:00:00'
+        pay_group:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Pay Group
+          description: The paygroup to which this pay cycle belongs to
+          examples:
+          - 018af1fe-2fad-749e-a282-ea17ba4fc0c4
+        run_state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - PAID
+          - DRAFT
+          - APPROVED
+          - FAILED
+          - CLOSED
+          - NOT_STARTED
+          title: Run State
+          description: The state of the payroll run. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - PAID
+        run_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - REGULAR
+          - OFF_CYCLE
+          - CORRECTION
+          - TERMINATION
+          - BONUS
+          - SIGN_ON_BONUS
+          title: Run Type
+          description: The type of the payroll run. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - REGULAR
+        start_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Start Date
+          description: The day and time the payroll run started.
+          examples:
+          - '2020-11-08T00:00:00Z'
+        end_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End Date
+          description: The day and time the payroll run ended.
+          examples:
+          - '2020-11-15T00:00:00Z'
+        check_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Check Date
+          description: The day and time the payroll run was checked.
+          examples:
+          - '2020-11-15T00:00:00Z'
+        payroll_run_calendar:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Payroll Run Calendar
+          description: The payroll run calendar to which which the payroll run belongs
+          examples:
+          - 018af1fe-2fad-749e-a282-ea17ba4fc0c4
+      type: object
+      required:
+      - id
+      - remote_id
+      - modified_at
+      - custom_fields
+      - pay_group
+      - run_state
+      - run_type
+      - start_date
+      - end_date
+      - check_date
+      - payroll_run_calendar
+      title: HrisPayrollRun
+      description: The PayrollRun object is used to represent a group of pay statements for a specific pay schedule.
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer
