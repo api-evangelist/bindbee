@@ -598,6 +598,8 @@ apis:
   humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
+  - Enrollment
+  tags_raw:
   - Enrollments
   properties:
   - type: OpenAPI
@@ -978,6 +980,8 @@ apis:
   humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
+  - Scorecards
+  tags_raw:
   - Scorecard
   properties:
   - type: OpenAPI
@@ -1098,6 +1102,8 @@ apis:
   humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -1118,6 +1124,8 @@ apis:
   humanURL: https://bindbee.dev/
   baseURL: https://api.bindbee.dev
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
