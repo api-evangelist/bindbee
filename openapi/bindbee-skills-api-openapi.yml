@@ -259,6 +259,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -396,13 +403,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[LmsSkill]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
   securitySchemes:
     HTTPBearer:
       type: http

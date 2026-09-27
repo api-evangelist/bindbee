@@ -164,6 +164,59 @@ components:
       - ATS
       - LMS
       title: Category
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    IntegrationListResponse:
+      properties:
+        integrations:
+          items:
+            $ref: '#/components/schemas/IntegrationListItem'
+          type: array
+          title: Integrations
+      type: object
+      required:
+      - integrations
+      title: IntegrationListResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ModelListResponse:
       properties:
         models:
@@ -203,52 +256,6 @@ components:
       - display_name
       - categories
       title: IntegrationListItem
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    IntegrationListResponse:
-      properties:
-        integrations:
-          items:
-            $ref: '#/components/schemas/IntegrationListItem'
-          type: array
-          title: Integrations
-      type: object
-      required:
-      - integrations
-      title: IntegrationListResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ModelListItem:
       properties:
         slug:
@@ -274,13 +281,6 @@ components:
       - display_name
       - category
       title: ModelListItem
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
   securitySchemes:
     HTTPBearer:
       type: http

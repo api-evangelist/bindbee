@@ -352,6 +352,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -378,6 +385,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PaginatedResponse_AtsScreeningQuestion_:
       properties:
         cursor:
@@ -406,15 +422,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsScreeningQuestion]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AtsScreeningQuestion:
       properties:
         id:
@@ -538,13 +545,6 @@ components:
       - options
       title: AtsScreeningQuestion
       description: The AtsScreeningQuestion object represents a question used to screen candidates for a job within the ATS.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
   securitySchemes:
     HTTPBearer:
       type: http

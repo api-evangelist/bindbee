@@ -41,15 +41,16 @@ x-docs-platform-confidence: medium
 x-docs-platform-checked: 2026-09-20
 x-docs-hosting: vercel
 tags:
-  - ATS
+  - Applicant Tracking
   - HR Integration
   - HRIS
   - Workforce
-  - Unified-API
+  - Unified API
   - Payroll
   - LMS
   - Employee Data
   - Integration
+  - A2A
 tags_raw:
   - ATS
   - HR Integration
@@ -60,6 +61,8 @@ tags_raw:
   - LMS
   - Employee Data
   - Integrations
+  - Unified-API
+  - A2A
 url: >-
   https://raw.githubusercontent.com/api-evangelist/bindbee/refs/heads/main/apis.yml
 created: '2026-03-16'
@@ -1346,3 +1349,10 @@ x-enrichment:
   status: enriched
   artifacts_added: 24
   pass: local-v3
+x-a2a:
+  verified: true
+  probed: '2026-09-26'
+  url: "https://docs.bindbee.dev/.well-known/agent-card.json"
+  grade: "conformant"
+  protocol_version: "0.3"
+  control: 404

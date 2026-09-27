@@ -259,6 +259,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -285,34 +292,15 @@ components:
       - msg
       - type
       title: ValidationError
-    PaginatedResponse_HrisPayGroup_:
+    HTTPValidationError:
       properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
+        detail:
           items:
-            $ref: '#/components/schemas/HrisPayGroup'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Items
-          description: List of items in the current response
+          title: Detail
       type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisPayGroup]
+      title: HTTPValidationError
     HrisPayGroup:
       properties:
         id:
@@ -386,22 +374,34 @@ components:
       - description
       title: HrisPayGroup
       description: The PayGroup object is used to represent a subset of employees that are put together for payroll processing purposes.
-    HTTPValidationError:
+    PaginatedResponse_HrisPayGroup_:
       properties:
-        detail:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/HrisPayGroup'
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
+          title: Items
+          description: List of items in the current response
       type: object
       required:
-      - detail
-      properties:
-        detail:
-          type: string
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisPayGroup]
   securitySchemes:
     HTTPBearer:
       type: http

@@ -86,6 +86,37 @@ components:
       required:
       - link_token
       title: LinkTokenResponse
+    LinkTokenCreate:
+      properties:
+        end_user_data:
+          $ref: '#/components/schemas/EndUserCreate'
+          title: End user data
+          description: End user data
+        category:
+          $ref: '#/components/schemas/UnifiedApiCategory'
+          title: Categories
+          description: Categories which will be shown in unify link
+          examples:
+          - HRIS
+        integration:
+          type: string
+          title: Integration
+          description: Integration slug of the integration
+          examples:
+          - bamboohr
+      type: object
+      required:
+      - end_user_data
+      - category
+      - integration
+      title: LinkTokenCreate
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -112,14 +143,6 @@ components:
       - msg
       - type
       title: ValidationError
-    UnifiedApiCategory:
-      type: string
-      enum:
-      - HRIS
-      - ATS
-      - CUSTOM
-      - LMS
-      title: UnifiedApiCategory
     EndUserCreate:
       properties:
         email:
@@ -159,37 +182,14 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    LinkTokenCreate:
-      properties:
-        end_user_data:
-          $ref: '#/components/schemas/EndUserCreate'
-          title: End user data
-          description: End user data
-        category:
-          $ref: '#/components/schemas/UnifiedApiCategory'
-          title: Categories
-          description: Categories which will be shown in unify link
-          examples:
-          - HRIS
-        integration:
-          type: string
-          title: Integration
-          description: Integration slug of the integration
-          examples:
-          - bamboohr
-      type: object
-      required:
-      - end_user_data
-      - category
-      - integration
-      title: LinkTokenCreate
+    UnifiedApiCategory:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - CUSTOM
+      - LMS
+      title: UnifiedApiCategory
   securitySchemes:
     HTTPBearer:
       type: http

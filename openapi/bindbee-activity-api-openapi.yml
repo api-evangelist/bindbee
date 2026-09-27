@@ -600,15 +600,6 @@ components:
       - remote_created_at
       title: AtsActivity
       description: The activity object is used to represent any activity in the ATS.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ErrorResponse:
       type: object
       required:
@@ -644,6 +635,15 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsActivity]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

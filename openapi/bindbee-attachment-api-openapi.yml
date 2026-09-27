@@ -392,6 +392,13 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsAttachment]
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -522,13 +529,6 @@ components:
       - modified_at
       - custom_fields
       title: AtsAttachment
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
   securitySchemes:
     HTTPBearer:
       type: http

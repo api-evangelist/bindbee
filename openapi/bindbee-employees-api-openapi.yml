@@ -130,6 +130,24 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    EmployeesResponse:
+      title: Employees Response
+      description: Paginated list of employee records.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of employee records.
+          items:
+            $ref: '#/components/schemas/Employee'
+        next_cursor:
+          type: string
+          description: Cursor for next page.
+          example: cursor-xyz
+        has_more:
+          type: boolean
+          description: Whether more records exist.
+          example: true
     ErrorResponse:
       title: Error Response
       description: Standard error response.
@@ -185,24 +203,6 @@ components:
           format: date
           description: Employment start date.
           example: '2022-03-15'
-    EmployeesResponse:
-      title: Employees Response
-      description: Paginated list of employee records.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of employee records.
-          items:
-            $ref: '#/components/schemas/Employee'
-        next_cursor:
-          type: string
-          description: Cursor for next page.
-          example: cursor-xyz
-        has_more:
-          type: boolean
-          description: Whether more records exist.
-          example: true
   securitySchemes:
     apiKeyAuth:
       type: apiKey

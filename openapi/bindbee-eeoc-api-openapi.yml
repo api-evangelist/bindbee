@@ -352,6 +352,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -378,13 +385,15 @@ components:
       - msg
       - type
       title: ValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
+    HTTPValidationError:
       properties:
         detail:
-          type: string
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     AtsEEOC:
       properties:
         id:
@@ -528,15 +537,6 @@ components:
       - disability_status
       title: AtsEEOC
       description: The AtsEEOC object represents the Equal Employment Opportunity Commission (EEOC) related data for a candidate within the ATS.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     PaginatedResponse_AtsEEOC_:
       properties:
         cursor:

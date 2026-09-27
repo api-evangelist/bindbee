@@ -391,32 +391,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+    ErrorResponse:
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - detail
+      properties:
+        detail:
+          type: string
     PaginatedResponse_HrisPayrollRun_:
       properties:
         cursor:
@@ -445,15 +426,32 @@ components:
       - page_size
       - items
       title: PaginatedResponse[HrisPayrollRun]
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HrisPayrollRun:
       properties:
         id:
@@ -586,13 +584,15 @@ components:
       - payroll_run_calendar
       title: HrisPayrollRun
       description: The PayrollRun object is used to represent a group of pay statements for a specific pay schedule.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
+    HTTPValidationError:
       properties:
         detail:
-          type: string
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

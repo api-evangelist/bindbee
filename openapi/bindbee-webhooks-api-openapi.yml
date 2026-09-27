@@ -342,6 +342,97 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    WebhookLogDetailExternal:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Unique identifier of the delivery attempt.
+        connector_id:
+          type: string
+          format: uuid
+          title: Connector Id
+          description: Connector this delivery was triggered for.
+        method:
+          anyOf:
+          - $ref: '#/components/schemas/HTTPMethod-Output'
+          - type: 'null'
+          description: HTTP method used to deliver the webhook.
+        url:
+          type: string
+          title: Url
+          description: URL the webhook was delivered to.
+        response_code:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Response Code
+          description: HTTP status code returned by the receiving endpoint.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        integration_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Integration Name
+          description: Integration of the connector that triggered this delivery.
+        end_user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: End User Name
+          description: End user of the connector that triggered this delivery.
+        origin_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Origin Id
+          description: Origin ID of the end user associated with the connector.
+        webhook_action:
+          anyOf:
+          - $ref: '#/components/schemas/WebhookActions'
+          - type: 'null'
+          description: Event that triggered this delivery.
+        webhook_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Webhook Name
+          description: Name of the webhook.
+        request:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Request
+          description: Request sent to the webhook url.
+        response:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Response
+          description: Response received from the webhook url.
+      type: object
+      required:
+      - id
+      - connector_id
+      - url
+      title: WebhookLogDetailExternal
+    WebhookActions:
+      type: string
+      enum:
+      - connector_synced
+      - connector_sync_started
+      - connector_data_modified
+      - employee_data_changed
+      - connector_sync_error
+      title: WebhookActions
     WebhookLogEntryExternal:
       properties:
         id:
@@ -441,6 +532,78 @@ components:
       - msg
       - type
       title: ValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    PaginatedResponse_WebhookListItemExternal_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/WebhookListItemExternal'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[WebhookListItemExternal]
+    PaginatedResponse_WebhookLogEntryExternal_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/WebhookLogEntryExternal'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[WebhookLogEntryExternal]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     WebhookListItemExternal:
       properties:
         webhook_id:
@@ -488,153 +651,6 @@ components:
       - url
       - is_enabled
       title: WebhookListItemExternal
-    WebhookActions:
-      type: string
-      enum:
-      - connector_synced
-      - connector_sync_started
-      - connector_data_modified
-      - employee_data_changed
-      - connector_sync_error
-      title: WebhookActions
-    WebhookLogDetailExternal:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          description: Unique identifier of the delivery attempt.
-        connector_id:
-          type: string
-          format: uuid
-          title: Connector Id
-          description: Connector this delivery was triggered for.
-        method:
-          anyOf:
-          - $ref: '#/components/schemas/HTTPMethod-Output'
-          - type: 'null'
-          description: HTTP method used to deliver the webhook.
-        url:
-          type: string
-          title: Url
-          description: URL the webhook was delivered to.
-        response_code:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Response Code
-          description: HTTP status code returned by the receiving endpoint.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        integration_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Integration Name
-          description: Integration of the connector that triggered this delivery.
-        end_user_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: End User Name
-          description: End user of the connector that triggered this delivery.
-        origin_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Origin Id
-          description: Origin ID of the end user associated with the connector.
-        webhook_action:
-          anyOf:
-          - $ref: '#/components/schemas/WebhookActions'
-          - type: 'null'
-          description: Event that triggered this delivery.
-        webhook_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Webhook Name
-          description: Name of the webhook.
-        request:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Request
-          description: Request sent to the webhook url.
-        response:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Response
-          description: Response received from the webhook url.
-      type: object
-      required:
-      - id
-      - connector_id
-      - url
-      title: WebhookLogDetailExternal
-    PaginatedResponse_WebhookLogEntryExternal_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/WebhookLogEntryExternal'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[WebhookLogEntryExternal]
-    PaginatedResponse_WebhookListItemExternal_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/WebhookListItemExternal'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[WebhookListItemExternal]
     HTTPMethod-Output:
       type: string
       enum:
@@ -643,22 +659,6 @@ components:
       - PUT
       - DELETE
       title: HTTPMethod
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
   securitySchemes:
     HTTPBearer:
       type: http

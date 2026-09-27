@@ -125,6 +125,16 @@ components:
           type: integer
           description: HTTP status code.
           example: 404
+    CandidatesResponse:
+      title: Candidates Response
+      description: List of candidates.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of candidate records.
+          items:
+            $ref: '#/components/schemas/Candidate'
     Candidate:
       title: Candidate
       description: A job candidate from a connected ATS system.
@@ -166,16 +176,6 @@ components:
           format: date-time
           description: Application creation timestamp.
           example: '2024-04-13T00:00:00Z'
-    CandidatesResponse:
-      title: Candidates Response
-      description: List of candidates.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of candidate records.
-          items:
-            $ref: '#/components/schemas/Candidate'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
