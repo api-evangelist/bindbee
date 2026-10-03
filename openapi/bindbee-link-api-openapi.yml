@@ -74,6 +74,52 @@ paths:
       - HTTPBearer: []
 components:
   schemas:
+    EndUserCreate:
+      properties:
+        email:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Email
+          description: Email of the end_user
+          examples:
+          - my_email@gmail.com
+        org_name:
+          type: string
+          minLength: 2
+          title: Organization Name
+          description: Name of the organization to which end user belongs
+          examples:
+          - Kunal Organization
+        origin_id:
+          type: string
+          minLength: 2
+          title: Unique Identifier
+          description: Unique identifier to identify Connector
+          examples:
+          - 2kh3ub45
+      type: object
+      required:
+      - org_name
+      - origin_id
+      title: EndUserCreate
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     LinkTokenResponse:
       properties:
         link_token:
@@ -110,13 +156,6 @@ components:
       - category
       - integration
       title: LinkTokenCreate
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     ValidationError:
       properties:
         loc:
@@ -143,45 +182,6 @@ components:
       - msg
       - type
       title: ValidationError
-    EndUserCreate:
-      properties:
-        email:
-          anyOf:
-          - type: string
-            format: email
-          - type: 'null'
-          title: Email
-          description: Email of the end_user
-          examples:
-          - my_email@gmail.com
-        org_name:
-          type: string
-          minLength: 2
-          title: Organization Name
-          description: Name of the organization to which end user belongs
-          examples:
-          - Kunal Organization
-        origin_id:
-          type: string
-          minLength: 2
-          title: Unique Identifier
-          description: Unique identifier to identify Connector
-          examples:
-          - 2kh3ub45
-      type: object
-      required:
-      - org_name
-      - origin_id
-      title: EndUserCreate
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     UnifiedApiCategory:
       type: string
       enum:

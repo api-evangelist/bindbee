@@ -511,67 +511,6 @@ paths:
       description: Bindbee Unified API
 components:
   schemas:
-    PaginatedResponse_HrisTimeOff_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisTimeOff'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisTimeOff]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     HrisTimeOff:
       properties:
         id:
@@ -740,6 +679,13 @@ components:
       - end_time
       title: HrisTimeOff
       description: The TimeOff object is used to represent all employees' Time Off entries.
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -749,6 +695,70 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    PaginatedResponse_HrisTimeOff_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisTimeOff'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisTimeOff]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TimeOffResponse:
+      title: Time Off Response
+      description: List of time-off requests.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of time-off requests.
+          items:
+            $ref: '#/components/schemas/TimeOffRequest'
     TimeOffRequest:
       title: Time Off Request
       description: An employee time-off request from a connected HRIS system.
@@ -789,16 +799,6 @@ components:
           format: date
           description: Time-off end date.
           example: '2024-07-05'
-    TimeOffResponse:
-      title: Time Off Response
-      description: List of time-off requests.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of time-off requests.
-          items:
-            $ref: '#/components/schemas/TimeOffRequest'
   securitySchemes:
     HTTPBearer:
       type: http

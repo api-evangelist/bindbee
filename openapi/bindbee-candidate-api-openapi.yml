@@ -578,78 +578,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    AtsAttachmentWrite:
-      properties:
-        file_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Name
-          description: The name of the file attached.
-          examples:
-          - resume.pdf
-        file_url:
-          anyOf:
-          - type: string
-            maxLength: 2083
-            minLength: 1
-            format: uri
-          - type: 'null'
-          title: File Url
-          description: The URL where the file is stored and can be retrieved.
-          examples:
-          - https://example.com/path/to/resume.pdf
-        attachment_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - RESUME
-          - COVER_LETTER
-          - OFFER_LETTER
-          - OTHER
-          - '-'
-          title: Attachment Type
-          description: The type of attachment. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - RESUME
-        file_content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Content
-          description: File in base64 format
-          examples:
-          - SGVsbG8sIFdvcmxkIQ==
-        content_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content Type
-          description: The MIME type of the file (e.g., 'application/pdf', 'image/png').
-          examples:
-          - application/pdf
-        candidate:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Candidate
-          description: The candidate to whom the attachment belongs.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        remote_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Remote User Id
-          description: The id of user using the integration
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-      type: object
-      title: AtsAttachmentWrite
-      description: The AtsAttachmentWriteForCandidate object is used to represent a file attachment linked to a candidate's application within the ATS.
     AtsCandidate:
       properties:
         id:
@@ -855,6 +783,132 @@ components:
       - modified_at
       - custom_fields
       title: AtsCandidate
+    MetaApiResponseModel:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        error:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - success
+      title: MetaApiResponseModel
+    CreateCandidate:
+      properties:
+        data:
+          $ref: '#/components/schemas/PostCandidate'
+        remote_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote User Id
+          description: The remote user's id
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        job_requisition_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Job Requisition Id
+          description: The job requisition id in external ATS
+          examples:
+          - R-00007
+      type: object
+      required:
+      - data
+      title: CreateCandidate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AtsAttachmentWrite:
+      properties:
+        file_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Name
+          description: The name of the file attached.
+          examples:
+          - resume.pdf
+        file_url:
+          anyOf:
+          - type: string
+            maxLength: 2083
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: File Url
+          description: The URL where the file is stored and can be retrieved.
+          examples:
+          - https://example.com/path/to/resume.pdf
+        attachment_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - RESUME
+          - COVER_LETTER
+          - OFFER_LETTER
+          - OTHER
+          - '-'
+          title: Attachment Type
+          description: The type of attachment. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - RESUME
+        file_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Content
+          description: File in base64 format
+          examples:
+          - SGVsbG8sIFdvcmxkIQ==
+        content_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content Type
+          description: The MIME type of the file (e.g., 'application/pdf', 'image/png').
+          examples:
+          - application/pdf
+        candidate:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Candidate
+          description: The candidate to whom the attachment belongs.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        remote_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Remote User Id
+          description: The id of user using the integration
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+      type: object
+      title: AtsAttachmentWrite
+      description: The AtsAttachmentWriteForCandidate object is used to represent a file attachment linked to a candidate's application within the ATS.
     PaginatedResponse_AtsCandidate_:
       properties:
         cursor:
@@ -883,53 +937,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsCandidate]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    MetaApiResponseModel:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-        error:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Error
-      type: object
-      required:
-      - success
-      title: MetaApiResponseModel
     ErrorResponse:
       type: object
       required:
@@ -937,192 +944,6 @@ components:
       properties:
         detail:
           type: string
-    PostCandidate:
-      properties:
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-          description: The candidate's first name.
-          examples:
-          - John
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-          description: The candidate's last name.
-          examples:
-          - Doe
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company
-          description: The name of the company where candidate has applied.
-          examples:
-          - Google
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: The position for which the candidate has applied
-          examples:
-          - SOFTWARE ENGINEER
-        is_private:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Private
-          description: Whether the candidate's information is private.
-          examples:
-          - true
-        can_email:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Can Email
-          description: Whether the candidate can be emailed.
-          examples:
-          - true
-        locations:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Locations
-          description: The location of the candidate.
-          examples:
-          - San Francisco
-          - New York
-        phone_numbers:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Phone Numbers
-          description: The candidate's phone numbers.
-          examples:
-          - 123-456-7890
-        email_addresses:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Email Addresses
-          description: The candidate's email addresses.
-          examples:
-          - john@doe.com
-        urls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AtsUrl'
-            type: array
-          - type: 'null'
-          title: Urls
-          description: The candidate's URLs. This can include a personal website, LinkedIn profile, or other relevant URLs.
-          examples:
-          - type: LINKEDIN
-            value: https://www.linkedin.com/in/johndoe
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: The candidate's tags. Tags are used to categorize candidates and can be used to filter candidates in the UI.
-          examples:
-          - JUNIOR
-          - INTERMEDIATE
-        applications:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Applications
-          description: The candidate's applications.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        attachments:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Attachments
-          description: The candidate's attachments.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        avatar:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Avatar
-          description: The candidate's avatar.
-          examples:
-          - https://www.example.com/avatar.jpg
-        job_interview_stage_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Job Interview Stage Id
-          description: The job stage id for the candidate
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        job_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Job Id
-          description: The job id for the candidate
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-      type: object
-      title: PostCandidate
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CreateCandidate:
-      properties:
-        data:
-          $ref: '#/components/schemas/PostCandidate'
-        remote_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote User Id
-          description: The remote user's id
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        job_requisition_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Job Requisition Id
-          description: The job requisition id in external ATS
-          examples:
-          - R-00007
-      type: object
-      required:
-      - data
-      title: CreateCandidate
     AtsCandidateWrite:
       properties:
         additional_attributes:
@@ -1309,6 +1130,185 @@ components:
           - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
       type: object
       title: AtsCandidateWrite
+    PostCandidate:
+      properties:
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: The candidate's first name.
+          examples:
+          - John
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          description: The candidate's last name.
+          examples:
+          - Doe
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+          description: The name of the company where candidate has applied.
+          examples:
+          - Google
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The position for which the candidate has applied
+          examples:
+          - SOFTWARE ENGINEER
+        is_private:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Private
+          description: Whether the candidate's information is private.
+          examples:
+          - true
+        can_email:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Can Email
+          description: Whether the candidate can be emailed.
+          examples:
+          - true
+        locations:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Locations
+          description: The location of the candidate.
+          examples:
+          - San Francisco
+          - New York
+        phone_numbers:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Phone Numbers
+          description: The candidate's phone numbers.
+          examples:
+          - 123-456-7890
+        email_addresses:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Email Addresses
+          description: The candidate's email addresses.
+          examples:
+          - john@doe.com
+        urls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AtsUrl'
+            type: array
+          - type: 'null'
+          title: Urls
+          description: The candidate's URLs. This can include a personal website, LinkedIn profile, or other relevant URLs.
+          examples:
+          - type: LINKEDIN
+            value: https://www.linkedin.com/in/johndoe
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: The candidate's tags. Tags are used to categorize candidates and can be used to filter candidates in the UI.
+          examples:
+          - JUNIOR
+          - INTERMEDIATE
+        applications:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Applications
+          description: The candidate's applications.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        attachments:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Attachments
+          description: The candidate's attachments.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        avatar:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar
+          description: The candidate's avatar.
+          examples:
+          - https://www.example.com/avatar.jpg
+        job_interview_stage_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Job Interview Stage Id
+          description: The job stage id for the candidate
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        job_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Job Id
+          description: The job id for the candidate
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+      type: object
+      title: PostCandidate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AtsUrl:
       properties:
         value:

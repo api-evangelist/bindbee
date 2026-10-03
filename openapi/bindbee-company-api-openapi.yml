@@ -259,6 +259,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PaginatedResponse_HrisCompany_:
       properties:
         cursor:
@@ -313,22 +329,6 @@ components:
       - msg
       - type
       title: ValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     HrisCompany:
       properties:
         id:

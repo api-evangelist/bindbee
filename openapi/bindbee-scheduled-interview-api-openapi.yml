@@ -376,39 +376,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     PaginatedResponse_AtsScheduledInterview_:
       properties:
         cursor:
@@ -437,15 +404,13 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsScheduledInterview]
-    HTTPValidationError:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
       properties:
         detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+          type: string
     AtsScheduledInterview:
       properties:
         id:
@@ -597,6 +562,41 @@ components:
       - status
       title: AtsScheduledInterview
       description: The AtsScheduledInterview object represents an interview event scheduled within the ATS.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

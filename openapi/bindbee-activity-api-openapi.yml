@@ -380,32 +380,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     CreateAtsActivity:
       properties:
         user:
@@ -474,6 +448,76 @@ components:
       - visibility
       - candidate
       title: CreateAtsActivity
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    PaginatedResponse_AtsActivity_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/AtsActivity'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[AtsActivity]
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AtsActivity:
       properties:
         id:
@@ -600,50 +644,6 @@ components:
       - remote_created_at
       title: AtsActivity
       description: The activity object is used to represent any activity in the ATS.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    PaginatedResponse_AtsActivity_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/AtsActivity'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[AtsActivity]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

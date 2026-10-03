@@ -404,13 +404,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsScorecard]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     AtsScorecard:
       properties:
         id:
@@ -526,6 +519,22 @@ components:
       - overall_recommendation
       title: AtsScorecard
       description: The AtsScorecard object represents an evaluation of a candidate's interview within the ATS.
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -552,15 +561,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

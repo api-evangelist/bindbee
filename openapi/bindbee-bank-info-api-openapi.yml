@@ -308,6 +308,50 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PaginatedResponse_HrisBankInfo_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisBankInfo'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisBankInfo]
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -334,13 +378,6 @@ components:
       - msg
       - type
       title: ValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     HrisBankInfo:
       properties:
         id:
@@ -454,43 +491,6 @@ components:
       - remote_created_at
       title: HrisBankInfo
       description: The Bank info object is used to represent bank info of any person who has been employed by a company.
-    PaginatedResponse_HrisBankInfo_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisBankInfo'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisBankInfo]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

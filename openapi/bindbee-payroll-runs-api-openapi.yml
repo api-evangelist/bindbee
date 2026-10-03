@@ -398,34 +398,15 @@ components:
       properties:
         detail:
           type: string
-    PaginatedResponse_HrisPayrollRun_:
+    HTTPValidationError:
       properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
+        detail:
           items:
-            $ref: '#/components/schemas/HrisPayrollRun'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Items
-          description: List of items in the current response
+          title: Detail
       type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisPayrollRun]
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -584,15 +565,34 @@ components:
       - payroll_run_calendar
       title: HrisPayrollRun
       description: The PayrollRun object is used to represent a group of pay statements for a specific pay schedule.
-    HTTPValidationError:
+    PaginatedResponse_HrisPayrollRun_:
       properties:
-        detail:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            $ref: '#/components/schemas/HrisPayrollRun'
           type: array
-          title: Detail
+          title: Items
+          description: List of items in the current response
       type: object
-      title: HTTPValidationError
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisPayrollRun]
   securitySchemes:
     HTTPBearer:
       type: http

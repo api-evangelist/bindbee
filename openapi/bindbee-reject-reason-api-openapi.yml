@@ -380,6 +380,22 @@ components:
       - name
       title: AtsRejectReason
       description: The AtsRejectReason object represents a reason for rejecting a candidate within the ATS.
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PaginatedResponse_AtsRejectReason_:
       properties:
         cursor:
@@ -408,13 +424,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsRejectReason]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     ValidationError:
       properties:
         loc:
@@ -441,15 +450,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     HTTPBearer:
       type: http

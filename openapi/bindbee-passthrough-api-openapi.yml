@@ -80,6 +80,22 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     RequestFormatEnum:
       type: string
       enum:
@@ -101,56 +117,6 @@ components:
       - TRACE
       title: HTTPMethod
       description: "HTTP methods and descriptions\n\nMethods from the following RFCs are all observed:\n\n    * RFC 9110: HTTP Semantics, obsoletes 7231, which obsoleted 2616\n    * RFC 5789: PATCH Method for HTTP"
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ResponseFormatEnum:
-      type: string
-      enum:
-      - JSON
-      - XML
-      - MULTIPART
-      - BINARY
-      title: ResponseFormatEnum
     PassThroughRequest:
       properties:
         method:
@@ -230,6 +196,40 @@ components:
       - path
       - headers
       title: PassThroughRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ResponseFormatEnum:
+      type: string
+      enum:
+      - JSON
+      - XML
+      - MULTIPART
+      - BINARY
+      title: ResponseFormatEnum
   securitySchemes:
     HTTPBearer:
       type: http

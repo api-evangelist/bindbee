@@ -302,69 +302,6 @@ components:
       properties:
         detail:
           type: string
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PaginatedResponse_HrisBenefitCoverage_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisBenefitCoverage'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisBenefitCoverage]
     HrisBenefitCoverage:
       properties:
         id:
@@ -467,6 +404,69 @@ components:
       - is_employee_covered
       title: HrisBenefitCoverage
       description: The Hris Benefit Coverage object is used to represent the coverage amount associated with a benefit enrollment.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_HrisBenefitCoverage_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisBenefitCoverage'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisBenefitCoverage]
   securitySchemes:
     HTTPBearer:
       type: http

@@ -331,67 +331,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PaginatedResponse_HrisCompensation_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisCompensation'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisCompensation]
     HrisCompensation:
       properties:
         id:
@@ -551,6 +490,13 @@ components:
       - flsa_status
       - start_date
       title: HrisCompensation
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -560,6 +506,60 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PaginatedResponse_HrisCompensation_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisCompensation'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisCompensation]
   securitySchemes:
     HTTPBearer:
       type: http
