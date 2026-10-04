@@ -130,6 +130,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ErrorResponse:
+      title: Error Response
+      description: Standard error response.
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message.
+          example: resource not found
+        code:
+          type: integer
+          description: HTTP status code.
+          example: 404
     Employee:
       title: Employee
       description: A normalized employee record from a connected HRIS system.
@@ -190,19 +203,6 @@ components:
           type: boolean
           description: Whether more records exist.
           example: true
-    ErrorResponse:
-      title: Error Response
-      description: Standard error response.
-      type: object
-      properties:
-        error:
-          type: string
-          description: Error message.
-          example: resource not found
-        code:
-          type: integer
-          description: HTTP status code.
-          example: 404
   securitySchemes:
     apiKeyAuth:
       type: apiKey

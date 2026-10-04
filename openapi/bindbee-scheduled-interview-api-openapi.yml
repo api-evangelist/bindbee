@@ -404,13 +404,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsScheduledInterview]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     AtsScheduledInterview:
       properties:
         id:
@@ -571,6 +564,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

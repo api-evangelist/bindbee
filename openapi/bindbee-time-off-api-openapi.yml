@@ -511,6 +511,34 @@ paths:
       description: Bindbee Unified API
 components:
   schemas:
+    PaginatedResponse_HrisTimeOff_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisTimeOff'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisTimeOff]
     HrisTimeOff:
       properties:
         id:
@@ -679,13 +707,6 @@ components:
       - end_time
       title: HrisTimeOff
       description: The TimeOff object is used to represent all employees' Time Off entries.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -695,34 +716,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PaginatedResponse_HrisTimeOff_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisTimeOff'
-          type: array
-          title: Items
-          description: List of items in the current response
+    ErrorResponse:
       type: object
       required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisTimeOff]
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

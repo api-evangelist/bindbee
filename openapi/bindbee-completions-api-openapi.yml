@@ -400,22 +400,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[LmsCompletion]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LmsCompletion:
       properties:
         id:
@@ -543,6 +527,22 @@ components:
       - modified_at
       - custom_fields
       title: LmsCompletion
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

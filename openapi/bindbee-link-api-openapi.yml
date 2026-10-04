@@ -104,34 +104,14 @@ components:
       - org_name
       - origin_id
       title: EndUserCreate
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    LinkTokenResponse:
-      properties:
-        link_token:
-          type: string
-          title: Link Token
-          description: Link token to be used for generating unify link
-          examples:
-          - KJDXZk8zC8Tdr-suQCy7zkALZVLjhKXyMd83leqheEGQpBx_evXrHA
-      type: object
-      required:
-      - link_token
-      title: LinkTokenResponse
+    UnifiedApiCategory:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - CUSTOM
+      - LMS
+      title: UnifiedApiCategory
     LinkTokenCreate:
       properties:
         end_user_data:
@@ -156,6 +136,34 @@ components:
       - category
       - integration
       title: LinkTokenCreate
+    LinkTokenResponse:
+      properties:
+        link_token:
+          type: string
+          title: Link Token
+          description: Link token to be used for generating unify link
+          examples:
+          - KJDXZk8zC8Tdr-suQCy7zkALZVLjhKXyMd83leqheEGQpBx_evXrHA
+      type: object
+      required:
+      - link_token
+      title: LinkTokenResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -182,14 +190,6 @@ components:
       - msg
       - type
       title: ValidationError
-    UnifiedApiCategory:
-      type: string
-      enum:
-      - HRIS
-      - ATS
-      - CUSTOM
-      - LMS
-      title: UnifiedApiCategory
   securitySchemes:
     HTTPBearer:
       type: http

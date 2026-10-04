@@ -1016,6 +1016,17 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    CustomFieldMappingUpdateExternal:
+      properties:
+        json_path:
+          type: string
+          maxLength: 1024
+          title: Json Path
+          description: JMESPath expression to extract the value from the upstream payload.
+      type: object
+      required:
+      - json_path
+      title: CustomFieldMappingUpdateExternal
     CustomFieldCreateExternal:
       properties:
         name:
@@ -1053,70 +1064,89 @@ components:
       - category
       - model
       title: CustomFieldCreateExternal
-    EffectiveCustomFieldEntry:
+    CustomFieldMappingExternal:
       properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          description: Unique identifier of the mapping.
+          examples:
+          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
         custom_field_id:
           type: string
           format: uuid
           title: Custom Field Id
-          description: ID of the custom field.
+          description: ID of the custom field this mapping belongs to.
           examples:
           - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
-        name:
-          type: string
-          title: Name
-          description: Name of the custom field.
-          examples:
-          - guardian_mobile
-        description:
+        integration_slug:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-          description: Description of the custom field.
-        category:
-          $ref: '#/components/schemas/Category'
-          description: Category of the model.
+          title: Integration Slug
+          description: Integration slug. Set when the mapping is organization-scoped; null otherwise.
           examples:
-          - HRIS
-        model:
-          type: string
-          title: Model
-          description: Model the custom field is applied to.
+          - workday
+        connector_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Connector Token
+          description: Connector token. Set when the mapping is connector-scoped; null otherwise.
           examples:
-          - employee
+          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
         json_path:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Json Path
-          description: The effective JMESPath in use for this field on this connector. Null when no mapping exists.
+          description: JMESPath expression used to extract the value from the upstream payload.
           examples:
           - data.employee.guardian_mobile
-        source:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
           anyOf:
           - type: string
+            format: date-time
           - type: 'null'
-          title: Source
-          description: 'Which mapping is in effect: ''connector'' (connector-scoped override), ''organization'' (org-scoped inherited), or null (no mapping configured).'
-          examples:
-          - connector
-        mapping_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Mapping Id
-          description: ID of the underlying mapping row, for editing. Null when unmapped.
-          examples:
-          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
+          title: Updated At
       type: object
       required:
+      - id
       - custom_field_id
-      - name
-      - category
-      - model
-      title: EffectiveCustomFieldEntry
+      - json_path
+      - created_at
+      title: CustomFieldMappingExternal
+    PaginatedResponse_CustomFieldExternal_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/CustomFieldExternal'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[CustomFieldExternal]
     CustomFieldDetailExternal:
       properties:
         id:
@@ -1211,13 +1241,155 @@ components:
       - organization
       - connector
       title: CustomFieldMappingCounts
-    Category:
-      type: string
-      enum:
-      - HRIS
-      - ATS
-      - LMS
-      title: Category
+    EffectiveCustomFieldResponse:
+      properties:
+        connector_token:
+          type: string
+          title: Connector Token
+          description: Connector the effective view was computed for.
+        integration_slug:
+          type: string
+          title: Integration Slug
+          description: Slug of the integration this connector belongs to.
+          examples:
+          - workday
+        category:
+          $ref: '#/components/schemas/Category'
+          description: Category filter applied.
+          examples:
+          - HRIS
+        model:
+          type: string
+          title: Model
+          description: Model filter applied.
+          examples:
+          - employee
+        fields:
+          items:
+            $ref: '#/components/schemas/EffectiveCustomFieldEntry'
+          type: array
+          title: Fields
+          description: Every custom field for this org matching (category, model), with the effective mapping per field. Includes unmapped fields so callers can see what is left to configure.
+      type: object
+      required:
+      - connector_token
+      - integration_slug
+      - category
+      - model
+      - fields
+      title: EffectiveCustomFieldResponse
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    EffectiveCustomFieldEntry:
+      properties:
+        custom_field_id:
+          type: string
+          format: uuid
+          title: Custom Field Id
+          description: ID of the custom field.
+          examples:
+          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
+        name:
+          type: string
+          title: Name
+          description: Name of the custom field.
+          examples:
+          - guardian_mobile
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description of the custom field.
+        category:
+          $ref: '#/components/schemas/Category'
+          description: Category of the model.
+          examples:
+          - HRIS
+        model:
+          type: string
+          title: Model
+          description: Model the custom field is applied to.
+          examples:
+          - employee
+        json_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Json Path
+          description: The effective JMESPath in use for this field on this connector. Null when no mapping exists.
+          examples:
+          - data.employee.guardian_mobile
+        source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source
+          description: 'Which mapping is in effect: ''connector'' (connector-scoped override), ''organization'' (org-scoped inherited), or null (no mapping configured).'
+          examples:
+          - connector
+        mapping_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Mapping Id
+          description: ID of the underlying mapping row, for editing. Null when unmapped.
+          examples:
+          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
+      type: object
+      required:
+      - custom_field_id
+      - name
+      - category
+      - model
+      title: EffectiveCustomFieldEntry
+    CustomFieldPreviewResponse:
+      properties:
+        connector_token:
+          type: string
+          title: Connector Token
+          description: Connector the JMESPath was evaluated against.
+          examples:
+          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
+        json_path:
+          type: string
+          title: Json Path
+          description: JMESPath expression that was evaluated.
+          examples:
+          - data.employee.guardian_mobile
+        resolved_value:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Resolved Value
+          description: The value the JMESPath resolved to. May be of any JSON type or null.
+          examples:
+          - +1-555-123-4567
+        resolved_value_type:
+          type: string
+          title: Resolved Value Type
+          description: 'JSON type of the resolved value: ''string'', ''number'', ''boolean'', ''object'', ''array'', or ''null''.'
+          examples:
+          - string
+        raw_data_source:
+          type: string
+          title: Raw Data Source
+          description: 'Where the evaluated payload came from: ''connector_sync'' (latest synced row), ''integration_sample'' (fallback when never synced), or ''inline'' (provided in the request body).'
+          examples:
+          - connector_sync
+      type: object
+      required:
+      - connector_token
+      - json_path
+      - resolved_value_type
+      - raw_data_source
+      title: CustomFieldPreviewResponse
     CustomFieldMappingCreateExternal:
       properties:
         custom_field_id:
@@ -1253,6 +1425,28 @@ components:
       - custom_field_id
       - json_path
       title: CustomFieldMappingCreateExternal
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CustomFieldSource:
+      type: string
+      enum:
+      - DASHBOARD
+      - API
+      title: CustomFieldSource
+    Category:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - LMS
+      title: Category
     CustomFieldExternal:
       properties:
         id:
@@ -1311,118 +1505,71 @@ components:
       - source
       - created_at
       title: CustomFieldExternal
-    CustomFieldPreviewResponse:
+    ValidationError:
       properties:
-        connector_token:
-          type: string
-          title: Connector Token
-          description: Connector the JMESPath was evaluated against.
-          examples:
-          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
-        json_path:
-          type: string
-          title: Json Path
-          description: JMESPath expression that was evaluated.
-          examples:
-          - data.employee.guardian_mobile
-        resolved_value:
-          anyOf:
-          - {}
-          - type: 'null'
-          title: Resolved Value
-          description: The value the JMESPath resolved to. May be of any JSON type or null.
-          examples:
-          - +1-555-123-4567
-        resolved_value_type:
-          type: string
-          title: Resolved Value Type
-          description: 'JSON type of the resolved value: ''string'', ''number'', ''boolean'', ''object'', ''array'', or ''null''.'
-          examples:
-          - string
-        raw_data_source:
-          type: string
-          title: Raw Data Source
-          description: 'Where the evaluated payload came from: ''connector_sync'' (latest synced row), ''integration_sample'' (fallback when never synced), or ''inline'' (provided in the request body).'
-          examples:
-          - connector_sync
-      type: object
-      required:
-      - connector_token
-      - json_path
-      - resolved_value_type
-      - raw_data_source
-      title: CustomFieldPreviewResponse
-    HTTPValidationError:
-      properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CustomFieldMappingExternal:
-      properties:
-        id:
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Id
-          description: Unique identifier of the mapping.
-          examples:
-          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
-        custom_field_id:
+          title: Message
+        type:
           type: string
-          format: uuid
-          title: Custom Field Id
-          description: ID of the custom field this mapping belongs to.
-          examples:
-          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
-        integration_slug:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Integration Slug
-          description: Integration slug. Set when the mapping is organization-scoped; null otherwise.
-          examples:
-          - workday
-        connector_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Connector Token
-          description: Connector token. Set when the mapping is connector-scoped; null otherwise.
-          examples:
-          - i5kqe8bSedEdPLX9pHhFojKdo7Uzvue0f7I4NVhaDfV0GTxF0uAgwa_COb3zZU3T
-        json_path:
-          type: string
-          title: Json Path
-          description: JMESPath expression used to extract the value from the upstream payload.
-          examples:
-          - data.employee.guardian_mobile
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - id
-      - custom_field_id
-      - json_path
-      - created_at
-      title: CustomFieldMappingExternal
-    ErrorResponse:
-      type: object
-      required:
-      - detail
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CustomFieldUpdateExternal:
       properties:
-        detail:
-          type: string
+        name:
+          anyOf:
+          - type: string
+            maxLength: 128
+            minLength: 2
+          - type: 'null'
+          title: Name
+          description: Name of the custom field. Must be snake_case.
+          examples:
+          - guardian_mobile
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: Description of the custom field. Send null to clear it.
+          examples:
+          - Employee's guardian mobile number
+        category:
+          anyOf:
+          - $ref: '#/components/schemas/Category'
+          - type: 'null'
+          description: Category of the model on which the custom field is created. Cannot be changed once the field has mappings.
+          examples:
+          - HRIS
+        model:
+          anyOf:
+          - type: string
+            maxLength: 64
+            pattern: ^[a-z][a-z0-9_-]*$
+          - type: 'null'
+          title: Model
+          description: Model on which the custom field is to be applied. Cannot be changed once the field has mappings.
+          examples:
+          - employee
+      type: object
+      title: CustomFieldUpdateExternal
     CustomFieldPreviewRequest:
       properties:
         connector_token:
@@ -1467,153 +1614,6 @@ components:
       - model
       - json_path
       title: CustomFieldPreviewRequest
-    CustomFieldMappingUpdateExternal:
-      properties:
-        json_path:
-          type: string
-          maxLength: 1024
-          title: Json Path
-          description: JMESPath expression to extract the value from the upstream payload.
-      type: object
-      required:
-      - json_path
-      title: CustomFieldMappingUpdateExternal
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EffectiveCustomFieldResponse:
-      properties:
-        connector_token:
-          type: string
-          title: Connector Token
-          description: Connector the effective view was computed for.
-        integration_slug:
-          type: string
-          title: Integration Slug
-          description: Slug of the integration this connector belongs to.
-          examples:
-          - workday
-        category:
-          $ref: '#/components/schemas/Category'
-          description: Category filter applied.
-          examples:
-          - HRIS
-        model:
-          type: string
-          title: Model
-          description: Model filter applied.
-          examples:
-          - employee
-        fields:
-          items:
-            $ref: '#/components/schemas/EffectiveCustomFieldEntry'
-          type: array
-          title: Fields
-          description: Every custom field for this org matching (category, model), with the effective mapping per field. Includes unmapped fields so callers can see what is left to configure.
-      type: object
-      required:
-      - connector_token
-      - integration_slug
-      - category
-      - model
-      - fields
-      title: EffectiveCustomFieldResponse
-    PaginatedResponse_CustomFieldExternal_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/CustomFieldExternal'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[CustomFieldExternal]
-    CustomFieldSource:
-      type: string
-      enum:
-      - DASHBOARD
-      - API
-      title: CustomFieldSource
-    CustomFieldUpdateExternal:
-      properties:
-        name:
-          anyOf:
-          - type: string
-            maxLength: 128
-            minLength: 2
-          - type: 'null'
-          title: Name
-          description: Name of the custom field. Must be snake_case.
-          examples:
-          - guardian_mobile
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: Description of the custom field. Send null to clear it.
-          examples:
-          - Employee's guardian mobile number
-        category:
-          anyOf:
-          - $ref: '#/components/schemas/Category'
-          - type: 'null'
-          description: Category of the model on which the custom field is created. Cannot be changed once the field has mappings.
-          examples:
-          - HRIS
-        model:
-          anyOf:
-          - type: string
-            maxLength: 64
-            pattern: ^[a-z][a-z0-9_-]*$
-          - type: 'null'
-          title: Model
-          description: Model on which the custom field is to be applied. Cannot be changed once the field has mappings.
-          examples:
-          - employee
-      type: object
-      title: CustomFieldUpdateExternal
   securitySchemes:
     HTTPBearer:
       type: http

@@ -157,60 +157,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ModelListItem:
-      properties:
-        slug:
-          type: string
-          title: Slug
-          description: Stable identifier for the model. Use this as `model` when creating custom fields or mappings.
-          examples:
-          - employee
-        display_name:
-          type: string
-          title: Display Name
-          description: Human-readable name of the model.
-          examples:
-          - Employee
-        category:
-          $ref: '#/components/schemas/Category'
-          description: Category this model belongs to.
-          examples:
-          - HRIS
-      type: object
-      required:
-      - slug
-      - display_name
-      - category
-      title: ModelListItem
-    IntegrationListResponse:
-      properties:
-        integrations:
-          items:
-            $ref: '#/components/schemas/IntegrationListItem'
-          type: array
-          title: Integrations
-      type: object
-      required:
-      - integrations
-      title: IntegrationListResponse
-    ModelListResponse:
-      properties:
-        models:
-          items:
-            $ref: '#/components/schemas/ModelListItem'
-          type: array
-          title: Models
-      type: object
-      required:
-      - models
-      title: ModelListResponse
-    Category:
-      type: string
-      enum:
-      - HRIS
-      - ATS
-      - LMS
-      title: Category
     IntegrationListItem:
       properties:
         slug:
@@ -239,6 +185,17 @@ components:
       - display_name
       - categories
       title: IntegrationListItem
+    ModelListResponse:
+      properties:
+        models:
+          items:
+            $ref: '#/components/schemas/ModelListItem'
+          type: array
+          title: Models
+      type: object
+      required:
+      - models
+      title: ModelListResponse
     ErrorResponse:
       type: object
       required:
@@ -246,6 +203,17 @@ components:
       properties:
         detail:
           type: string
+    IntegrationListResponse:
+      properties:
+        integrations:
+          items:
+            $ref: '#/components/schemas/IntegrationListItem'
+          type: array
+          title: Integrations
+      type: object
+      required:
+      - integrations
+      title: IntegrationListResponse
     HTTPValidationError:
       properties:
         detail:
@@ -255,6 +223,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    Category:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - LMS
+      title: Category
     ValidationError:
       properties:
         loc:
@@ -281,6 +256,31 @@ components:
       - msg
       - type
       title: ValidationError
+    ModelListItem:
+      properties:
+        slug:
+          type: string
+          title: Slug
+          description: Stable identifier for the model. Use this as `model` when creating custom fields or mappings.
+          examples:
+          - employee
+        display_name:
+          type: string
+          title: Display Name
+          description: Human-readable name of the model.
+          examples:
+          - Employee
+        category:
+          $ref: '#/components/schemas/Category'
+          description: Category this model belongs to.
+          examples:
+          - HRIS
+      type: object
+      required:
+      - slug
+      - display_name
+      - category
+      title: ModelListItem
   securitySchemes:
     HTTPBearer:
       type: http

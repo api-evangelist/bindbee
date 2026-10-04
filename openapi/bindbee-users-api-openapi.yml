@@ -405,13 +405,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[LmsUser]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -421,6 +414,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

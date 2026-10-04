@@ -428,13 +428,6 @@ components:
       - custom_fields
       title: HrisEmployment
       description: The Employment object is used to represent a job position at a company.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     PaginatedResponse_HrisEmployment_:
       properties:
         cursor:
@@ -472,6 +465,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

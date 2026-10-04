@@ -578,6 +578,34 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PaginatedResponse_AtsCandidate_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/AtsCandidate'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[AtsCandidate]
     AtsCandidate:
       properties:
         id:
@@ -783,27 +811,6 @@ components:
       - modified_at
       - custom_fields
       title: AtsCandidate
-    MetaApiResponseModel:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-        error:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Error
-      type: object
-      required:
-      - success
-      title: MetaApiResponseModel
     CreateCandidate:
       properties:
         data:
@@ -828,6 +835,55 @@ components:
       required:
       - data
       title: CreateCandidate
+    MetaApiResponseModel:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        error:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - success
+      title: MetaApiResponseModel
+    AtsUrl:
+      properties:
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+          description: The site's url.
+        url_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - PERSONAL
+          - COMPANY
+          - PORTFOLIO
+          - BLOG
+          - SOCIAL_MEDIA
+          - OTHER
+          - JOB_POSTING
+          - '-'
+          title: Url Type
+          description: The type of site. If the value is not one of the defined enum values, the original value passed through will be returned.
+      type: object
+      required:
+      - value
+      - url_type
+      title: AtsUrl
     HTTPValidationError:
       properties:
         detail:
@@ -837,106 +893,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    AtsAttachmentWrite:
-      properties:
-        file_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Name
-          description: The name of the file attached.
-          examples:
-          - resume.pdf
-        file_url:
-          anyOf:
-          - type: string
-            maxLength: 2083
-            minLength: 1
-            format: uri
-          - type: 'null'
-          title: File Url
-          description: The URL where the file is stored and can be retrieved.
-          examples:
-          - https://example.com/path/to/resume.pdf
-        attachment_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - RESUME
-          - COVER_LETTER
-          - OFFER_LETTER
-          - OTHER
-          - '-'
-          title: Attachment Type
-          description: The type of attachment. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - RESUME
-        file_content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: File Content
-          description: File in base64 format
-          examples:
-          - SGVsbG8sIFdvcmxkIQ==
-        content_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Content Type
-          description: The MIME type of the file (e.g., 'application/pdf', 'image/png').
-          examples:
-          - application/pdf
-        candidate:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Candidate
-          description: The candidate to whom the attachment belongs.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        remote_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Remote User Id
-          description: The id of user using the integration
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-      type: object
-      title: AtsAttachmentWrite
-      description: The AtsAttachmentWriteForCandidate object is used to represent a file attachment linked to a candidate's application within the ATS.
-    PaginatedResponse_AtsCandidate_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/AtsCandidate'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[AtsCandidate]
     ErrorResponse:
       type: object
       required:
@@ -944,6 +900,32 @@ components:
       properties:
         detail:
           type: string
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     AtsCandidateWrite:
       properties:
         additional_attributes:
@@ -1283,60 +1265,78 @@ components:
           - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
       type: object
       title: PostCandidate
-    ValidationError:
+    AtsAttachmentWrite:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AtsUrl:
-      properties:
-        value:
+        file_name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Value
-          description: The site's url.
-        url_type:
+          title: File Name
+          description: The name of the file attached.
+          examples:
+          - resume.pdf
+        file_url:
+          anyOf:
+          - type: string
+            maxLength: 2083
+            minLength: 1
+            format: uri
+          - type: 'null'
+          title: File Url
+          description: The URL where the file is stored and can be retrieved.
+          examples:
+          - https://example.com/path/to/resume.pdf
+        attachment_type:
           anyOf:
           - type: string
           - type: 'null'
           enum:
-          - PERSONAL
-          - COMPANY
-          - PORTFOLIO
-          - BLOG
-          - SOCIAL_MEDIA
+          - RESUME
+          - COVER_LETTER
+          - OFFER_LETTER
           - OTHER
-          - JOB_POSTING
           - '-'
-          title: Url Type
-          description: The type of site. If the value is not one of the defined enum values, the original value passed through will be returned.
+          title: Attachment Type
+          description: The type of attachment. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - RESUME
+        file_content:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: File Content
+          description: File in base64 format
+          examples:
+          - SGVsbG8sIFdvcmxkIQ==
+        content_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Content Type
+          description: The MIME type of the file (e.g., 'application/pdf', 'image/png').
+          examples:
+          - application/pdf
+        candidate:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Candidate
+          description: The candidate to whom the attachment belongs.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        remote_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Remote User Id
+          description: The id of user using the integration
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
       type: object
-      required:
-      - value
-      - url_type
-      title: AtsUrl
+      title: AtsAttachmentWrite
+      description: The AtsAttachmentWriteForCandidate object is used to represent a file attachment linked to a candidate's application within the ATS.
   securitySchemes:
     HTTPBearer:
       type: http

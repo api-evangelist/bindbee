@@ -379,6 +379,34 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PaginatedResponse_HrisDependentBenefit_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisDependentBenefit'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisDependentBenefit]
     HrisDependentBenefit:
       properties:
         id:
@@ -479,13 +507,6 @@ components:
       - end_date
       title: HrisDependentBenefit
       description: The Hris Dependent Benefit object is used to represent a benefit that an dependent has enrolled in.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -495,34 +516,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PaginatedResponse_HrisDependentBenefit_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisDependentBenefit'
-          type: array
-          title: Items
-          description: List of items in the current response
+    ErrorResponse:
       type: object
       required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisDependentBenefit]
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

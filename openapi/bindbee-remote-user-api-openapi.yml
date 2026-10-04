@@ -356,22 +356,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsRemoteUser]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AtsRemoteUser:
       properties:
         id:
@@ -489,6 +473,22 @@ components:
       - access_role
       title: AtsRemoteUser
       description: The AtsRemoteUser object represents a user profile from a remote system that interacts with the ATS.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

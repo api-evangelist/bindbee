@@ -331,13 +331,6 @@ components:
       - icon_url
       - description
       title: IntegrationResponse
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -347,6 +340,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     PaginatedResponse_IntegrationResponse_:
       properties:
         cursor:

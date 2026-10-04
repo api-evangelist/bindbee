@@ -391,13 +391,34 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
+    PaginatedResponse_HrisPayrollRun_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisPayrollRun'
+          type: array
+          title: Items
+          description: List of items in the current response
       type: object
       required:
-      - detail
-      properties:
-        detail:
-          type: string
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisPayrollRun]
     HTTPValidationError:
       properties:
         detail:
@@ -407,6 +428,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -565,34 +593,6 @@ components:
       - payroll_run_calendar
       title: HrisPayrollRun
       description: The PayrollRun object is used to represent a group of pay statements for a specific pay schedule.
-    PaginatedResponse_HrisPayrollRun_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisPayrollRun'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisPayrollRun]
   securitySchemes:
     HTTPBearer:
       type: http

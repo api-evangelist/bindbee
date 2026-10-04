@@ -323,22 +323,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[HrisTimeOffBalance]
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     HrisTimeOffBalance:
       properties:
         id:
@@ -452,6 +436,22 @@ components:
       - policy_type
       title: HrisTimeOffBalance
       description: The TimeOffBalance object is used to represent current balances for an employee's Time Off plan.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

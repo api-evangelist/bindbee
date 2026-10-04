@@ -342,34 +342,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PaginatedResponse_WebhookListItemExternal_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/WebhookListItemExternal'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[WebhookListItemExternal]
     WebhookLogDetailExternal:
       properties:
         id:
@@ -452,112 +424,6 @@ components:
       - connector_id
       - url
       title: WebhookLogDetailExternal
-    WebhookListItemExternal:
-      properties:
-        webhook_id:
-          type: string
-          format: uuid
-          title: Webhook Id
-          description: Unique identifier of the webhook.
-          examples:
-          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
-        name:
-          type: string
-          title: Name
-          description: Name of the webhook.
-        url:
-          type: string
-          title: Url
-          description: URL the webhook is delivered to.
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          description: Whether the webhook is currently enabled.
-        for_test_connector:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: For Test Connector
-          description: Whether this webhook is scoped to a demo/test connector.
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        last_triggered_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Triggered At
-          description: When this webhook last fired, if ever.
-      type: object
-      required:
-      - webhook_id
-      - name
-      - url
-      - is_enabled
-      title: WebhookListItemExternal
-    HTTPMethod-Output:
-      type: string
-      enum:
-      - GET
-      - POST
-      - PUT
-      - DELETE
-      title: HTTPMethod
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    WebhookActions:
-      type: string
-      enum:
-      - connector_synced
-      - connector_sync_started
-      - connector_data_modified
-      - employee_data_changed
-      - connector_sync_error
-      title: WebhookActions
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     PaginatedResponse_WebhookLogEntryExternal_:
       properties:
         cursor:
@@ -659,6 +525,140 @@ components:
         generic log fields that webhook deliveries never populate (model_id,
 
         sync_job_id, status), with webhook_action/method typed against their enums.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WebhookListItemExternal:
+      properties:
+        webhook_id:
+          type: string
+          format: uuid
+          title: Webhook Id
+          description: Unique identifier of the webhook.
+          examples:
+          - 018e586b-7d0b-7bc9-be65-a8fdbc82d734
+        name:
+          type: string
+          title: Name
+          description: Name of the webhook.
+        url:
+          type: string
+          title: Url
+          description: URL the webhook is delivered to.
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          description: Whether the webhook is currently enabled.
+        for_test_connector:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: For Test Connector
+          description: Whether this webhook is scoped to a demo/test connector.
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        last_triggered_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Triggered At
+          description: When this webhook last fired, if ever.
+      type: object
+      required:
+      - webhook_id
+      - name
+      - url
+      - is_enabled
+      title: WebhookListItemExternal
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    PaginatedResponse_WebhookListItemExternal_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/WebhookListItemExternal'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[WebhookListItemExternal]
+    WebhookActions:
+      type: string
+      enum:
+      - connector_synced
+      - connector_sync_started
+      - connector_data_modified
+      - employee_data_changed
+      - connector_sync_error
+      title: WebhookActions
+    HTTPMethod-Output:
+      type: string
+      enum:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      title: HTTPMethod
   securitySchemes:
     HTTPBearer:
       type: http

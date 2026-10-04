@@ -380,90 +380,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    CreateAtsActivity:
-      properties:
-        user:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User
-          description: The user who owns the activity.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        activity_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - NOTE
-          - EMAIL
-          - OTHER
-          title: Activity Type
-          description: The type of activity. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - NOTE
-        subject:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Subject
-          description: The subject of the activity.
-          examples:
-          - Interview with John Doe
-        body:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Body
-          description: The body of the activity. This can include notes, comments, or other relevant information.
-          examples:
-          - John Doe was interviewed for the position of Software Engineer.
-        visibility:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - ADMIN_ONLY
-          - PUBLIC
-          - PRIVATE
-          title: Visibility
-          description: Visibility of the activity. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - PUBLIC
-        candidate:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Candidate
-          description: Candidate who applied for the activity.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-      type: object
-      required:
-      - user
-      - activity_type
-      - body
-      - visibility
-      - candidate
-      title: CreateAtsActivity
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     PaginatedResponse_AtsActivity_:
       properties:
         cursor:
@@ -492,32 +408,6 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsActivity]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     AtsActivity:
       properties:
         id:
@@ -644,6 +534,116 @@ components:
       - remote_created_at
       title: AtsActivity
       description: The activity object is used to represent any activity in the ATS.
+    CreateAtsActivity:
+      properties:
+        user:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User
+          description: The user who owns the activity.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        activity_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - NOTE
+          - EMAIL
+          - OTHER
+          title: Activity Type
+          description: The type of activity. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - NOTE
+        subject:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Subject
+          description: The subject of the activity.
+          examples:
+          - Interview with John Doe
+        body:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Body
+          description: The body of the activity. This can include notes, comments, or other relevant information.
+          examples:
+          - John Doe was interviewed for the position of Software Engineer.
+        visibility:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - ADMIN_ONLY
+          - PUBLIC
+          - PRIVATE
+          title: Visibility
+          description: Visibility of the activity. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - PUBLIC
+        candidate:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Candidate
+          description: Candidate who applied for the activity.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+      type: object
+      required:
+      - user
+      - activity_type
+      - body
+      - visibility
+      - candidate
+      title: CreateAtsActivity
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     HTTPBearer:
       type: http

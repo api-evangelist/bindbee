@@ -551,13 +551,6 @@ components:
       - reject_reason
       title: AtsApplication
       description: The AtsApplication object is used to represent an application within the ATS.
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     PaginatedResponse_AtsApplication_:
       properties:
         cursor:
@@ -595,6 +588,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

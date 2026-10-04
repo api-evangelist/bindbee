@@ -80,29 +80,14 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RequestFormatEnum:
+    ResponseFormatEnum:
       type: string
       enum:
       - JSON
       - XML
       - MULTIPART
-      title: RequestFormatEnum
+      - BINARY
+      title: ResponseFormatEnum
     HTTPMethod-Input:
       type: string
       enum:
@@ -117,6 +102,22 @@ components:
       - TRACE
       title: HTTPMethod
       description: "HTTP methods and descriptions\n\nMethods from the following RFCs are all observed:\n\n    * RFC 9110: HTTP Semantics, obsoletes 7231, which obsoleted 2616\n    * RFC 5789: PATCH Method for HTTP"
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
     PassThroughRequest:
       properties:
         method:
@@ -222,14 +223,13 @@ components:
       - msg
       - type
       title: ValidationError
-    ResponseFormatEnum:
+    RequestFormatEnum:
       type: string
       enum:
       - JSON
       - XML
       - MULTIPART
-      - BINARY
-      title: ResponseFormatEnum
+      title: RequestFormatEnum
   securitySchemes:
     HTTPBearer:
       type: http

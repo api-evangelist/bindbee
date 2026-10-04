@@ -295,90 +295,34 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    HrisAddress:
+    PaginatedResponse_HrisDependent_:
       properties:
-        name:
+        cursor:
           anyOf:
           - type: string
           - type: 'null'
-          title: Name
-          description: Name of the location
+          title: Cursor
+          description: Cursor value to fetch next set of items
           examples:
-          - UK-HO-London
-        location:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Location
-          description: Location
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
           examples:
-          - UK-HO-London
-        street_1:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Street 1
-          description: Street 1
-          examples:
-          - '1011'
-        street_2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Street 2
-          description: Street 2
-          examples:
-          - Lane number 4, Golden Villa
-        city:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: City
-          description: City
-          examples:
-          - London
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-          description: State
-          examples:
-          - LND
-        postal_code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Postal Code
-          description: Postal Code
-          examples:
-          - '56273'
-        country:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country
-          description: Country
-          examples:
-          - UK
-      type: object
-      title: HrisAddress
-    ErrorResponse:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisDependent'
+          type: array
+          title: Items
+          description: List of items in the current response
       type: object
       required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisDependent]
     HrisDependent:
       properties:
         id:
@@ -550,34 +494,90 @@ components:
       - is_student
       - ssn
       title: HrisDependent
-    PaginatedResponse_HrisDependent_:
+    HrisAddress:
       properties:
-        cursor:
+        name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
+          title: Name
+          description: Name of the location
           examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
+          - UK-HO-London
+        location:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Location
+          description: Location
           examples:
-          - 50
-        items:
+          - UK-HO-London
+        street_1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street 1
+          description: Street 1
+          examples:
+          - '1011'
+        street_2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Street 2
+          description: Street 2
+          examples:
+          - Lane number 4, Golden Villa
+        city:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: City
+          description: City
+          examples:
+          - London
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+          description: State
+          examples:
+          - LND
+        postal_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Postal Code
+          description: Postal Code
+          examples:
+          - '56273'
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+          description: Country
+          examples:
+          - UK
+      type: object
+      title: HrisAddress
+    HTTPValidationError:
+      properties:
+        detail:
           items:
-            $ref: '#/components/schemas/HrisDependent'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Items
-          description: List of items in the current response
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
       type: object
       required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisDependent]
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:

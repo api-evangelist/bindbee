@@ -527,31 +527,37 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    Tax:
+    Earning:
       properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The tax's name.
-          examples:
-          - California State Income Tax
         amount:
           anyOf:
           - type: integer
           - type: number
           - type: 'null'
           title: Amount
-          description: The tax amount.
+          description: The amount earned.
           examples:
-          - 175.22
+          - '27151'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - SALARY
+          - REIMBURSEMENT
+          - OVERTIME
+          - BONUS
+          - HOURLY
+          title: Name
+          description: The type of earning. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - SALARY
         currency:
           anyOf:
           - type: string
           - type: 'null'
           title: Currency
-          description: The currency of the tax amount.
+          description: The currency of the earning amount.
           examples:
           - USD
         payroll_code:
@@ -560,14 +566,93 @@ components:
             format: uuid
           - type: 'null'
           title: Payroll Code
-          description: The ID of the payroll code associated with this tax.
+          description: The ID of the payroll code associated with this earning.
           examples:
-          - 019fbd01-e5ea-7d5a-a602-bd9016a271cc
+          - 019fbd01-e900-7418-a54c-3fcba1299e88
+      type: object
+      required:
+      - amount
+      - name
+      title: Earning
+    PaginatedResponse_HrisEmployeePayrollRun_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisEmployeePayrollRun'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisEmployeePayrollRun]
+    Deduction:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The deduction's name.
+          examples:
+          - Social Security
+        employee_deduction:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Employee Deduction
+          description: The amount of money that is withheld from an employee's gross pay by the employee.
+          examples:
+          - 27.22
+        company_deduction:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Company Deduction
+          description: The amount of money that is withheld on behalf of an employee by the company.
+          examples:
+          - 77.57
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: The currency of the deduction amount.
+          examples:
+          - USD
+        payroll_code:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Payroll Code
+          description: The ID of the payroll code associated with this deduction.
+          examples:
+          - 019fbd01-e394-76ed-93fb-b9eda49a3b41
       type: object
       required:
       - name
-      - amount
-      title: Tax
+      - employee_deduction
+      - company_deduction
+      title: Deduction
     HrisEmployeePayrollRun:
       properties:
         id:
@@ -725,111 +810,6 @@ components:
       - taxes
       title: HrisEmployeePayrollRun
       description: The EmployeePayrollRun object is used to represent an employee's pay statement for a specific payroll run.
-    Earning:
-      properties:
-        amount:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Amount
-          description: The amount earned.
-          examples:
-          - '27151'
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - SALARY
-          - REIMBURSEMENT
-          - OVERTIME
-          - BONUS
-          - HOURLY
-          title: Name
-          description: The type of earning. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - SALARY
-        currency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Currency
-          description: The currency of the earning amount.
-          examples:
-          - USD
-        payroll_code:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Payroll Code
-          description: The ID of the payroll code associated with this earning.
-          examples:
-          - 019fbd01-e900-7418-a54c-3fcba1299e88
-      type: object
-      required:
-      - amount
-      - name
-      title: Earning
-    Deduction:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The deduction's name.
-          examples:
-          - Social Security
-        employee_deduction:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Employee Deduction
-          description: The amount of money that is withheld from an employee's gross pay by the employee.
-          examples:
-          - 27.22
-        company_deduction:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Company Deduction
-          description: The amount of money that is withheld on behalf of an employee by the company.
-          examples:
-          - 77.57
-        currency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Currency
-          description: The currency of the deduction amount.
-          examples:
-          - USD
-        payroll_code:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Payroll Code
-          description: The ID of the payroll code associated with this deduction.
-          examples:
-          - 019fbd01-e394-76ed-93fb-b9eda49a3b41
-      type: object
-      required:
-      - name
-      - employee_deduction
-      - company_deduction
-      title: Deduction
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     HTTPValidationError:
       properties:
         detail:
@@ -839,34 +819,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    PaginatedResponse_HrisEmployeePayrollRun_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/HrisEmployeePayrollRun'
-          type: array
-          title: Items
-          description: List of items in the current response
+    ErrorResponse:
       type: object
       required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisEmployeePayrollRun]
+      - detail
+      properties:
+        detail:
+          type: string
     ValidationError:
       properties:
         loc:
@@ -893,6 +852,47 @@ components:
       - msg
       - type
       title: ValidationError
+    Tax:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The tax's name.
+          examples:
+          - California State Income Tax
+        amount:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Amount
+          description: The tax amount.
+          examples:
+          - 175.22
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: The currency of the tax amount.
+          examples:
+          - USD
+        payroll_code:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Payroll Code
+          description: The ID of the payroll code associated with this tax.
+          examples:
+          - 019fbd01-e5ea-7d5a-a602-bd9016a271cc
+      type: object
+      required:
+      - name
+      - amount
+      title: Tax
   securitySchemes:
     HTTPBearer:
       type: http

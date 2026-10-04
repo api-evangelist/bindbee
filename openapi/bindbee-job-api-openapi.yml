@@ -397,155 +397,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    CreateAtsJob:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The name of the job.
-          examples:
-          - SOFTWARE ENGINEER
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-          description: A detailed description of the job.
-          examples:
-          - We are looking for a software engineer to join our team.
-        code:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Code
-          description: The internal or external code that identifies the job.
-          examples:
-          - SE-2021-01
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - OPEN
-          - CLOSED
-          - DRAFT
-          - ARCHIVED
-          - PENDING
-          - '-'
-          title: Status
-          description: The current status of the job posting. If the value is not one of the defined enum values, the original value passed through will be returned.
-          examples:
-          - OPEN
-        job_posting_urls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AtsUrl'
-            type: array
-          - type: 'null'
-          title: Job Posting Urls
-          description: A list of URLs where the job is posted.
-          examples:
-          - https://www.company.com/careers/software-engineer
-        confidential:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Confidential
-          description: Whether the job posting is confidential.
-          examples:
-          - false
-        departments:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Departments
-          description: A list of department identifiers associated with the job.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa23
-        offices:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Offices
-          description: A list of office identifiers where the job is located.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa23
-        hiring_managers:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Hiring Managers
-          description: A list of identifiers for hiring managers associated with the job.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa23
-        recruiters:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Recruiters
-          description: A list of identifiers for recruiters associated with the job.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        template_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Template Id
-          description: The template id associated with the job.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        remote_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Remote User Id
-          description: The remote user's id who is creating the job.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        openings:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Openings
-          description: Number of openings for the job.
-          examples:
-          - 3
-      type: object
-      title: CreateAtsJob
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     AtsJob:
       properties:
         id:
@@ -725,60 +576,6 @@ components:
       - recruiters
       title: AtsJob
       description: The AtsJob object represents a job posting within the ATS.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AtsUrl:
-      properties:
-        value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Value
-          description: The site's url.
-        url_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - PERSONAL
-          - COMPANY
-          - PORTFOLIO
-          - BLOG
-          - SOCIAL_MEDIA
-          - OTHER
-          - JOB_POSTING
-          - '-'
-          title: Url Type
-          description: The type of site. If the value is not one of the defined enum values, the original value passed through will be returned.
-      type: object
-      required:
-      - value
-      - url_type
-      title: AtsUrl
     PaginatedResponse_AtsJob_:
       properties:
         cursor:
@@ -807,6 +604,209 @@ components:
       - page_size
       - items
       title: PaginatedResponse[AtsJob]
+    AtsUrl:
+      properties:
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+          description: The site's url.
+        url_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - PERSONAL
+          - COMPANY
+          - PORTFOLIO
+          - BLOG
+          - SOCIAL_MEDIA
+          - OTHER
+          - JOB_POSTING
+          - '-'
+          title: Url Type
+          description: The type of site. If the value is not one of the defined enum values, the original value passed through will be returned.
+      type: object
+      required:
+      - value
+      - url_type
+      title: AtsUrl
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateAtsJob:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The name of the job.
+          examples:
+          - SOFTWARE ENGINEER
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+          description: A detailed description of the job.
+          examples:
+          - We are looking for a software engineer to join our team.
+        code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Code
+          description: The internal or external code that identifies the job.
+          examples:
+          - SE-2021-01
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - OPEN
+          - CLOSED
+          - DRAFT
+          - ARCHIVED
+          - PENDING
+          - '-'
+          title: Status
+          description: The current status of the job posting. If the value is not one of the defined enum values, the original value passed through will be returned.
+          examples:
+          - OPEN
+        job_posting_urls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AtsUrl'
+            type: array
+          - type: 'null'
+          title: Job Posting Urls
+          description: A list of URLs where the job is posted.
+          examples:
+          - https://www.company.com/careers/software-engineer
+        confidential:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Confidential
+          description: Whether the job posting is confidential.
+          examples:
+          - false
+        departments:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Departments
+          description: A list of department identifiers associated with the job.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa23
+        offices:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Offices
+          description: A list of office identifiers where the job is located.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa23
+        hiring_managers:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Hiring Managers
+          description: A list of identifiers for hiring managers associated with the job.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa23
+        recruiters:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Recruiters
+          description: A list of identifiers for recruiters associated with the job.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        template_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Id
+          description: The template id associated with the job.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        remote_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Remote User Id
+          description: The remote user's id who is creating the job.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        openings:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Openings
+          description: Number of openings for the job.
+          examples:
+          - 3
+      type: object
+      title: CreateAtsJob
   securitySchemes:
     HTTPBearer:
       type: http
