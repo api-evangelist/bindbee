@@ -1,0 +1,12 @@
+{
+ "url": "https://api.bindbee.dev/openapi.json",
+ "requested_url": "https://api.bindbee.dev/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 746408,
+ "sha256": "54a221a29f680e99ae135306d1dedc2132e9a3761d6b93fa5ee76568b341aa47",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.947), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
