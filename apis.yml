@@ -1148,6 +1148,8 @@ apis:
   - type: ToolCrosswalk
     url: mcp/bindbee-tool-crosswalk.yml
 common:
+  - type: FinOps
+    url: finops/bindbee-finops.yml
   - type: Website
     url: https://www.bindbee.dev/
   - type: AgenticAccess
