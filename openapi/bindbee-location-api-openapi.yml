@@ -259,34 +259,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PaginatedResponse_HrisLocation_:
+    ValidationError:
       properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
+        loc:
           items:
-            $ref: '#/components/schemas/HrisLocation'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Items
-          description: List of items in the current response
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisLocation]
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HrisLocation:
       properties:
         id:
@@ -413,32 +411,34 @@ components:
       properties:
         detail:
           type: string
-    ValidationError:
+    PaginatedResponse_HrisLocation_:
       properties:
-        loc:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/HrisLocation'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Items
+          description: List of items in the current response
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisLocation]
   securitySchemes:
     HTTPBearer:
       type: http

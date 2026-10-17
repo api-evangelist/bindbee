@@ -574,34 +574,32 @@ components:
       - amount
       - name
       title: Earning
-    PaginatedResponse_HrisEmployeePayrollRun_:
+    ValidationError:
       properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
+        loc:
           items:
-            $ref: '#/components/schemas/HrisEmployeePayrollRun'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Items
-          description: List of items in the current response
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[HrisEmployeePayrollRun]
+      - loc
+      - msg
+      - type
+      title: ValidationError
     Deduction:
       properties:
         name:
@@ -653,6 +651,91 @@ components:
       - employee_deduction
       - company_deduction
       title: Deduction
+    Tax:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          description: The tax's name.
+          examples:
+          - California State Income Tax
+        amount:
+          anyOf:
+          - type: integer
+          - type: number
+          - type: 'null'
+          title: Amount
+          description: The tax amount.
+          examples:
+          - 175.22
+        currency:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Currency
+          description: The currency of the tax amount.
+          examples:
+          - USD
+        payroll_code:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Payroll Code
+          description: The ID of the payroll code associated with this tax.
+          examples:
+          - 019fbd01-e5ea-7d5a-a602-bd9016a271cc
+      type: object
+      required:
+      - name
+      - amount
+      title: Tax
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    PaginatedResponse_HrisEmployeePayrollRun_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisEmployeePayrollRun'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisEmployeePayrollRun]
     HrisEmployeePayrollRun:
       properties:
         id:
@@ -810,89 +893,6 @@ components:
       - taxes
       title: HrisEmployeePayrollRun
       description: The EmployeePayrollRun object is used to represent an employee's pay statement for a specific payroll run.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Tax:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-          description: The tax's name.
-          examples:
-          - California State Income Tax
-        amount:
-          anyOf:
-          - type: integer
-          - type: number
-          - type: 'null'
-          title: Amount
-          description: The tax amount.
-          examples:
-          - 175.22
-        currency:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Currency
-          description: The currency of the tax amount.
-          examples:
-          - USD
-        payroll_code:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Payroll Code
-          description: The ID of the payroll code associated with this tax.
-          examples:
-          - 019fbd01-e5ea-7d5a-a602-bd9016a271cc
-      type: object
-      required:
-      - name
-      - amount
-      title: Tax
   securitySchemes:
     HTTPBearer:
       type: http

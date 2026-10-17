@@ -66,16 +66,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    JobsResponse:
-      title: Jobs Response
-      description: List of job postings.
-      type: object
-      properties:
-        data:
-          type: array
-          description: Array of job postings.
-          items:
-            $ref: '#/components/schemas/Job'
     Job:
       title: Job
       description: A job posting from a connected ATS system.
@@ -110,6 +100,16 @@ components:
           format: date-time
           description: Job creation timestamp.
           example: '2024-04-01T00:00:00Z'
+    JobsResponse:
+      title: Jobs Response
+      description: List of job postings.
+      type: object
+      properties:
+        data:
+          type: array
+          description: Array of job postings.
+          items:
+            $ref: '#/components/schemas/Job'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

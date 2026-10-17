@@ -295,6 +295,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     HrisBenefitCoverage:
       properties:
         id:
@@ -397,22 +423,6 @@ components:
       - is_employee_covered
       title: HrisBenefitCoverage
       description: The Hris Benefit Coverage object is used to represent the coverage amount associated with a benefit enrollment.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     PaginatedResponse_HrisBenefitCoverage_:
       properties:
         cursor:
@@ -441,32 +451,22 @@ components:
       - page_size
       - items
       title: PaginatedResponse[HrisBenefitCoverage]
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - detail
+      properties:
+        detail:
+          type: string
   securitySchemes:
     HTTPBearer:
       type: http

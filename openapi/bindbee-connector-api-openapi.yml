@@ -738,43 +738,32 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PaginatedResponse_ConnectorResponse_:
+    ValidationError:
       properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
+        loc:
           items:
-            $ref: '#/components/schemas/ConnectorResponse'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[ConnectorResponse]
-    SuccessMessageResponseModel:
-      properties:
-        message:
+          title: Location
+        msg:
           type: string
           title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - message
-      title: SuccessMessageResponseModel
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CurrentConnectorResponseModel:
       properties:
         connector_token:
@@ -795,6 +784,50 @@ components:
       - connector_token
       - connector_id
       title: CurrentConnectorResponseModel
+    ConnectorStatus:
+      type: string
+      enum:
+      - COMPLETE
+      - INCOMPLETE
+      - RELINK_NEEDED
+      title: ConnectorStatus
+    SuccessMessageResponseModel:
+      properties:
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - message
+      title: SuccessMessageResponseModel
+    PaginatedResponse_HrisConnectorResponse_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/HrisConnectorResponse'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[HrisConnectorResponse]
     HrisConnectorResponse:
       properties:
         id:
@@ -952,6 +985,36 @@ components:
       - completed_at
       - created_at
       title: HrisConnectorResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    Category:
+      type: string
+      enum:
+      - HRIS
+      - ATS
+      - LMS
+      title: Category
+    JobDisplayStatus:
+      type: string
+      enum:
+      - Syncing
+      - Done
+      - Failed
+      title: JobDisplayStatus
     ConnectorResponse:
       properties:
         id:
@@ -1077,70 +1140,7 @@ components:
       - completed_at
       - created_at
       title: ConnectorResponse
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
-    ConnectorStatus:
-      type: string
-      enum:
-      - COMPLETE
-      - INCOMPLETE
-      - RELINK_NEEDED
-      title: ConnectorStatus
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Category:
-      type: string
-      enum:
-      - HRIS
-      - ATS
-      - LMS
-      title: Category
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    JobDisplayStatus:
-      type: string
-      enum:
-      - Syncing
-      - Done
-      - Failed
-      title: JobDisplayStatus
-    PaginatedResponse_HrisConnectorResponse_:
+    PaginatedResponse_ConnectorResponse_:
       properties:
         cursor:
           anyOf:
@@ -1158,7 +1158,7 @@ components:
           - 50
         items:
           items:
-            $ref: '#/components/schemas/HrisConnectorResponse'
+            $ref: '#/components/schemas/ConnectorResponse'
           type: array
           title: Items
           description: List of items in the current response
@@ -1167,7 +1167,7 @@ components:
       - cursor
       - page_size
       - items
-      title: PaginatedResponse[HrisConnectorResponse]
+      title: PaginatedResponse[ConnectorResponse]
   securitySchemes:
     HTTPBearer:
       type: http

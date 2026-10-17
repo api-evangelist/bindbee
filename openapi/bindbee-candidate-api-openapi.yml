@@ -578,328 +578,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    PaginatedResponse_AtsCandidate_:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-          description: Cursor value to fetch next set of items
-          examples:
-          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
-        page_size:
-          type: integer
-          title: Page Size
-          description: Indicates the count of items in the response
-          examples:
-          - 50
-        items:
-          items:
-            $ref: '#/components/schemas/AtsCandidate'
-          type: array
-          title: Items
-          description: List of items in the current response
-      type: object
-      required:
-      - cursor
-      - page_size
-      - items
-      title: PaginatedResponse[AtsCandidate]
-    AtsCandidate:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          examples:
-          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
-        remote_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote Id
-          description: The third-party API ID of the matching object.
-          examples:
-          - '123321'
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-          description: This is the datetime that this object was last updated by Bindbee
-          examples:
-          - '2021-10-16T00:00:00Z'
-        raw_data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Raw Data
-          description: This is the Raw data
-          examples:
-          - key_1: Platform dependent data 1
-            key_2: Platform dependent data 2
-        custom_fields:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Custom Fields
-          description: The custom fields related to the model
-          examples:
-          - category_group: REG
-            disability_type: ASBERG
-            hire_date: '1991-03-16T00:00:00'
-            hire_source: REFER
-            nationality: USA
-            original_hire_date: '1991-03-16T00:00:00'
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-          description: The candidate's first name.
-          examples:
-          - John
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-          description: The candidate's last name.
-          examples:
-          - Doe
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company
-          description: The name of the company where candidate has applied.
-          examples:
-          - Google
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: The position for which the candidate has applied
-          examples:
-          - SOFTWARE ENGINEER
-        last_interaction_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Interaction At
-          description: The date of the last interaction with the candidate.
-          examples:
-          - '2021-07-01T00:00:00Z'
-        is_private:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Private
-          description: Whether the candidate's information is private.
-          examples:
-          - true
-        can_email:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Can Email
-          description: Whether the candidate can be emailed.
-          examples:
-          - true
-        locations:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Locations
-          description: The location of the candidate.
-          examples:
-          - San Francisco
-          - New York
-        phone_numbers:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Phone Numbers
-          description: The candidate's phone numbers.
-          examples:
-          - 123-456-7890
-        email_addresses:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Email Addresses
-          description: The candidate's email addresses.
-          examples:
-          - john@doe.com
-        urls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AtsUrl'
-            type: array
-          - type: 'null'
-          title: Urls
-          description: The candidate's URLs. This can include a personal website, LinkedIn profile, or other relevant URLs.
-          examples:
-          - type: LINKEDIN
-            value: https://www.linkedin.com/in/johndoe
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: The candidate's tags. Tags are used to categorize candidates and can be used to filter candidates in the UI.
-          examples:
-          - JUNIOR
-          - INTERMEDIATE
-        applications:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Applications
-          description: The candidate's applications.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        attachments:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Attachments
-          description: The candidate's attachments.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        remote_created_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote Created At
-          description: When the third party's candidate was created.
-          examples:
-          - '2021-07-01T00:00:00Z'
-        remote_updated_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote Updated At
-          description: When the third party's candidate was last updated.
-          examples:
-          - '2021-07-01T00:00:00Z'
-        avatar:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Avatar
-          description: The candidate's avatar.
-          examples:
-          - https://www.example.com/avatar.jpg
-      type: object
-      required:
-      - id
-      - remote_id
-      - modified_at
-      - custom_fields
-      title: AtsCandidate
-    CreateCandidate:
-      properties:
-        data:
-          $ref: '#/components/schemas/PostCandidate'
-        remote_user_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote User Id
-          description: The remote user's id
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        job_requisition_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Job Requisition Id
-          description: The job requisition id in external ATS
-          examples:
-          - R-00007
-      type: object
-      required:
-      - data
-      title: CreateCandidate
-    MetaApiResponseModel:
-      properties:
-        success:
-          type: boolean
-          title: Success
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-        error:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Error
-      type: object
-      required:
-      - success
-      title: MetaApiResponseModel
-    AtsUrl:
-      properties:
-        value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Value
-          description: The site's url.
-        url_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          enum:
-          - PERSONAL
-          - COMPANY
-          - PORTFOLIO
-          - BLOG
-          - SOCIAL_MEDIA
-          - OTHER
-          - JOB_POSTING
-          - '-'
-          title: Url Type
-          description: The type of site. If the value is not one of the defined enum values, the original value passed through will be returned.
-      type: object
-      required:
-      - value
-      - url_type
-      title: AtsUrl
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ErrorResponse:
-      type: object
-      required:
-      - detail
-      properties:
-        detail:
-          type: string
     ValidationError:
       properties:
         loc:
@@ -926,192 +604,6 @@ components:
       - msg
       - type
       title: ValidationError
-    AtsCandidateWrite:
-      properties:
-        additional_attributes:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Additional Attributes
-          description: Specific fields required by the chosen HRIS
-          examples:
-          - contract_end_date: '2025-12-31T00:00:00'
-            previous_employer: TechCorp
-        custom_fields:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Custom Fields
-          description: The custom fields related to the model
-          examples:
-          - customTshirtSize: XXL
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-          description: The candidate's first name.
-          examples:
-          - John
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-          description: The candidate's last name.
-          examples:
-          - Doe
-        company:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Company
-          description: The name of the company where candidate has applied.
-          examples:
-          - Google
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          description: The position for which the candidate has applied
-          examples:
-          - SOFTWARE ENGINEER
-        last_interaction_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Interaction At
-          description: The date of the last interaction with the candidate.
-          examples:
-          - '2021-07-01T00:00:00Z'
-        is_private:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Private
-          description: Whether the candidate's information is private.
-          examples:
-          - true
-        can_email:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Can Email
-          description: Whether the candidate can be emailed.
-          examples:
-          - true
-        locations:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Locations
-          description: The location of the candidate.
-          examples:
-          - San Francisco
-          - New York
-        phone_numbers:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Phone Numbers
-          description: The candidate's phone numbers.
-          examples:
-          - 123-456-7890
-        email_addresses:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Email Addresses
-          description: The candidate's email addresses.
-          examples:
-          - john@doe.com
-        urls:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AtsUrl'
-            type: array
-          - type: 'null'
-          title: Urls
-          description: The candidate's URLs. This can include a personal website, LinkedIn profile, or other relevant URLs.
-          examples:
-          - type: LINKEDIN
-            value: https://www.linkedin.com/in/johndoe
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-          description: The candidate's tags. Tags are used to categorize candidates and can be used to filter candidates in the UI.
-          examples:
-          - JUNIOR
-          - INTERMEDIATE
-        applications:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Applications
-          description: The candidate's applications.
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-        attachments:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AtsAttachmentWrite'
-            type: array
-          - type: 'null'
-          title: Attachments
-          description: Please share the details like this, AtsAttachmentWrite model fields are shared in model_fields key
-          examples:
-          - attachment_type: RESUME
-            file_name: resume.pdf
-            file_url: https://example.com/resume.pdf
-        remote_created_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote Created At
-          description: When the third party's candidate was created.
-          examples:
-          - '2021-07-01T00:00:00Z'
-        remote_updated_at:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Remote Updated At
-          description: When the third party's candidate was last updated.
-          examples:
-          - '2021-07-01T00:00:00Z'
-        avatar:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Avatar
-          description: The candidate's avatar.
-          examples:
-          - https://www.example.com/avatar.jpg
-        job:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Job
-          description: The job id for the candidate
-          examples:
-          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
-      type: object
-      title: AtsCandidateWrite
     PostCandidate:
       properties:
         first_name:
@@ -1337,6 +829,514 @@ components:
       type: object
       title: AtsAttachmentWrite
       description: The AtsAttachmentWriteForCandidate object is used to represent a file attachment linked to a candidate's application within the ATS.
+    PaginatedResponse_AtsCandidate_:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+          description: Cursor value to fetch next set of items
+          examples:
+          - MDE4YjE4ZWYtYzk5Yy03YTg2LTk5NDYtN2I3YzlkNTQzM2U1
+        page_size:
+          type: integer
+          title: Page Size
+          description: Indicates the count of items in the response
+          examples:
+          - 50
+        items:
+          items:
+            $ref: '#/components/schemas/AtsCandidate'
+          type: array
+          title: Items
+          description: List of items in the current response
+      type: object
+      required:
+      - cursor
+      - page_size
+      - items
+      title: PaginatedResponse[AtsCandidate]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AtsCandidateWrite:
+      properties:
+        additional_attributes:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Additional Attributes
+          description: Specific fields required by the chosen HRIS
+          examples:
+          - contract_end_date: '2025-12-31T00:00:00'
+            previous_employer: TechCorp
+        custom_fields:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Custom Fields
+          description: The custom fields related to the model
+          examples:
+          - customTshirtSize: XXL
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: The candidate's first name.
+          examples:
+          - John
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          description: The candidate's last name.
+          examples:
+          - Doe
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+          description: The name of the company where candidate has applied.
+          examples:
+          - Google
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The position for which the candidate has applied
+          examples:
+          - SOFTWARE ENGINEER
+        last_interaction_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Interaction At
+          description: The date of the last interaction with the candidate.
+          examples:
+          - '2021-07-01T00:00:00Z'
+        is_private:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Private
+          description: Whether the candidate's information is private.
+          examples:
+          - true
+        can_email:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Can Email
+          description: Whether the candidate can be emailed.
+          examples:
+          - true
+        locations:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Locations
+          description: The location of the candidate.
+          examples:
+          - San Francisco
+          - New York
+        phone_numbers:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Phone Numbers
+          description: The candidate's phone numbers.
+          examples:
+          - 123-456-7890
+        email_addresses:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Email Addresses
+          description: The candidate's email addresses.
+          examples:
+          - john@doe.com
+        urls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AtsUrl'
+            type: array
+          - type: 'null'
+          title: Urls
+          description: The candidate's URLs. This can include a personal website, LinkedIn profile, or other relevant URLs.
+          examples:
+          - type: LINKEDIN
+            value: https://www.linkedin.com/in/johndoe
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: The candidate's tags. Tags are used to categorize candidates and can be used to filter candidates in the UI.
+          examples:
+          - JUNIOR
+          - INTERMEDIATE
+        applications:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Applications
+          description: The candidate's applications.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        attachments:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AtsAttachmentWrite'
+            type: array
+          - type: 'null'
+          title: Attachments
+          description: Please share the details like this, AtsAttachmentWrite model fields are shared in model_fields key
+          examples:
+          - attachment_type: RESUME
+            file_name: resume.pdf
+            file_url: https://example.com/resume.pdf
+        remote_created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Created At
+          description: When the third party's candidate was created.
+          examples:
+          - '2021-07-01T00:00:00Z'
+        remote_updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Updated At
+          description: When the third party's candidate was last updated.
+          examples:
+          - '2021-07-01T00:00:00Z'
+        avatar:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar
+          description: The candidate's avatar.
+          examples:
+          - https://www.example.com/avatar.jpg
+        job:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Job
+          description: The job id for the candidate
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+      type: object
+      title: AtsCandidateWrite
+    ErrorResponse:
+      type: object
+      required:
+      - detail
+      properties:
+        detail:
+          type: string
+    AtsUrl:
+      properties:
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+          description: The site's url.
+        url_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          enum:
+          - PERSONAL
+          - COMPANY
+          - PORTFOLIO
+          - BLOG
+          - SOCIAL_MEDIA
+          - OTHER
+          - JOB_POSTING
+          - '-'
+          title: Url Type
+          description: The type of site. If the value is not one of the defined enum values, the original value passed through will be returned.
+      type: object
+      required:
+      - value
+      - url_type
+      title: AtsUrl
+    AtsCandidate:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          examples:
+          - 018b18ef-c487-703c-afd9-0ca478ccd9d6
+        remote_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Id
+          description: The third-party API ID of the matching object.
+          examples:
+          - '123321'
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+          description: This is the datetime that this object was last updated by Bindbee
+          examples:
+          - '2021-10-16T00:00:00Z'
+        raw_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Raw Data
+          description: This is the Raw data
+          examples:
+          - key_1: Platform dependent data 1
+            key_2: Platform dependent data 2
+        custom_fields:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Custom Fields
+          description: The custom fields related to the model
+          examples:
+          - category_group: REG
+            disability_type: ASBERG
+            hire_date: '1991-03-16T00:00:00'
+            hire_source: REFER
+            nationality: USA
+            original_hire_date: '1991-03-16T00:00:00'
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+          description: The candidate's first name.
+          examples:
+          - John
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+          description: The candidate's last name.
+          examples:
+          - Doe
+        company:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Company
+          description: The name of the company where candidate has applied.
+          examples:
+          - Google
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          description: The position for which the candidate has applied
+          examples:
+          - SOFTWARE ENGINEER
+        last_interaction_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Interaction At
+          description: The date of the last interaction with the candidate.
+          examples:
+          - '2021-07-01T00:00:00Z'
+        is_private:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Private
+          description: Whether the candidate's information is private.
+          examples:
+          - true
+        can_email:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Can Email
+          description: Whether the candidate can be emailed.
+          examples:
+          - true
+        locations:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Locations
+          description: The location of the candidate.
+          examples:
+          - San Francisco
+          - New York
+        phone_numbers:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Phone Numbers
+          description: The candidate's phone numbers.
+          examples:
+          - 123-456-7890
+        email_addresses:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Email Addresses
+          description: The candidate's email addresses.
+          examples:
+          - john@doe.com
+        urls:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AtsUrl'
+            type: array
+          - type: 'null'
+          title: Urls
+          description: The candidate's URLs. This can include a personal website, LinkedIn profile, or other relevant URLs.
+          examples:
+          - type: LINKEDIN
+            value: https://www.linkedin.com/in/johndoe
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+          description: The candidate's tags. Tags are used to categorize candidates and can be used to filter candidates in the UI.
+          examples:
+          - JUNIOR
+          - INTERMEDIATE
+        applications:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Applications
+          description: The candidate's applications.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        attachments:
+          anyOf:
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Attachments
+          description: The candidate's attachments.
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        remote_created_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Created At
+          description: When the third party's candidate was created.
+          examples:
+          - '2021-07-01T00:00:00Z'
+        remote_updated_at:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote Updated At
+          description: When the third party's candidate was last updated.
+          examples:
+          - '2021-07-01T00:00:00Z'
+        avatar:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar
+          description: The candidate's avatar.
+          examples:
+          - https://www.example.com/avatar.jpg
+      type: object
+      required:
+      - id
+      - remote_id
+      - modified_at
+      - custom_fields
+      title: AtsCandidate
+    MetaApiResponseModel:
+      properties:
+        success:
+          type: boolean
+          title: Success
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        error:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - success
+      title: MetaApiResponseModel
+    CreateCandidate:
+      properties:
+        data:
+          $ref: '#/components/schemas/PostCandidate'
+        remote_user_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Remote User Id
+          description: The remote user's id
+          examples:
+          - 018b4bfb-5ece-70b1-ad5e-862a9433aa65
+        job_requisition_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Job Requisition Id
+          description: The job requisition id in external ATS
+          examples:
+          - R-00007
+      type: object
+      required:
+      - data
+      title: CreateCandidate
   securitySchemes:
     HTTPBearer:
       type: http
