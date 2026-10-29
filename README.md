@@ -1,4 +1,4 @@
-# Bindbee (bindbee)
+# Bindbee
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,107 +64,292 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Bindbee provides a unified HRIS and ATS integration API that allows companies to connect with 50+ HR systems including BambooHR, Workday, ADP, Greenhouse, and Lever through a single normalized API, simplifying workforce data access and HR automation.
+Bindbee is a unified API for HRIS, Payroll, ATS and LMS integrations. One integration against Bindbee reaches 67+ third-party HR systems — BambooHR, Workday, ADP, Greenhouse, Lever, Personio, Hibob and the rest — through normalized employee, candidate, job, payroll, time-off and course models, so a B2B software company never builds a one-to-one connector again. Each of its customers' end users authorizes their own system through an embedded link flow and is addressed by a connector token; reads are served from Bindbee's synced copy of the upstream system, refreshed every 24 hours by default, with webhooks for sync and data-change events and a passthrough endpoint for anything the unified model does not cover.
 
-**URL:** [https://bindbee.dev/](https://bindbee.dev/)
+**Areas:** Applicant Tracking · HR Integration · HRIS · Workforce · Unified API · Payroll · LMS · Employee Data · Integration · A2A
 
-## Tags:
+## Bindbee on APIs.io
 
- - ATS, HR Integration, HRIS, Workforce, Recruiting, People Ops
+Everything profiled for Bindbee is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/bindbee/](https://apis.io/providers/bindbee/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (55)
 
-- **Created:** 2026-03-16
-- **Modified:** 2026-04-19
+- [Bindbee Candidates API](https://apis.io/apis/bindbee/bindbee-candidates-api/) — Job candidates from connected ATS systems, normalized across Greenhouse, Lever, Workable, Ashby and every other connected ATS.
+- [Bindbee Departments API](https://apis.io/apis/bindbee/bindbee-departments-api/) — Organizational departments from connected HRIS and ATS systems.
+- [Bindbee Employees API](https://apis.io/apis/bindbee/bindbee-employees-api/) — Normalized employee records from connected HRIS systems, including employment, compensation, benefits, groups and reporting hierarchy.
+- [Bindbee Jobs API](https://apis.io/apis/bindbee/bindbee-jobs-api/) — Job listings and requisitions from connected ATS systems.
+- [Bindbee Time Off API](https://apis.io/apis/bindbee/bindbee-time-off-api/) — Employee time-off requests and accrued balances from connected HRIS systems.
+- [Bindbee Activity API](https://apis.io/apis/bindbee/bindbee-activity-api/) — The Activity API from Bindbee — 2 operation(s) for activity.
+- [Bindbee Application API](https://apis.io/apis/bindbee/bindbee-application-api/) — The Application API from Bindbee — 2 operation(s) for application.
+- [Bindbee Attachment API](https://apis.io/apis/bindbee/bindbee-attachment-api/) — The Attachment API from Bindbee — 2 operation(s) for attachment.
+- [Bindbee Bank Info API](https://apis.io/apis/bindbee/bindbee-bank-info-api/) — The Bank Info API from Bindbee — 2 operation(s) for bank info.
+- [Bindbee Benefit Coverages API](https://apis.io/apis/bindbee/bindbee-benefit-coverages-api/) — The Benefit Coverages API from Bindbee — 2 operation(s) for benefit coverages.
+- [Bindbee Benefits API](https://apis.io/apis/bindbee/bindbee-benefits-api/) — The Benefits API from Bindbee — 2 operation(s) for benefits.
+- [Bindbee Candidate API](https://apis.io/apis/bindbee/bindbee-candidate-api/) — The Candidate API from Bindbee — 4 operation(s) for candidate.
+- [Bindbee Categories API](https://apis.io/apis/bindbee/bindbee-categories-api/) — The Categories API from Bindbee — 2 operation(s) for categories.
+- [Bindbee Company API](https://apis.io/apis/bindbee/bindbee-company-api/) — The Company API from Bindbee — 2 operation(s) for company.
+- [Bindbee Compensation API](https://apis.io/apis/bindbee/bindbee-compensation-api/) — The Compensation API from Bindbee — 2 operation(s) for compensation.
+- [Bindbee Completions API](https://apis.io/apis/bindbee/bindbee-completions-api/) — The Completions API from Bindbee — 2 operation(s) for completions.
+- [Bindbee Connector API](https://apis.io/apis/bindbee/bindbee-connector-api/) — The Connector API from Bindbee — 8 operation(s) for connector.
+- [Bindbee Contents API](https://apis.io/apis/bindbee/bindbee-contents-api/) — The Contents API from Bindbee — 2 operation(s) for contents.
+- [Bindbee Courses API](https://apis.io/apis/bindbee/bindbee-courses-api/) — The Courses API from Bindbee — 2 operation(s) for courses.
+- [Bindbee Custom Fields API](https://apis.io/apis/bindbee/bindbee-custom-fields-api/) — The Custom Fields API from Bindbee — 7 operation(s) for custom fields.
+- [Bindbee Department API](https://apis.io/apis/bindbee/bindbee-department-api/) — The Department API from Bindbee — 2 operation(s) for department.
+- [Bindbee Dependent Benefits API](https://apis.io/apis/bindbee/bindbee-dependent-benefits-api/) — The Dependent Benefits API from Bindbee — 2 operation(s) for dependent benefits.
+- [Bindbee Dependents API](https://apis.io/apis/bindbee/bindbee-dependents-api/) — The Dependents API from Bindbee — 2 operation(s) for dependents.
+- [Bindbee EEOC API](https://apis.io/apis/bindbee/bindbee-eeoc-api/) — The EEOC API from Bindbee — 2 operation(s) for eeoc.
+- [Bindbee Employee API](https://apis.io/apis/bindbee/bindbee-employee-api/) — The Employee API from Bindbee — 4 operation(s) for employee.
+- [Bindbee Employee Payroll Runs API](https://apis.io/apis/bindbee/bindbee-employee-payroll-runs-api/) — The Employee Payroll Runs API from Bindbee — 3 operation(s) for employee payroll runs.
+- [Bindbee Employer Benefits API](https://apis.io/apis/bindbee/bindbee-employer-benefits-api/) — The Employer Benefits API from Bindbee — 2 operation(s) for employer benefits.
+- [Bindbee Employments API](https://apis.io/apis/bindbee/bindbee-employments-api/) — The Employments API from Bindbee — 2 operation(s) for employments.
+- [Bindbee Enrollments API](https://apis.io/apis/bindbee/bindbee-enrollments-api/) — The Enrollments API from Bindbee — 2 operation(s) for enrollments.
+- [Bindbee Group API](https://apis.io/apis/bindbee/bindbee-group-api/) — The Group API from Bindbee — 2 operation(s) for group.
+- [Bindbee Health Check API](https://apis.io/apis/bindbee/bindbee-health-check-api/) — The Health Check API from Bindbee — 1 operation(s) for health check.
+- [Bindbee Integration API](https://apis.io/apis/bindbee/bindbee-integration-api/) — The Integration API from Bindbee — 3 operation(s) for integration.
+- [Bindbee Job API](https://apis.io/apis/bindbee/bindbee-job-api/) — The Job API from Bindbee — 2 operation(s) for job.
+- [Bindbee Job Interview Stage API](https://apis.io/apis/bindbee/bindbee-job-interview-stage-api/) — The Job Interview Stage API from Bindbee — 2 operation(s) for job interview stage.
+- [Bindbee Link API](https://apis.io/apis/bindbee/bindbee-link-api/) — The Link API from Bindbee — 1 operation(s) for link.
+- [Bindbee Location API](https://apis.io/apis/bindbee/bindbee-location-api/) — The Location API from Bindbee — 2 operation(s) for location.
+- [Bindbee Lookup API](https://apis.io/apis/bindbee/bindbee-lookup-api/) — The Lookup API from Bindbee — 2 operation(s) for lookup.
+- [Bindbee Offer API](https://apis.io/apis/bindbee/bindbee-offer-api/) — The Offer API from Bindbee — 2 operation(s) for offer.
+- [Bindbee Office API](https://apis.io/apis/bindbee/bindbee-office-api/) — The Office API from Bindbee — 2 operation(s) for office.
+- [Bindbee Passthrough API](https://apis.io/apis/bindbee/bindbee-passthrough-api/) — The Passthrough API from Bindbee — 1 operation(s) for passthrough.
+- [Bindbee Pay Groups API](https://apis.io/apis/bindbee/bindbee-pay-groups-api/) — The Pay Groups API from Bindbee — 2 operation(s) for pay groups.
+- [Bindbee Payroll Codes API](https://apis.io/apis/bindbee/bindbee-payroll-codes-api/) — The Payroll Codes API from Bindbee — 2 operation(s) for payroll codes.
+- [Bindbee Payroll Run Calendars API](https://apis.io/apis/bindbee/bindbee-payroll-run-calendars-api/) — The Payroll Run Calendars API from Bindbee — 2 operation(s) for payroll run calendars.
+- [Bindbee Payroll Runs API](https://apis.io/apis/bindbee/bindbee-payroll-runs-api/) — The Payroll Runs API from Bindbee — 2 operation(s) for payroll runs.
+- [Bindbee Reject Reason API](https://apis.io/apis/bindbee/bindbee-reject-reason-api/) — The Reject Reason API from Bindbee — 2 operation(s) for reject reason.
+- [Bindbee Remote User API](https://apis.io/apis/bindbee/bindbee-remote-user-api/) — The Remote User API from Bindbee — 2 operation(s) for remote user.
+- [Bindbee Scheduled Interview API](https://apis.io/apis/bindbee/bindbee-scheduled-interview-api/) — The Scheduled Interview API from Bindbee — 2 operation(s) for scheduled interview.
+- [Bindbee Scorecard API](https://apis.io/apis/bindbee/bindbee-scorecard-api/) — The Scorecard API from Bindbee — 2 operation(s) for scorecard.
+- [Bindbee Screening Question API](https://apis.io/apis/bindbee/bindbee-screening-question-api/) — The Screening Question API from Bindbee — 2 operation(s) for screening question.
+- [Bindbee Skills API](https://apis.io/apis/bindbee/bindbee-skills-api/) — The Skills API from Bindbee — 2 operation(s) for skills.
+- [Bindbee Tag API](https://apis.io/apis/bindbee/bindbee-tag-api/) — The Tag API from Bindbee — 2 operation(s) for tag.
+- [Bindbee Time Off Balance API](https://apis.io/apis/bindbee/bindbee-time-off-balance-api/) — The Time Off Balance API from Bindbee — 2 operation(s) for time off balance.
+- [Bindbee Timesheet Entry API](https://apis.io/apis/bindbee/bindbee-timesheet-entry-api/) — The Timesheet Entry API from Bindbee — 3 operation(s) for timesheet entry.
+- [Bindbee Users API](https://apis.io/apis/bindbee/bindbee-users-api/) — The Users API from Bindbee — 2 operation(s) for users.
+- [Bindbee Webhooks API](https://apis.io/apis/bindbee/bindbee-webhooks-api/) — The Webhooks API from Bindbee — 3 operation(s) for webhooks.
 
-## APIs
+### Published properties
 
-### Bindbee API
-Unified HRIS and ATS integration API providing normalized access to employee records, departments, time-off, job postings, and candidates from 50+ HR systems.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-**Human URL:** [https://bindbee.dev/](https://bindbee.dev/)
+#### AsyncAPI (1)
 
-#### Tags:
+Event-driven and webhook contracts.
 
- - ATS, HR Integration, HRIS, Workforce
+- [Bindbee Webhooks](https://apis.io/asyncapis/bindbee/bindbee-webhooks/)
 
-#### Properties
+#### MCP servers (1)
 
+Model Context Protocol servers that expose the API to agents.
+
+- [Bindbee Docs](https://apis.io/servers/bindbee/bindbee-docs/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Bindbee Agentic Access](https://apis.io/agentic-access/bindbee/bindbee-agentic-access/)
+
+#### JSON Schema (10)
+
+The data models the API reads and writes.
+
+- [AtsCandidate](https://apis.io/schemas/bindbee/bindbee-candidate/)
+- [PaginatedResponse[AtsCandidate]](https://apis.io/schemas/bindbee/bindbee-candidates-response/)
+- [AtsDepartment](https://apis.io/schemas/bindbee/bindbee-department/)
+- [PaginatedResponse[AtsDepartment]](https://apis.io/schemas/bindbee/bindbee-departments-response/)
+- [HrisEmployeeResponse](https://apis.io/schemas/bindbee/bindbee-employee/)
+- [PaginatedResponse[HrisEmployeeResponse]](https://apis.io/schemas/bindbee/bindbee-employees-response/)
+- [AtsJob](https://apis.io/schemas/bindbee/bindbee-job/)
+- [PaginatedResponse[AtsJob]](https://apis.io/schemas/bindbee/bindbee-jobs-response/)
+- [HrisTimeOff](https://apis.io/schemas/bindbee/bindbee-time-off-request/)
+- [PaginatedResponse[HrisTimeOff]](https://apis.io/schemas/bindbee/bindbee-time-off-response/)
+
+#### JSON Structure (10)
+
+Data models expressed in JSON Structure.
+
+- [Bindbee Candidate Structure](https://apis.io/json-structure/bindbee/bindbee-candidate-structure/)
+- [Bindbee Candidates Response Structure](https://apis.io/json-structure/bindbee/bindbee-candidates-response-structure/)
+- [Bindbee Department Structure](https://apis.io/json-structure/bindbee/bindbee-department-structure/)
+- [Bindbee Departments Response Structure](https://apis.io/json-structure/bindbee/bindbee-departments-response-structure/)
+- [Bindbee Employee Structure](https://apis.io/json-structure/bindbee/bindbee-employee-structure/)
+- [Bindbee Employees Response Structure](https://apis.io/json-structure/bindbee/bindbee-employees-response-structure/)
+- [Bindbee Job Structure](https://apis.io/json-structure/bindbee/bindbee-job-structure/)
+- [Bindbee Jobs Response Structure](https://apis.io/json-structure/bindbee/bindbee-jobs-response-structure/)
+- [Bindbee Time Off Request Structure](https://apis.io/json-structure/bindbee/bindbee-time-off-request-structure/)
+- [Bindbee Time Off Response Structure](https://apis.io/json-structure/bindbee/bindbee-time-off-response-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Bindbee Context](https://apis.io/jsonld/bindbee/bindbee-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Bindbee Vocabulary](https://apis.io/vocabularies/bindbee/bindbee-vocabulary/)
+
+#### Examples (10)
+
+Example requests and responses.
+
+- [Bindbee Candidate Example](https://apis.io/examples/bindbee/bindbee-candidate-example/)
+- [Bindbee Candidates Response Example](https://apis.io/examples/bindbee/bindbee-candidates-response-example/)
+- [Bindbee Department Example](https://apis.io/examples/bindbee/bindbee-department-example/)
+- [Bindbee Departments Response Example](https://apis.io/examples/bindbee/bindbee-departments-response-example/)
+- [Bindbee Employee Example](https://apis.io/examples/bindbee/bindbee-employee-example/)
+- [Bindbee Employees Response Example](https://apis.io/examples/bindbee/bindbee-employees-response-example/)
+- [Bindbee Job Example](https://apis.io/examples/bindbee/bindbee-job-example/)
+- [Bindbee Jobs Response Example](https://apis.io/examples/bindbee/bindbee-jobs-response-example/)
+- [Bindbee Time Off Request Example](https://apis.io/examples/bindbee/bindbee-time-off-request-example/)
+- [Bindbee Time Off Response Example](https://apis.io/examples/bindbee/bindbee-time-off-response-example/)
+
+#### Collections (5)
+
+Postman and Open Collection request collections.
+
+- [Bindbee Candidates API](https://apis.io/collections/bindbee/open-bindbee-candidates-api/)
+- [Bindbee Candidates Departments API](https://apis.io/collections/bindbee/open-bindbee-departments-api/)
+- [Bindbee Candidates Employees API](https://apis.io/collections/bindbee/open-bindbee-employees-api/)
+- [Bindbee Candidates Jobs API](https://apis.io/collections/bindbee/open-bindbee-jobs-api/)
+- [Bindbee Candidates Time Off API](https://apis.io/collections/bindbee/open-bindbee-time-off-api/)
+
+#### Overlays (56)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Bindbee Activity Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-activity-api-phrasing-overlay/)
+- [Bindbee Application Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-application-api-phrasing-overlay/)
+- [Bindbee Attachment Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-attachment-api-phrasing-overlay/)
+- [Bindbee Bank Info Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-bank-info-api-phrasing-overlay/)
+- [Bindbee Benefit Coverages Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-benefit-coverages-api-phrasing-overlay/)
+- [Bindbee Benefits Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-benefits-api-phrasing-overlay/)
+- [Bindbee Candidate Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-candidate-api-phrasing-overlay/)
+- [Bindbee Candidates Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-candidates-api-phrasing-overlay/)
+- [Bindbee Categories Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-categories-api-phrasing-overlay/)
+- [Bindbee Company Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-company-api-phrasing-overlay/)
+- [Bindbee Compensation Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-compensation-api-phrasing-overlay/)
+- [Bindbee Completions Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-completions-api-phrasing-overlay/)
+- [Bindbee Connector Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-connector-api-phrasing-overlay/)
+- [Bindbee Contents Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-contents-api-phrasing-overlay/)
+- [Bindbee Courses Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-courses-api-phrasing-overlay/)
+- [Bindbee Custom Fields Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-custom-fields-api-phrasing-overlay/)
+- [Bindbee Department Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-department-api-phrasing-overlay/)
+- [Bindbee Departments Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-departments-api-phrasing-overlay/)
+- [Bindbee Dependent Benefits Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-dependent-benefits-api-phrasing-overlay/)
+- [Bindbee Dependents Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-dependents-api-phrasing-overlay/)
+- [Bindbee Eeoc Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-eeoc-api-phrasing-overlay/)
+- [Bindbee Employee Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-employee-api-phrasing-overlay/)
+- [Bindbee Employee Payroll Runs Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-employee-payroll-runs-api-phrasing-overlay/)
+- [Bindbee Employees Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-employees-api-phrasing-overlay/)
+- [Bindbee Employer Benefits Api Phrasing Overlay](https://apis.io/overlays/bindbee/bindbee-employer-benefits-api-phrasing-overlay/)
+- …and 31 more published on APIs.io
+
+#### Governance rules (2)
+
+Spectral rulesets for the provider's contracts.
+
+- [Bindbee — jsonschema rules](https://apis.io/rules/bindbee/bindbee-jsonschema-spectral-rules/)
+- [Bindbee API Rules](https://apis.io/rules/bindbee/bindbee-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Bindbee Authentication](https://apis.io/security/bindbee/bindbee-authentication/)
+- [Bindbee Domain Security](https://apis.io/security/bindbee/bindbee-domain-security/)
+- [Bindbee Trust Center](https://apis.io/security/bindbee/bindbee-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Bindbee Plans Pricing](https://apis.io/plans/bindbee/bindbee-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Bindbee Rate Limits](https://apis.io/rate-limits/bindbee/bindbee-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Bindbee Finops](https://apis.io/finops/bindbee/bindbee-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.bindbee.dev/)
 - [Documentation](https://docs.bindbee.dev/)
-- [OpenAPI](openapi/bindbee-api.yaml)
+- [Getting started](https://docs.bindbee.dev/features/overview)
+- [API reference](https://docs.bindbee.dev/api-reference/basics/authentication)
+- [Pricing](https://bindbee.dev/pricing)
+- [Sign up](https://app.bindbee.dev/login)
+- [Blog](https://bindbee.dev/blog/rss.xml)
+- [Terms of service](https://www.bindbee.dev/policies/terms-of-use)
+- [Privacy policy](https://www.bindbee.dev/policies/privacy-policy)
+- [GitHub](https://github.com/unifyXX)
+- [Status](https://status.bindbee.dev/)
 
-## Common Properties
+## API Evangelist rating
 
-- [Portal](https://bindbee.dev/)
-- [Documentation](https://docs.bindbee.dev/)
+**Kin Score 69.3** — exemplar · rubric 0.25.0 · scored 2026-10-23
 
-## Features
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 60.7 |
+| Contract governance | 45.5 |
+| Operational transparency | 47.4 |
+| Developer ergonomics | 78.6 |
+| Access clarity | 92.1 |
 
-| Name | Description |
-|------|-------------|
-| Unified HRIS API | Access employee data from BambooHR, Workday, ADP, and 50+ HRIS systems through one API. |
-| Unified ATS API | Access job listings and candidates from Greenhouse, Lever, Workable, and other ATS systems. |
-| Data Normalization | Consistent normalized schema across all connected HR systems. |
-| Cursor Pagination | Efficient cursor-based pagination for large employee datasets. |
-| Connector Tokens | Secure per-integration connector tokens for multi-tenant HR data access. |
-| Real-Time Sync | Webhooks and polling for real-time HR data synchronization. |
+**Agent readiness 49.0** — agent-native
 
-## Use Cases
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | verified |
+| Error Semantics | verified |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | verified |
+| Event Surface Described | yes |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | mostly |
 
-| Name | Description |
-|------|-------------|
-| Employee Directory Integration | Sync employee records from any HRIS into internal apps and directories. |
-| Onboarding Automation | Trigger onboarding workflows when new employees are added in the HRIS. |
-| Recruiting Pipeline Visibility | Track candidates across ATS stages in unified dashboards. |
-| HRIS Migration | Move between HRIS providers without rewriting integrations. |
-| HR Analytics | Aggregate people data from multiple HR systems for workforce analytics. |
+**Regulatory alignment 29.4** — Employment & Payroll
 
-## Integrations
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/bindbee/](https://apis.io/providers/bindbee/).
 
-| Name | Description |
-|------|-------------|
-| BambooHR | Sync employee data from BambooHR via Bindbee unified API. |
-| Workday | Access Workday employee and org data through normalized Bindbee API. |
-| ADP | Connect ADP Workforce Now employee records via Bindbee. |
-| Greenhouse | Access Greenhouse ATS job listings and candidates via Bindbee. |
-| Lever | Sync Lever ATS recruiting pipeline data through Bindbee. |
+## How this profile is made
 
-## Artifacts
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
 
-### OpenAPI
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Bindbee: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
 
-- [Bindbee API](openapi/bindbee-api.yaml)
+## Open an issue
 
-### JSON Schema
-
-- [bindbee-employee-schema.json](json-schema/bindbee-employee-schema.json)
-- [bindbee-department-schema.json](json-schema/bindbee-department-schema.json)
-- [bindbee-time-off-request-schema.json](json-schema/bindbee-time-off-request-schema.json)
-- [bindbee-job-schema.json](json-schema/bindbee-job-schema.json)
-- [bindbee-candidate-schema.json](json-schema/bindbee-candidate-schema.json)
-
-## Capabilities
-
-### Shared Per-API Definitions
-
-- [Bindbee API](capabilities/shared/bindbee.yaml) — 7 operations for employees, departments, time-off, jobs, and candidates
-
-### Workflow Capabilities
-
-| Workflow | APIs Combined | Tools | Persona |
-|----------|--------------|-------|---------|
-| [HR Integration](capabilities/hr-integration.yaml) | Bindbee | 7 | HR Developer, People Ops Engineer |
-
-## Vocabulary
-
-- [Bindbee Vocabulary](vocabulary/bindbee-vocabulary.yaml) — Unified taxonomy mapping 5 resources, 2 actions, 1 workflow, and 2 personas
-
-## Rules
-
-- [Bindbee Spectral Rules](rules/bindbee-spectral-rules.yml) — 24 rules across 9 categories enforcing Bindbee API conventions
-
-## Maintainers
-
-**FN:** Kin Lane
-
-**Email:** kin@apievangelist.com
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/bindbee/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
